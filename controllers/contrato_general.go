@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"strings"
-	"titan_api_crud/models"
+	"github.com/udistrital/titan_api_crud/models"
 
 	"github.com/astaxie/beego"
 )

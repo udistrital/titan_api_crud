@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 
-"titan_api_crud/models"
+"github.com/udistrital/titan_api_crud/models"
 	"github.com/astaxie/beego"
 	"fmt"
 )

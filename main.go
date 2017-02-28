@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "titan_api_crud/routers"
+	_ "github.com/udistrital/titan_api_crud/routers"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 	"github.com/astaxie/beego"
