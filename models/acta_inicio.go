@@ -11,13 +11,13 @@ import (
 )
 
 type ActaInicio struct {
-	Id             int       `orm:"column(id);pk"`
-	NumeroContrato *ContratoGeneral    `orm:"rel(one);column(numero_contrato);null"`
-	Vigencia       int       `orm:"column(vigencia);null"`
-	FechaInicio    time.Time `orm:"column(fecha_inicio);type(date);null"`
-	FechaFin       time.Time `orm:"column(fecha_fin);type(date);null"`
-	Descripcion    string    `orm:"column(descripcion);null"`
-	Usuario        string    `orm:"column(usuario);null"`
+	Id             int              `orm:"column(id);pk"`
+	NumeroContrato *ContratoGeneral `orm:"rel(one);column(numero_contrato);null"`
+	Vigencia       int              `orm:"column(vigencia);null"`
+	FechaInicio    time.Time        `orm:"column(fecha_inicio);type(date);null"`
+	FechaFin       time.Time        `orm:"column(fecha_fin);type(date);null"`
+	Descripcion    string           `orm:"column(descripcion);null"`
+	Usuario        string           `orm:"column(usuario);null"`
 }
 
 func (t *ActaInicio) TableName() string {
@@ -103,8 +103,7 @@ func GetAllActaInicio(query map[string]string, fields []string, sortby []string,
 	}
 
 	var l []ActaInicio
-	qs = qs.OrderBy(sortFields...)
-	qs = qs.RelatedSel(5)
+	qs = qs.OrderBy(sortFields...).RelatedSel(5)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
 			for _, v := range l {
