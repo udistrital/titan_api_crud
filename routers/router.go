@@ -236,6 +236,13 @@ func init() {
 				&controllers.SustitutoController{},
 			),
 		),
+
+		beego.NSNamespace("/funcionario_primatec",
+			beego.NSInclude(
+				&controllers.FuncionarioPritecController{},
+			),
+		),
+	
 	)
 	beego.AddNamespace(ns)
 }

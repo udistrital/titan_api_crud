@@ -49,6 +49,12 @@ func init() {
 			AllowHTTPMethods: []string{"post"},
 			Params:           nil})
 
+		beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioPritecController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioPritecController"],
+					beego.ControllerComments{
+					Method:           "ConsultarPrimaTecnica",
+					Router:           `/`,
+					AllowHTTPMethods: []string{"post"},
+					Params:           nil})
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"],
 		beego.ControllerComments{
 			Method:           "Pensionado_datos",
