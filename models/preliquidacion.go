@@ -18,6 +18,7 @@ type Preliquidacion struct {
 	Descripcion string    `orm:"column(descripcion);null"`
 	FechaInicio time.Time `orm:"column(fecha_inicio);type(date)"`
 	FechaFin    time.Time `orm:"column(fecha_fin);type(date)"`
+	Tipo     string    `orm:"column(tipo)"`
 	Id          int       `orm:"auto;column(id);pk"`
 	Liquidada   string    `orm:"column(liquidada)"`
 }
