@@ -59,6 +59,11 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 
 			c.Data["json"] = listaContratos
 
+		}else if v.Nomina.TipoNomina.Nombre == "PE" {
+			listaContratos := models.GetIdPensionado()
+			c.Ctx.Output.SetStatus(201)
+
+			c.Data["json"] = listaContratos
 		}
 	} else {
 		c.Data["json"] = err.Error()

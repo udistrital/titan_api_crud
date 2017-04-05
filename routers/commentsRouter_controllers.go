@@ -76,6 +76,34 @@ func init() {
 			AllowHTTPMethods: []string{"delete"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
+		beego.ControllerComments{
+			Method: "GetOne",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
+		beego.ControllerComments{
+			Method: "Put",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"put"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
+		beego.ControllerComments{
+			Method: "Delete",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"delete"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:CategoriaBeneficiarioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:CategoriaBeneficiarioController"],
 		beego.ControllerComments{
 			Method: "Post",
@@ -385,6 +413,34 @@ func init() {
 			Params: nil})
 
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoCivilController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoCivilController"],
+		beego.ControllerComments{
+			Method: "Delete",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"delete"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"],
+		beego.ControllerComments{
+			Method: "GetOne",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"],
+		beego.ControllerComments{
+			Method: "Put",
+			Router: `/:id`,
+			AllowHTTPMethods: []string{"put"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:InformacionPensionadoController"],
 		beego.ControllerComments{
 			Method: "Delete",
 			Router: `/:id`,
