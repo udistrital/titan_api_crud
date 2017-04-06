@@ -17,6 +17,7 @@ type DetalleLiquidacion struct {
 	Persona        int              `orm:"column(persona)"`
 	Concepto       *Concepto        `orm:"column(concepto);rel(fk)"`
 	NumeroContrato *ContratoGeneral `orm:"column(numero_contrato);rel(fk)"`
+	DiasLiquidados string       `orm:"column(dias_liquidados)"`
 }
 
 func (t *DetalleLiquidacion) TableName() string {
