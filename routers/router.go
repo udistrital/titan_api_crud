@@ -242,7 +242,13 @@ func init() {
 				&controllers.FuncionarioPritecController{},
 			),
 		),
-	
+
+		beego.NSNamespace("/beneficiarios",
+			beego.NSInclude(
+				&controllers.BeneficiariosController{},
+			),
+		),
+
 	)
 	beego.AddNamespace(ns)
 }

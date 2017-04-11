@@ -27,7 +27,7 @@ type Beneficiarios struct {
 }*/
 
 func (t *Beneficiarios) TableName() string {
-	return "beneficiarios"
+	return "beneficiario"
 }
 
 func init() {
