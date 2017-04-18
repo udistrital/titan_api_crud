@@ -2,59 +2,39 @@ package controllers
 
 import (
 	"encoding/json"
-
-	"github.com/udistrital/titan_api_crud/models"
-	"github.com/astaxie/beego"
-	"fmt"
+	"errors"
 	"strconv"
 	"strings"
-	"errors"
+	"github.com/udistrital/titan_api_crud/models"
 
+	"github.com/astaxie/beego"
 )
 
-// BeneficiarioController operations for Beneficiario
-type BeneficiariosController struct {
+// BancoController operations for Banco
+type BancoController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *BeneficiariosController) URLMapping() {
+func (c *BancoController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
-	c.Mapping("BeneficiarioDatos", c.BeneficiarioDatos)
-	//c.Mapping("BeneficiarioInformacion", c.BeneficiarioInformacion)
-}
-
-
-
-func (c *BeneficiariosController) BeneficiarioDatos() {
-	var v int
-	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		respuesta := models.GetnumBeneficiario_x_pensionado(v)
-		c.Ctx.Output.SetStatus(201)
-		c.Data["json"] = respuesta
-	} else {
-		c.Data["json"] = err.Error()
-		fmt.Println("error 2: ", err)
-	}
-	c.ServeJSON()
 }
 
 // Post ...
 // @Title Post
-// @Description create Beneficiarios
-// @Param	body		body 	models.Beneficiarios	true		"body for Beneficiarios content"
-// @Success 201 {int} models.Beneficiarios
+// @Description create Banco
+// @Param	body		body 	models.Banco	true		"body for Banco content"
+// @Success 201 {int} models.Banco
 // @Failure 403 body is empty
 // @router / [post]
-
-func (c *BeneficiariosController) Post() {
-	var v models.Beneficiarios
+func (c *BancoController) Post() {
+	var v models.Banco
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddBeneficiario(&v); err == nil {
+		if _, err := models.AddBanco(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -68,15 +48,15 @@ func (c *BeneficiariosController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get Beneficiarios by id
+// @Description get Banco by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.Beneficiarios
+// @Success 200 {object} models.Banco
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *BeneficiariosController) GetOne() {
+func (c *BancoController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetBeneficiarioById(id)
+	v, err := models.GetBancoById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -87,17 +67,17 @@ func (c *BeneficiariosController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get Beneficiarios
+// @Description get Banco
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Beneficiarios
+// @Success 200 {object} models.Banco
 // @Failure 403
 // @router / [get]
-func (c *BeneficiariosController) GetAll() {
+func (c *BancoController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -139,7 +119,7 @@ func (c *BeneficiariosController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllBeneficiario(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllBanco(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -150,18 +130,18 @@ func (c *BeneficiariosController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the Beneficiarios
+// @Description update the Banco
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.Beneficiarios	true		"body for Beneficiario content"
-// @Success 200 {object} models.Beneficiarios
+// @Param	body		body 	models.Banco	true		"body for Banco content"
+// @Success 200 {object} models.Banco
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *BeneficiariosController) Put() {
+func (c *BancoController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.Beneficiarios{Id: id}
+	v := models.Banco{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateBeneficiarioById(&v); err == nil {
+		if err := models.UpdateBancoById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -174,15 +154,15 @@ func (c *BeneficiariosController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the Beneficiarios
+// @Description delete the Banco
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *BeneficiariosController) Delete() {
+func (c *BancoController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteBeneficiario(id); err == nil {
+	if err := models.DeleteBanco(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

@@ -5,76 +5,60 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"strconv"
-	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
-type Beneficiarios struct {
-	Id                    int                    `orm:"column(id);pk"`
-	InformacionPensionado int                    `orm:"column(informacion_pensionado);null"`
-	InformacionProveedor  int  									`orm:"column(informacion_proveedor);"`
-	FechaNacBeneficiario  time.Time              `orm:"column(fecha_nac_beneficiario);type(date);null"`
-	SubFamiliar           string                 `orm:"column(sub_familiar);null"`
-	CategoriaBeneficiario int 										`orm:"column(categoria_beneficiario);"`
-	SubEstudios           string                 `orm:"column(aux_estudio);null"`
-	Estado								string									`orm:"column(estado);null"`
+type InformacionPersonaNatural struct {
+	TipoDocumento          int `orm:"column(tipo_documento)"`
+	Id                     int                `orm:"column(num_documento_persona);pk"`
+	DigitoVerificacion     float64            `orm:"column(digito_verificacion)"`
+	PrimerApellido         string             `orm:"column(primer_apellido)"`
+	SegundoApellido        string             `orm:"column(segundo_apellido);null"`
+	PrimerNombre           string             `orm:"column(primer_nombre)"`
+	SegundoNombre          string             `orm:"column(segundo_nombre);null"`
+	Cargo                  string             `orm:"column(cargo)"`
+	IdPaisNacimiento       int              `orm:"column(id_pais_nacimiento)"`
+	Perfil                 int `orm:"column(perfil)"`
+	Profesion              string             `orm:"column(profesion);null"`
+	Especialidad           string             `orm:"column(especialidad);null"`
+	MontoCapitalAutorizado float64            `orm:"column(monto_capital_autorizado);null"`
+	Genero                 string             `orm:"column(genero);null"`
 }
 
-/*type numero_beneficiarios struct {
-	numero  int `orm:"column(informacion_pensionado)"`
-}*/
-
-func (t *Beneficiarios) TableName() string {
-	return "beneficiario"
+func (t *InformacionPersonaNatural) TableName() string {
+	return "informacion_persona_natural"
 }
 
 func init() {
-	orm.RegisterModel(new(Beneficiarios))
+	orm.RegisterModel(new(InformacionPersonaNatural))
 }
 
-// AddBeneficiario insert a new Beneficiario into database and returns
+// AddInformacionPersonaNatural insert a new InformacionPersonaNatural into database and returns
 // last inserted Id on success.
-func AddBeneficiario(m *Beneficiarios) (id int64, err error) {
+func AddInformacionPersonaNatural(m *InformacionPersonaNatural) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetBeneficiarioById retrieves Beneficiario by Id. Returns error if
+// GetInformacionPersonaNaturalById retrieves InformacionPersonaNatural by Id. Returns error if
 // Id doesn't exist
-func GetnumBeneficiario_x_pensionado(idProveedorString int) (personas []Beneficiarios) {
+func GetInformacionPersonaNaturalById(id int) (v *InformacionPersonaNatural, err error) {
 	o := orm.NewOrm()
-	var temp [] Beneficiarios
-	fmt.Println(idProveedorString)
-	id_proveedor := strconv.Itoa(idProveedorString)
-	//_, err := o.Raw("SELECT count(beneficiario.informacion_pensionado) FROM personal.beneficiario AS beneficiario").QueryRows(&temp)
-	_, err := o.Raw("SELECT ben.informacion_proveedor,ben.categoria_beneficiario,ben.sub_familiar,ben.aux_estudio, ben.estado FROM personal.beneficiarios AS ben, personal.informacion_persona_pensionado AS pen WHERE pen.informacion_proveedor = ben.informacion_pensionado AND ben.informacion_pensionado = " +id_proveedor).QueryRows(&temp)
-	//if len(temp) == 0{
-		//temp = append(temp,"0")
-	//}
-	if err == nil {
-		fmt.Println("Consulta exitosa")
-	}
-	fmt.Println("Teeeeeeeeeeeemp")
-return temp
-}
-
-func GetBeneficiarioById(id int) (v *Beneficiarios, err error) {
-	o := orm.NewOrm()
-	v = &Beneficiarios{Id: id}
+	v = &InformacionPersonaNatural{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllBeneficiario retrieves all Beneficiario matches certain condition. Returns empty list if
+// GetAllInformacionPersonaNatural retrieves all InformacionPersonaNatural matches certain condition. Returns empty list if
 // no records exist
-func GetAllBeneficiario(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllInformacionPersonaNatural(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Beneficiarios))
+	qs := o.QueryTable(new(InformacionPersonaNatural))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -124,7 +108,7 @@ func GetAllBeneficiario(query map[string]string, fields []string, sortby []strin
 		}
 	}
 
-	var l []Beneficiarios
+	var l []InformacionPersonaNatural
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -147,11 +131,11 @@ func GetAllBeneficiario(query map[string]string, fields []string, sortby []strin
 	return nil, err
 }
 
-// UpdateBeneficiario updates Beneficiario by Id and returns error if
+// UpdateInformacionPersonaNatural updates InformacionPersonaNatural by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateBeneficiarioById(m *Beneficiarios) (err error) {
+func UpdateInformacionPersonaNaturalById(m *InformacionPersonaNatural) (err error) {
 	o := orm.NewOrm()
-	v := Beneficiarios{Id: m.Id}
+	v := InformacionPersonaNatural{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -162,15 +146,15 @@ func UpdateBeneficiarioById(m *Beneficiarios) (err error) {
 	return
 }
 
-// DeleteBeneficiario deletes Beneficiario by Id and returns error if
+// DeleteInformacionPersonaNatural deletes InformacionPersonaNatural by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteBeneficiario(id int) (err error) {
+func DeleteInformacionPersonaNatural(id int) (err error) {
 	o := orm.NewOrm()
-	v := Beneficiarios{Id: id}
+	v := InformacionPersonaNatural{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Beneficiarios{Id: id}); err == nil {
+		if num, err = o.Delete(&InformacionPersonaNatural{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

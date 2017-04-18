@@ -249,6 +249,17 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/banco",
+			beego.NSInclude(
+				&controllers.BancoController{},
+			),
+		),
+
+		beego.NSNamespace("/informacion_persona_natural",
+			beego.NSInclude(
+				&controllers.InformacionPersonaNaturalController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

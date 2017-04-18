@@ -8,6 +8,14 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
 		beego.ControllerComments{
+			Method: "Post",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
+		beego.ControllerComments{
 			Method: "BeneficiarioDatos",
 			Router: `/beneficiarioDatos`,
 			AllowHTTPMethods: []string{"post"},

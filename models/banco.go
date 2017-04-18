@@ -5,76 +5,51 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"strconv"
-	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
-type Beneficiarios struct {
-	Id                    int                    `orm:"column(id);pk"`
-	InformacionPensionado int                    `orm:"column(informacion_pensionado);null"`
-	InformacionProveedor  int  									`orm:"column(informacion_proveedor);"`
-	FechaNacBeneficiario  time.Time              `orm:"column(fecha_nac_beneficiario);type(date);null"`
-	SubFamiliar           string                 `orm:"column(sub_familiar);null"`
-	CategoriaBeneficiario int 										`orm:"column(categoria_beneficiario);"`
-	SubEstudios           string                 `orm:"column(aux_estudio);null"`
-	Estado								string									`orm:"column(estado);null"`
+type Banco struct {
+	Id                int    `orm:"column(id_codigo);pk"`
+	NombreBanco       string `orm:"column(nombre_banco);null"`
+	DenominacionBanco string `orm:"column(denominacion_banco);null"`
+	Descripcion       string `orm:"column(descripcion);null"`
+	Estado            string `orm:"column(estado);null"`
 }
 
-/*type numero_beneficiarios struct {
-	numero  int `orm:"column(informacion_pensionado)"`
-}*/
-
-func (t *Beneficiarios) TableName() string {
-	return "beneficiario"
+func (t *Banco) TableName() string {
+	return "banco"
 }
 
 func init() {
-	orm.RegisterModel(new(Beneficiarios))
+	orm.RegisterModel(new(Banco))
 }
 
-// AddBeneficiario insert a new Beneficiario into database and returns
+// AddBanco insert a new Banco into database and returns
 // last inserted Id on success.
-func AddBeneficiario(m *Beneficiarios) (id int64, err error) {
+func AddBanco(m *Banco) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetBeneficiarioById retrieves Beneficiario by Id. Returns error if
+// GetBancoById retrieves Banco by Id. Returns error if
 // Id doesn't exist
-func GetnumBeneficiario_x_pensionado(idProveedorString int) (personas []Beneficiarios) {
+func GetBancoById(id int) (v *Banco, err error) {
 	o := orm.NewOrm()
-	var temp [] Beneficiarios
-	fmt.Println(idProveedorString)
-	id_proveedor := strconv.Itoa(idProveedorString)
-	//_, err := o.Raw("SELECT count(beneficiario.informacion_pensionado) FROM personal.beneficiario AS beneficiario").QueryRows(&temp)
-	_, err := o.Raw("SELECT ben.informacion_proveedor,ben.categoria_beneficiario,ben.sub_familiar,ben.aux_estudio, ben.estado FROM personal.beneficiarios AS ben, personal.informacion_persona_pensionado AS pen WHERE pen.informacion_proveedor = ben.informacion_pensionado AND ben.informacion_pensionado = " +id_proveedor).QueryRows(&temp)
-	//if len(temp) == 0{
-		//temp = append(temp,"0")
-	//}
-	if err == nil {
-		fmt.Println("Consulta exitosa")
-	}
-	fmt.Println("Teeeeeeeeeeeemp")
-return temp
-}
-
-func GetBeneficiarioById(id int) (v *Beneficiarios, err error) {
-	o := orm.NewOrm()
-	v = &Beneficiarios{Id: id}
+	v = &Banco{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllBeneficiario retrieves all Beneficiario matches certain condition. Returns empty list if
+// GetAllBanco retrieves all Banco matches certain condition. Returns empty list if
 // no records exist
-func GetAllBeneficiario(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllBanco(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Beneficiarios))
+	qs := o.QueryTable(new(Banco))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -124,7 +99,7 @@ func GetAllBeneficiario(query map[string]string, fields []string, sortby []strin
 		}
 	}
 
-	var l []Beneficiarios
+	var l []Banco
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -147,11 +122,11 @@ func GetAllBeneficiario(query map[string]string, fields []string, sortby []strin
 	return nil, err
 }
 
-// UpdateBeneficiario updates Beneficiario by Id and returns error if
+// UpdateBanco updates Banco by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateBeneficiarioById(m *Beneficiarios) (err error) {
+func UpdateBancoById(m *Banco) (err error) {
 	o := orm.NewOrm()
-	v := Beneficiarios{Id: m.Id}
+	v := Banco{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -162,15 +137,15 @@ func UpdateBeneficiarioById(m *Beneficiarios) (err error) {
 	return
 }
 
-// DeleteBeneficiario deletes Beneficiario by Id and returns error if
+// DeleteBanco deletes Banco by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteBeneficiario(id int) (err error) {
+func DeleteBanco(id int) (err error) {
 	o := orm.NewOrm()
-	v := Beneficiarios{Id: id}
+	v := Banco{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Beneficiarios{Id: id}); err == nil {
+		if num, err = o.Delete(&Banco{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
