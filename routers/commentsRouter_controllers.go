@@ -211,13 +211,6 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
-			AllowHTTPMethods: []string{"post"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"],
-		beego.ControllerComments{
 			Method: "GetOne",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"get"},

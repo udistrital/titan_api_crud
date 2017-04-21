@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 	"github.com/udistrital/titan_api_crud/models"
-
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -22,8 +22,20 @@ func (c *ConceptoController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
+	c.Mapping("GetConceptosSs", c.GetConceptosSs)
 }
 
+func (c *ConceptoController) GetConceptosSs() {
+	idStr := c.Ctx.Input.Param(":persona")
+	v := models.GetConceptoSS_x_Persona(idStr)
+	if len(idStr) > 0 {
+		c.Data["json"] = v
+	} else {
+		c.Data["json"] = "error en GetConceptosSs"
+		fmt.Println("error en GetConceptosSs")
+	}
+	c.ServeJSON()
+}
 // Post ...
 // @Title Post
 // @Description create Concepto
@@ -31,6 +43,8 @@ func (c *ConceptoController) URLMapping() {
 // @Success 201 {int} models.Concepto
 // @Failure 403 body is empty
 // @router / [post]
+
+
 func (c *ConceptoController) Post() {
 	var v models.Concepto
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {

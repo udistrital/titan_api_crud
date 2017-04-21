@@ -6,13 +6,19 @@ import (
 
 func init() {
 
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoController"],
+		beego.ControllerComments{
+			Method:           "GetConceptosSs",
+			Router:           `get_conceptos_ss/:persona`,
+			AllowHTTPMethods: []string{"get"},
+			Params:           nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
 		beego.ControllerComments{
 			Method: "Post",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
-
 
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:BeneficiariosController"],
 		beego.ControllerComments{

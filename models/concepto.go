@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-
+	"time"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -16,12 +16,42 @@ type Concepto struct {
 	AliasConcepto string        `orm:"column(alias_concepto)"`
 }
 
+type Concepto_Novedad_SS struct {
+	FechaDesde     time.Time `orm:"column(fecha_desde)"`
+	FechaHasta     time.Time `orm:"column(fecha_hasta)"`
+	AliasConcepto  string    `orm:"column(alias_concepto)"`
+	Naturaleza     string    `orm:"column(naturaleza)"`
+	ValorCalculado int64     `orm:"column(valor_calculado)"`
+	Persona        int       `orm:"column(persona)"`
+}
+
+
 func (t *Concepto) TableName() string {
 	return "concepto"
 }
 
 func init() {
 	orm.RegisterModel(new(Concepto))
+}
+
+func GetConceptoSS_x_Persona(idPersona string) Concepto_Novedad_SS {
+	o := orm.NewOrm()
+	var conceptos []Concepto_Novedad_SS
+	fmt.Println(idPersona)
+	//id_proveedor := strconv.Itoa(idProveedorString)
+	//_, err := o.Raw("SELECT count(beneficiario.informacion_pensionado) FROM personal.beneficiario AS beneficiario").QueryRows(&temp)
+	_, err := o.Raw("SELECT DISTINCT cp.fecha_desde, cp.fecha_hasta, c.alias_concepto, c.naturaleza, dl.valor_calculado, dl.persona " +
+		" FROM titan.concepto_por_persona cp, titan.detalle_liquidacion dl, titan.concepto c " +
+		" WHERE cp.concepto = dl.concepto " +
+		" AND dl.persona = " + idPersona +
+		" AND c.id = dl.concepto " +
+		" AND c.id = cp.concepto " +
+		" AND c.naturaleza = 'seguridad_social'").QueryRows(&conceptos)
+	if err == nil {
+		fmt.Println("Consulta exitosa")
+	}
+	return conceptos[0]
+
 }
 
 // AddConcepto insert a new Concepto into database and returns
