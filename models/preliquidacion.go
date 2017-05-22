@@ -35,6 +35,7 @@ type ConceptosInforme struct {
 	Nombre     string `orm:"column(nombre)"`
 	Naturaleza string `orm:"column(naturaleza)"`
 	Valor      string `orm:"column(valor)"`
+	TipoPreliquidacion string `orm:"column(tipo)"`
 }
 
 func (t *Preliquidacion) TableName() string {
@@ -182,7 +183,7 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 		for _, contrato := range numero_contratos {
 			err = o.Raw("select a.id_proveedor as id ,a.nom_proveedor as nombre, a.num_documento as documento from agora.informacion_proveedor as a inner join argo.contrato_general as b on a.num_documento = b.contratista  where b.numero_contrato = ? and b.vigencia = ?", contrato, v.Nomina.Periodo).QueryRow(&informe)
 			if err == nil {
-				_, err = o.Raw("select  a.concepto as id , b.alias_concepto as nombre , b.naturaleza as naturaleza, a.valor_calculado as valor from titan.detalle_preliquidacion as a inner join titan.concepto as b on a.concepto = b.id where a.numero_contrato = ? and a.preliquidacion = ?;", contrato, v.Id).QueryRows(&informe.Conceptos)
+				_, err = o.Raw("select  a.concepto as id , b.alias_concepto as nombre , b.naturaleza as naturaleza, a.valor_calculado as valor, a.tipo_preliquidacion as tipo from titan.detalle_preliquidacion as a inner join titan.concepto as b on a.concepto = b.id where a.numero_contrato = ? and a.preliquidacion = ? order by tipo;", contrato, v.Id).QueryRows(&informe.Conceptos)
 				if err != nil {
 					fmt.Println("err3: ", err)
 				}

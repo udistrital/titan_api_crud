@@ -11,6 +11,10 @@ type Funcionario_x_Proveedor struct {
 	NombreProveedor string  `orm:"column(nom_proveedor)"`
 	NumDocumento    float64 `orm:"column(contratista)"`
 	NumeroContrato  string  `orm:"column(numero_contrato)"`
+	IdEPS                  int  							`orm:"column(id_eps)"`
+	IdARL                  int  							`orm:"column(id_arl)"`
+	IdFondoPension         int  							`orm:"column(id_fondo_pension)"`
+	IdCajaCompensacion     int  							`orm:"column(id_caja_compensacion)"`
 }
 
 type Funcionario_x_Pensionado struct {
@@ -43,7 +47,7 @@ func GetIdProveedorXFuncionario() (arregloIDs []Funcionario_x_Proveedor) {
 	o := orm.NewOrm()
 
 	var temp []Funcionario_x_Proveedor
-	_, err := o.Raw("SELECT informacionproveedor.id_proveedor, informacionproveedor.nom_proveedor,contratos.contratista,contratos.numero_contrato FROM agora.informacion_proveedor AS informacionproveedor, argo.contrato_general AS contratos where contratos.objeto_contrato = 'Funcionario de planta' AND contratos.contratista = informacionproveedor.num_documento").QueryRows(&temp)
+	_, err := o.Raw("SELECT informacionproveedor.id_proveedor, informacionproveedor.nom_proveedor,contratos.contratista,contratos.numero_contrato, personanatural.id_eps, personanatural.id_arl, personanatural.id_fondo_pension, personanatural.id_caja_compensacion FROM agora.informacion_proveedor AS informacionproveedor, argo.contrato_general AS contratos, agora.informacion_persona_natural AS personanatural where contratos.objeto_contrato = 'Funcionario de planta' AND contratos.contratista = informacionproveedor.num_documento AND informacionproveedor.num_documento = personanatural.num_documento_persona" ).QueryRows(&temp)
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}

@@ -24,6 +24,10 @@ type InformacionPersonaNatural struct {
 	Especialidad           string             `orm:"column(especialidad);null"`
 	MontoCapitalAutorizado float64            `orm:"column(monto_capital_autorizado);null"`
 	Genero                 string             `orm:"column(genero);null"`
+	IdEPS                  int  							`orm:"column(id_eps)"`
+	IdARL                  int  							`orm:"column(id_arl)"`
+	IdFondoPension         int  							`orm:"column(id_fondo_pension)"`
+	IdCajaCompensacion     int  							`orm:"column(id_caja_compensacion)"`		
 }
 
 func (t *InformacionPersonaNatural) TableName() string {
