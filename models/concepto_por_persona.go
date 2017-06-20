@@ -20,7 +20,7 @@ type ConceptoPorPersona struct {
 	Concepto      *Concepto             `orm:"column(concepto);rel(fk)"`
 	Nomina        *Nomina               `orm:"column(nomina);rel(fk)"`
 	Id            int                   `orm:"auto;column(id);pk"`
-	Tipo          string                `orm:"column(tipo);null"`
+	FechaRegistro time.Time             `orm:"column(fecha_registro);type(date)"`
 }
 
 func (t *ConceptoPorPersona) TableName() string {
@@ -36,6 +36,7 @@ func init() {
 func AddConceptoPorPersona(m *ConceptoPorPersona) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
+	fmt.Println(err)
 	return
 }
 
