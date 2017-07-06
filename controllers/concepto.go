@@ -51,6 +51,8 @@ func (c *ConceptoController) Post() {
 		if _, err := models.AddConcepto(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
+			fmt.Println("respuesta")
+			fmt.Println(v)
 		} else {
 			c.Data["json"] = err.Error()
 		}
