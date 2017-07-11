@@ -172,7 +172,7 @@ func ResumenLiquidacion(v *Liquidacion) (resumen []InformeLiquidacion, err error
 	_, err = o.Raw("select numero_contrato from titan.detalle_liquidacion where liquidacion = ? group by numero_contrato", v.Id).QueryRows(&numero_contratos)
 	if numero_contratos != nil && err == nil {
 		for _, contrato := range numero_contratos {
-			err = o.Raw("select a.id_proveedor as id ,a.nom_proveedor as nombre, a.num_documento as documento from agora.informacion_proveedor as a inner join argo.contrato_general as b on a.num_documento = b.contratista  where b.numero_contrato = ? and b.vigencia = ?", contrato, v.Nomina.Periodo).QueryRow(&informe)
+			err = o.Raw("select a.id_proveedor as id ,a.nom_proveedor as nombre, a.num_documento as documento from agora.informacion_proveedor as a inner join argo.contrato_general as b on a.num_documento = b.contratista  where b.numero_contrato = ?", contrato, v.Nomina.Periodo).QueryRow(&informe)
 			if err == nil {
 				_, err = o.Raw("select  a.concepto as id , b.alias_concepto as nombre , b.naturaleza as naturaleza, a.valor_calculado as valor from titan.detalle_liquidacion as a inner join titan.concepto as b on a.concepto = b.id where a.numero_contrato = ? and a.liquidacion = ?;", contrato, v.Id).QueryRows(&informe.Conceptos)
 				fmt.Println(informe.Conceptos)
