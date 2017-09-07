@@ -3,10 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/titan_api_crud2/models"
 	"strconv"
 	"strings"
-	"github.com/udistrital/titan_api_crud/models"
-	"fmt"
+
 	"github.com/astaxie/beego"
 )
 
@@ -78,7 +78,6 @@ func (c *InformacionProveedorController) GetOne() {
 // @Failure 403
 // @router / [get]
 func (c *InformacionProveedorController) GetAll() {
-	fmt.Println("Get prooveedor")
 	var fields []string
 	var sortby []string
 	var order []string

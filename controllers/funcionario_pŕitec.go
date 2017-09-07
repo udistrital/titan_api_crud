@@ -5,7 +5,7 @@ import (
 //	"errors"
 	//"strconv"
 	//"strings"
-	"github.com/udistrital/titan_api_crud/models"
+	"github.com/udistrital/titan_api_crud2/models"
 
 	"github.com/astaxie/beego"
   "fmt"

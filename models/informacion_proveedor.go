@@ -30,6 +30,7 @@ type InformacionProveedor struct {
 	FechaRegistro           string             `orm:"column(fecha_registro)"`
 	FechaUltimaModificacion string             `orm:"column(fecha_ultima_modificacion)"`
 	NomProveedor            string             `orm:"column(nom_proveedor);null"`
+	Puntos                  float64            `orm:"column(puntos);null"`
 }
 
 func (t *InformacionProveedor) TableName() string {

@@ -5,7 +5,7 @@ import (
 	//	"errors"
 	//"strconv"
 	//"strings"
-	"github.com/udistrital/titan_api_crud/models"
+	"github.com/udistrital/titan_api_crud2/models"
 
 	"fmt"
 
@@ -24,9 +24,9 @@ func (c *FuncionarioProveedorController) URLMapping() {
 }
 
 func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
-	var v models.Preliquidacion
+	var v models.Nomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if v.Nomina.TipoNomina.Nombre == "HC" || v.Nomina.TipoNomina.Nombre == "HC-SALARIOS" {
+		if v.TipoNomina.Nombre == "HCH" || v.TipoNomina.Nombre == "HCS" {
 			if listaContratos, err := models.ListaContratos(&v); err == nil {
 				c.Ctx.Output.SetStatus(201)
 
@@ -35,25 +35,25 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 				c.Data["json"] = err.Error()
 				fmt.Println("error : ", err)
 			}
-		} else if v.Nomina.TipoNomina.Nombre == "FP" {
+		} else if v.TipoNomina.Nombre == "FP" {
 			listaContratos := models.GetIdProveedorXFuncionario()
 			c.Ctx.Output.SetStatus(201)
 
 			c.Data["json"] = listaContratos
 
-		} else if v.Nomina.TipoNomina.Nombre == "DP" {
+		} else if v.TipoNomina.Nombre == "DP" {
 			listaContratos := models.GetIdProveedorXDocente()
 			c.Ctx.Output.SetStatus(201)
 
 			c.Data["json"] = listaContratos
 
-		} else if v.Nomina.TipoNomina.Nombre == "PE" {
+		} else if v.TipoNomina.Nombre == "PE" {
 			listaContratos := models.GetIdPensionado()
 			c.Ctx.Output.SetStatus(201)
 
 			c.Data["json"] = listaContratos
 
-		} else if v.Nomina.TipoNomina.Nombre == "CT" {
+		} else if v.TipoNomina.Nombre == "CT" {
 			listaContratos := models.GetIdProveedorXContratista()
 			c.Ctx.Output.SetStatus(201)
 

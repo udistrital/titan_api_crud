@@ -1,17 +1,17 @@
 package main
 
 import (
-	_ "github.com/udistrital/titan_api_crud/routers"
+	_ "github.com/udistrital/titan_api_crud2/routers"
+
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/plugins/cors"
 )
 
 func init() {
-	orm.RegisterDataBase("default", "postgres", "postgres://"+beego.AppConfig.String("PGuser")+":"+beego.AppConfig.String("PGpass")+"@"+beego.AppConfig.String("PGurls")+"/"+beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+beego.AppConfig.String("PGschemas")+"")
+	orm.RegisterDataBase("default", "postgres", "postgres://postgres:postgres@127.0.0.1:5432/udistrital?sslmode=disable&search_path=personal,agora,core,argo,financiera,administrativa")
 }
-
 
 func main() {
 	orm.Debug = true
@@ -32,4 +32,5 @@ func main() {
 			beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 		}
 	beego.Run()
+	//NUEVO COMMIT
 }

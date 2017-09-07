@@ -3,9 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/titan_api_crud2/models"
 	"strconv"
 	"strings"
-	"github.com/udistrital/titan_api_crud/models"
 
 	"github.com/astaxie/beego"
 )
@@ -172,6 +172,7 @@ func (c *PreliquidacionController) Delete() {
 }
 
 func (c *PreliquidacionController) Resumen() {
+	
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if res , err := models.ResumenPreliquidacion(&v); err == nil {

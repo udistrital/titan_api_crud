@@ -11,9 +11,10 @@ import (
 )
 
 type Resolucion struct {
-	Id                            int       `orm:"column(id);pk"`
-	NumResolucionPension          string    `orm:"column(num_resolucion_pension)"`
-	FechaEmisionResolucionPension time.Time `orm:"column(fecha_emision_resolucion_pension);type(date)"`
+	Id                               int       `orm:"column(id);pk"`
+	NumResolucionPensionado          string    `orm:"column(num_resolucion_pensionado)"`
+	FechaEmisionResolucionPensionado time.Time `orm:"column(fecha_emision_resolucion_pensionado);type(timestamp with time zone)"`
+	Vigencia                         string    `orm:"column(vigencia)"`
 }
 
 func (t *Resolucion) TableName() string {

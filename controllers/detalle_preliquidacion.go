@@ -3,10 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/titan_api_crud2/models"
 	"strconv"
 	"strings"
-	"github.com/udistrital/titan_api_crud/models"
-
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -38,11 +38,9 @@ func (c *DetallePreliquidacionController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-				beego.Debug("error: ", err)
 			c.Data["json"] = err.Error()
 		}
 	} else {
-			beego.Debug("error: ", err)
 		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
@@ -167,6 +165,7 @@ func (c *DetallePreliquidacionController) Delete() {
 	if err := models.DeleteDetallePreliquidacion(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
+		fmt.Println(err.Error())
 		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()

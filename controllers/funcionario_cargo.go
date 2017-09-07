@@ -5,7 +5,7 @@ import (
 //	"errors"
 	//"strconv"
 	//"strings"
-	"github.com/udistrital/titan_api_crud/models"
+	"github.com/udistrital/titan_api_crud2/models"
 
 	"github.com/astaxie/beego"
   "fmt"
@@ -29,7 +29,7 @@ func (c *FuncionarioCargoController) ConsultarAsignacionBasica() {
 
     respuesta := models.GetAsignacionBasica(v.Id)
     c.Ctx.Output.SetStatus(201)
-  
+
     c.Data["json"] = respuesta
 
 
