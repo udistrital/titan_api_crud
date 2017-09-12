@@ -3,7 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/titan_api_crud2/models"
+	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
 
