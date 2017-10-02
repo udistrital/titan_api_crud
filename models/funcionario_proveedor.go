@@ -9,7 +9,7 @@ import (
 type Funcionario_x_Proveedor struct {
 	Id              int     `orm:"column(id_proveedor)"`
 	NombreProveedor string  `orm:"column(nom_proveedor)"`
-	NumDocumento    float64 `orm:"column(contratista)"`
+	NumDocumento    float64 `orm:"column(num_documento)"`
 	NumeroContrato  string  `orm:"column(numero_contrato)"`
 	VigenciaContrato  string  `orm:"column(vigencia)"`
 	IdEPS                  int  							`orm:"column(id_eps)"`
@@ -68,17 +68,6 @@ func GetIdProveedorXDocente() (arregloIDs []Funcionario_x_Proveedor) {
 	return temp
 }
 
-func GetIdProveedorXContratista() (arregloIDs []Funcionario_x_Proveedor) {
-	o := orm.NewOrm()
-
-	var temp []Funcionario_x_Proveedor
-	_, err := o.Raw("SELECT informacionproveedor.id_proveedor,informacionproveedor.num_documento, contratos.contratista,contratos.numero_contrato,contratos.vigencia,informacionproveedor.nom_proveedor FROM agora.informacion_proveedor AS informacionproveedor, argo.contrato_general AS contratos where contratos.objeto_contrato = 'Contratista' AND contratos.contratista = informacionproveedor.num_documento").QueryRows(&temp)
-	if err == nil {
-		fmt.Println("Consulta exitosa")
-	}
-	return temp
-}
-
 func GetIdPensionado() (arregloIDs []Funcionario_x_Pensionado) {
 	o := orm.NewOrm()
 	var temp []Funcionario_x_Pensionado
@@ -101,17 +90,13 @@ _, err := o.Raw("SELECT beneficiario.informacion_proveedor, informacionproveedor
 
 func ListaContratos(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
 	o := orm.NewOrm()
-	consulta := `select c.id_proveedor ,
-								      c.nom_proveedor ,
-											c.num_documento,
-								      b.contratista ,
-								      b.numero_contrato,
-											b.vigencia
-								      from argo.acta_inicio as a inner join argo.contrato_general as b on a.numero_contrato = b.numero_contrato
-														   inner join agora.informacion_proveedor as c on b.contratista = c.num_documento
-														   inner join argo.tipo_contrato on argo.tipo_contrato.id = b.tipo_contrato
-														   where (argo.tipo_contrato.tipo_contrato = ?); `
 
-	_, err = o.Raw(consulta, v.TipoNomina.Nombre).QueryRows(&datos)
+
+	consulta := `SELECT informacionproveedor.id_proveedor ,informacionproveedor.nom_proveedor ,informacionproveedor.num_documento, contratos.numero_contrato, contratos.vigencia,personanatural.id_eps,personanatural.id_arl, personanatural.id_fondo_pension, personanatural.id_caja_compensacion from agora.informacion_proveedor AS informacionproveedor, argo.contrato_general AS contratos, argo.tipo_contrato as tipocontratos, agora.informacion_persona_natural AS personanatural where informacionproveedor.num_documento = contratos.contratista AND informacionproveedor.num_documento = personanatural.num_documento_persona AND contratos.tipo_contrato = tipocontratos.id AND tipocontratos.tipo_contrato = ?; `
+
+
+//consulta := `SELECT c.id_proveedor ,c.nom_proveedor ,c.num_documento, b.contratista , b.numero_contrato, b.vigencia from agora.informacion_proveedor AS c, administrativa.contrato AS b, core.tipo_contrato as a where c.num_documento = b.contratista AND b.tipo_contrato = a.id AND a.nombre = ?;`
+
+	_, err = o.Raw(consulta,  v.TipoNomina.Descripcion).QueryRows(&datos)
 	return
 }

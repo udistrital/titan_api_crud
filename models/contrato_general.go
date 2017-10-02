@@ -2,16 +2,33 @@ package models
 
 import (
 	"errors"
+	"strconv"
 	"fmt"
 	"reflect"
 	"strings"
 	"time"
-
+	"net/http"
+	"encoding/json"
+	"encoding/xml"
 	"github.com/astaxie/beego/orm"
+	"io/ioutil"
 )
 
+type ContratoEstado struct {
+	ValorContrato  string `xml:"valorContrato"`
+	Estado 				Estado   `xml:"estado"`
+	Vigencia      int				 `xml:"vigencia"`
+	NumeroContrato string    `xml:"numeroContrato"`
+}
+
+
+type Estado struct {
+	Id           int		  `xml:"id"`
+	NombreEstado string   `xml:"nombreEstado"`
+}
+
 type ContratoGeneral struct {
-	Id                           string                 `orm:"column(numero_contrato);pk"`
+	Id                           string               `orm:"column(numero_contrato);pk"`
 	Vigencia                     int                 `orm:"column(vigencia)"`
 	ObjetoContrato               string              `orm:"column(objeto_contrato);null"`
 	PlazoEjecucion               int                 `orm:"column(plazo_ejecucion)"`
@@ -64,6 +81,35 @@ func init() {
 
 // AddContratoGeneral insert a new ContratoGeneral into database and returns
 // last inserted Id on success.
+func ContratosProduccion(v *ContratoGeneral)(datos string,  err error){
+
+
+	
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contrato_estado/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	xmlData := []byte(reglas)
+	data := &ContratoEstado{}
+	fmt.Println(data)
+	 err2 := xml.Unmarshal(xmlData, data)
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
+
+	 result, err := json.Marshal(data)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
+
+	 resultado_peticion:= string(result)
+
+	  return resultado_peticion, err2
+
+}
+
 func AddContratoGeneral(m *ContratoGeneral) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)

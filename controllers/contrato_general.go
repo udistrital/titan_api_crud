@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strings"
 	"github.com/udistrital/titan_api_crud/models"
-
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -21,6 +21,29 @@ func (c *ContratoGeneralController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
+	c.Mapping("ContratosProduccion", c.ContratosProduccion)
+}
+
+
+func (c *ContratoGeneralController) ContratosProduccion(){
+	
+	var v models.ContratoGeneral
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		fmt.Println(v)
+			if listaContratos, err := models.ContratosProduccion(&v); err == nil {
+				c.Ctx.Output.SetStatus(201)
+				c.Data["json"] = listaContratos
+			} else {
+				c.Data["json"] = err.Error()
+			}
+	} else {
+		fmt.Println("error al enviar datos")
+		fmt.Println(err)
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+
+
 }
 
 // Post ...
