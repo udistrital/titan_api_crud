@@ -26,12 +26,13 @@ func (c *ContratoGeneralController) URLMapping() {
 
 
 func (c *ContratoGeneralController) ContratosProduccion(){
-	
+
 	var v models.ContratoGeneral
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		fmt.Println(v)
 			if listaContratos, err := models.ContratosProduccion(&v); err == nil {
 				c.Ctx.Output.SetStatus(201)
+				fmt.Println(listaContratos)
 				c.Data["json"] = listaContratos
 			} else {
 				c.Data["json"] = err.Error()

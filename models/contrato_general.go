@@ -81,18 +81,17 @@ func init() {
 
 // AddContratoGeneral insert a new ContratoGeneral into database and returns
 // last inserted Id on success.
-func ContratosProduccion(v *ContratoGeneral)(datos string,  err error){
+func ContratosProduccion(v *ContratoGeneral)(datos ContratoEstado,  err error){
 
+	var temp ContratoEstado
 
-	
 	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contrato_estado/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
 	defer resp1.Body.Close()
 	body, err := ioutil.ReadAll(resp1.Body)
 	reglas := string(body)
 	xmlData := []byte(reglas)
 	data := &ContratoEstado{}
-	fmt.Println(data)
-	 err2 := xml.Unmarshal(xmlData, data)
+	err2 := xml.Unmarshal(xmlData, data)
 	 if nil != err2 {
 			 fmt.Println("Error unmarshalling from XML", err2)
 			 return
@@ -105,8 +104,8 @@ func ContratosProduccion(v *ContratoGeneral)(datos string,  err error){
 	 }
 
 	 resultado_peticion:= string(result)
-
-	  return resultado_peticion, err2
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
+	 return temp, err3
 
 }
 
