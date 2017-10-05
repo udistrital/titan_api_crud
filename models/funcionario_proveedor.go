@@ -1,21 +1,30 @@
 package models
 
 import (
-	"fmt"
 
+	//"strconv"
+	"fmt"
+	"net/http"
+	"encoding/json"
+	"encoding/xml"
 	"github.com/astaxie/beego/orm"
+	"io/ioutil"
 )
 
+type Estructura struct {
+	 FuncionarioProveedor []Funcionario_x_Proveedor  `xml:"contrato_tipo"`
+}
+
 type Funcionario_x_Proveedor struct {
-	Id              int     `orm:"column(id_proveedor)"`
-	NombreProveedor string  `orm:"column(nom_proveedor)"`
-	NumDocumento    float64 `orm:"column(num_documento)"`
-	NumeroContrato  string  `orm:"column(numero_contrato)"`
-	VigenciaContrato  string  `orm:"column(vigencia)"`
-	IdEPS                  int  							`orm:"column(id_eps)"`
-	IdARL                  int  							`orm:"column(id_arl)"`
-	IdFondoPension         int  							`orm:"column(id_fondo_pension)"`
-	IdCajaCompensacion     int  							`orm:"column(id_caja_compensacion)"`
+	Id              int     `xml:"id_proveedor"`
+	NombreProveedor string  `xml:"nom_proveedor"`
+	NumDocumento    float64 `xml:"num_documento"`
+	NumeroContrato  string  `xml:"numero_contrato"`
+	VigenciaContrato  string  `xml:"vigencia"`
+	//IdEPS                  int  							`xml:"id_eps"`
+	//IdARL                  int  							`xml:"id_arl"`
+	//IdFondoPension         int  							`xml:"id_fondo_pension"`
+	//IdCajaCompensacion     int  							`xml:"id_caja_compensacion"`
 }
 
 type Funcionario_x_Pensionado struct {
@@ -89,14 +98,30 @@ _, err := o.Raw("SELECT beneficiario.informacion_proveedor, informacionproveedor
 }
 
 func ListaContratos(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
-	o := orm.NewOrm()
+	var temp []Funcionario_x_Proveedor
 
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/6")
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	xmlData := []byte(reglas)
+	data := &Estructura{}
+	err2 := xml.Unmarshal(xmlData, data)
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
 
-	consulta := `SELECT informacionproveedor.id_proveedor ,informacionproveedor.nom_proveedor ,informacionproveedor.num_documento, contratos.numero_contrato, contratos.vigencia,personanatural.id_eps,personanatural.id_arl, personanatural.id_fondo_pension, personanatural.id_caja_compensacion from agora.informacion_proveedor AS informacionproveedor, argo.contrato_general AS contratos, argo.tipo_contrato as tipocontratos, agora.informacion_persona_natural AS personanatural where informacionproveedor.num_documento = contratos.contratista AND informacionproveedor.num_documento = personanatural.num_documento_persona AND contratos.tipo_contrato = tipocontratos.id AND tipocontratos.tipo_contrato = ?; `
+	 result, err := json.Marshal(data.FuncionarioProveedor)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
 
+	 resultado_peticion:= string(result)
+	  fmt.Println(resultado_peticion)
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
 
-//consulta := `SELECT c.id_proveedor ,c.nom_proveedor ,c.num_documento, b.contratista , b.numero_contrato, b.vigencia from agora.informacion_proveedor AS c, administrativa.contrato AS b, core.tipo_contrato as a where c.num_documento = b.contratista AND b.tipo_contrato = a.id AND a.nombre = ?;`
+	 return temp, err3
 
-	_, err = o.Raw(consulta,  v.TipoNomina.Descripcion).QueryRows(&datos)
-	return
 }

@@ -6,8 +6,12 @@ import (
 	"reflect"
 	"strings"
 	"time"
-
+	"strconv"
 	"github.com/astaxie/beego/orm"
+	"net/http"
+	"encoding/json"
+	"encoding/xml"
+	"io/ioutil"
 )
 
 type ActaInicio struct {
@@ -20,6 +24,13 @@ type ActaInicio struct {
 	Usuario        string    `orm:"column(usuario);null"`
 }
 
+type ActaInicioP struct {
+
+	FechaInicioTemp 	string `xml:"fechaInicio"`
+	FechaFinTemp      string				 `xml:"fechaFin"`
+
+}
+
 func (t *ActaInicio) TableName() string {
 	return "acta_inicio"
 }
@@ -28,6 +39,33 @@ func init() {
 	orm.RegisterModel(new(ActaInicio))
 }
 
+func ActaInicioProduccion(v *ContratoGeneral)(datos ActaInicioP,  err error){
+
+	var temp ActaInicioP
+
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/acta_inicio/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	xmlData := []byte(reglas)
+	data := &ActaInicioP{}
+	err2 := xml.Unmarshal(xmlData, data)
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
+
+	 result, err := json.Marshal(data)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
+
+	 resultado_peticion:= string(result)
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
+	 return temp, err3
+
+}
 // AddActaInicio insert a new ActaInicio into database and returns
 // last inserted Id on success.
 func AddActaInicio(m *ActaInicio) (id int64, err error) {

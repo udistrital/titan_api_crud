@@ -6,7 +6,7 @@ import (
 	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
-
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -22,8 +22,31 @@ func (c *ActaInicioController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
+	c.Mapping("ActaInicioProduccion", c.ActaInicioProduccion)
 }
 
+func (c *ActaInicioController) ActaInicioProduccion(){
+
+	var v models.ContratoGeneral
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		fmt.Println(v)
+			if datos_acta, err := models.ActaInicioProduccion(&v); err == nil {
+				c.Ctx.Output.SetStatus(201)
+				fmt.Println("fechas acta")
+				fmt.Println(datos_acta)
+				c.Data["json"] = datos_acta
+			} else {
+				c.Data["json"] = err.Error()
+			}
+	} else {
+		fmt.Println("error al enviar datos")
+		fmt.Println(err)
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+
+
+}
 // Post ...
 // @Title Post
 // @Description create ActaInicio
