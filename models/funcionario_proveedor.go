@@ -2,7 +2,7 @@ package models
 
 import (
 
-	//"strconv"
+	"strconv"
 	"fmt"
 	"net/http"
 	"encoding/json"
@@ -100,7 +100,8 @@ _, err := o.Raw("SELECT beneficiario.informacion_proveedor, informacionproveedor
 func ListaContratos(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
 	var temp []Funcionario_x_Proveedor
 
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/6")
+
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/"+strconv.Itoa(v.TipoNomina.Id))
 	defer resp1.Body.Close()
 	body, err := ioutil.ReadAll(resp1.Body)
 	reglas := string(body)

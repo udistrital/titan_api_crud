@@ -2,12 +2,16 @@ package models
 
 import (
 	"errors"
+	"strconv"
 	"fmt"
 	"reflect"
 	"strings"
 	"time"
-
+	"net/http"
+	"encoding/json"
+	"encoding/xml"
 	"github.com/astaxie/beego/orm"
+	"io/ioutil"
 )
 
 type Preliquidacion struct {
@@ -21,12 +25,21 @@ type Preliquidacion struct {
 }
 
 type InformePreliquidacion struct {
-	IdPersona      int     `orm:"column(id)"`
-	NomProveedor   string  `orm:"column(nombre)"`
-	NumDocumento   float64 `orm:"column(documento)"`
-	NumeroContrato string  `orm:"column(contrato)"`
+	//IdPersona      int     `orm:"column(id)"`
+	NomProveedor   string  `xml:"nombre_completo"`
+	NumDocumento   Documento  `xml:"Documento"`
+	NumeroContrato Contrato `xml:"contrato"`
 	Conceptos      []ConceptosInforme
 }
+
+type Documento struct {
+	Numero       int   `xml:"numero"`
+}
+
+type Contrato struct {
+	Numero       string   `xml:"numero"`
+}
+
 type ConceptosInforme struct {
 	Id         int    `orm:"column(id)"`
 	Nombre     string `orm:"column(nombre)"`
@@ -35,6 +48,10 @@ type ConceptosInforme struct {
 	TipoPreliquidacion string `orm:"column(tipo)"`
 }
 
+type Contrato_x_Vigencia struct {
+	NumeroContrato string `orm:"column(numero_contrato)"`
+	VigenciaContrato int `orm:"column(vigencia_contrato)"`
+}
 
 func (t *Preliquidacion) TableName() string {
 	return "preliquidacion"
@@ -173,27 +190,63 @@ func DeletePreliquidacion(id int) (err error) {
 
 func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, err error) {
 	o := orm.NewOrm()
-	var numero_contratos []string
-	var informe InformePreliquidacion
+	var numero_contratos []Contrato_x_Vigencia
 
-	_, err = o.Raw("select numero_contrato from administrativa.detalle_preliquidacion where preliquidacion = ? group by numero_contrato", v.Id).QueryRows(&numero_contratos)
+
+	_, err = o.Raw("select numero_contrato, vigencia_contrato from administrativa.detalle_preliquidacion where preliquidacion = ? group by numero_contrato,vigencia_contrato", v.Id).QueryRows(&numero_contratos)
 	if numero_contratos != nil && err == nil {
+
 		for _, contrato := range numero_contratos {
-			err = o.Raw("select a.id_proveedor as id ,a.nom_proveedor as nombre, a.num_documento as documento from agora.informacion_proveedor as a inner join argo.contrato_general as b on a.num_documento = b.contratista  where b.numero_contrato = ?", contrato).QueryRow(&informe)
-			if err == nil {
-				_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.numero_contrato = ?",v.Id, contrato).QueryRows(&informe.Conceptos)
+			informe,error_consulta_pruebas := InformacionContratistaProduccion(contrato.NumeroContrato, contrato.VigenciaContrato)
+			fmt.Println(informe)
+
+			if error_consulta_pruebas == nil {
+				_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.numero_contrato = ? AND detalle.vigencia_contrato = ?",v.Id, contrato.NumeroContrato,contrato.VigenciaContrato).QueryRows(&informe.Conceptos)
 				if err != nil {
 					fmt.Println("err3: ", err)
 				}
 			} else {
 				fmt.Println("err2: ", err)
 			}
-			informe.NumeroContrato = contrato
+
 			resumen = append(resumen, informe)
+			
 		}
 
 	} else {
 		fmt.Println("err1: ", err)
 	}
 	return
+}
+
+func InformacionContratistaProduccion(NumeroContrato string, VigenciaContrato int)(datos InformePreliquidacion,  err error){
+
+	fmt.Println("Consulta")
+	var temp InformePreliquidacion
+	fmt.Println(NumeroContrato)
+	fmt.Println(VigenciaContrato)
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/informacion_contrato_contratista/"+NumeroContrato+"/"+strconv.Itoa(VigenciaContrato))
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	fmt.Println(reglas)
+	xmlData := []byte(reglas)
+	data := &InformePreliquidacion{}
+	err2 := xml.Unmarshal(xmlData, data)
+
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
+
+	 result, err := json.Marshal(data)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
+
+	 resultado_peticion:= string(result)
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
+	 return temp, err3
+
 }
