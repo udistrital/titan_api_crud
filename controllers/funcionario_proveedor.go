@@ -26,7 +26,8 @@ func (c *FuncionarioProveedorController) URLMapping() {
 func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 	var v models.Nomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-			if listaContratos, err := models.ListaContratos(&v); err == nil {
+		if v.TipoNomina.Nombre == "CT" {
+			if listaContratos, err := models.ListaContratosContratistas(&v); err == nil {
 				c.Ctx.Output.SetStatus(201)
 				c.Data["json"] = listaContratos
 			} else {
@@ -34,13 +35,16 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 				fmt.Println("error : ", err)
 			}
 
-		 /* else if v.TipoNomina.Nombre == "PE" {
-			listaContratos := models.GetIdPensionado()
-			c.Ctx.Output.SetStatus(201)
+		} else if v.TipoNomina.Nombre == "HCS" || v.TipoNomina.Nombre == "HCH" {
+				if listaContratos, err := models.ListaContratosDocentesDVE(&v); err == nil {
+					c.Ctx.Output.SetStatus(201)
+					c.Data["json"] = listaContratos
+				} else {
+					c.Data["json"] = err.Error()
+					fmt.Println("error : ", err)
+				}
+			}
 
-			c.Data["json"] = listaContratos
-
-		}*/
 	} else {
 		c.Data["json"] = err.Error()
 		fmt.Println("error 2: ", err)

@@ -97,7 +97,38 @@ _, err := o.Raw("SELECT beneficiario.informacion_proveedor, informacionproveedor
 	return temp
 }
 
-func ListaContratos(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
+func ListaContratosContratistas(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
+	var temp []Funcionario_x_Proveedor
+
+
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/"+strconv.Itoa(v.TipoNomina.Id))
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	xmlData := []byte(reglas)
+	data := &Estructura{}
+	err2 := xml.Unmarshal(xmlData, data)
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
+
+	 result, err := json.Marshal(data.FuncionarioProveedor)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
+
+	 resultado_peticion:= string(result)
+	  fmt.Println(resultado_peticion)
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
+
+	 return temp, err3
+
+}
+
+func ListaContratosDocentesDVE(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
+	fmt.Println("HOla docentes DVE")
 	var temp []Funcionario_x_Proveedor
 
 
