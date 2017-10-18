@@ -30,17 +30,31 @@ func init() {
 
 beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"],
 	beego.ControllerComments{
-		Method:           "ActaInicioProduccion",
-		Router:           `/actaInicioProduccion`,
+		Method:           "ActaInicioContratistasPruebas",
+		Router:           `/actaInicioContratistasPruebas`,
 		AllowHTTPMethods: []string{"post"},
 		Params:           nil})
 
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"],
+		beego.ControllerComments{
+			Method:           "ActaInicioHonorariosPruebas",
+			Router:           `/actaInicioHonorariosPruebas`,
+			AllowHTTPMethods: []string{"post"},
+			Params:           nil})
+
 beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"],
 	beego.ControllerComments{
-		Method:           "ContratosProduccion",
-		Router:           `/contratosProduccion`,
+		Method:           "ContratosContratistasPruebas",
+		Router:           `/contratosContratistasPruebas`,
 		AllowHTTPMethods: []string{"post"},
 		Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"],
+		beego.ControllerComments{
+			Method:           "ContratosHonorariosPruebas",
+			Router:           `/contratosHonorariosPruebas`,
+			AllowHTTPMethods: []string{"post"},
+			Params:           nil})
 
 beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
 	beego.ControllerComments{

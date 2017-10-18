@@ -130,9 +130,14 @@ func ListaContratosContratistas(v *Nomina) (datos []Funcionario_x_Proveedor, err
 func ListaContratosDocentesDVE(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
 	fmt.Println("HOla docentes DVE")
 	var temp []Funcionario_x_Proveedor
+	var tipo_nom string
 
-
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/"+strconv.Itoa(v.TipoNomina.Id))
+	if(v.TipoNomina.Nombre == "HCH") {
+		tipo_nom = "3"
+	}else {
+		tipo_nom = "2"
+	}
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_elaborado_tipo/"+tipo_nom)
 	defer resp1.Body.Close()
 	body, err := ioutil.ReadAll(resp1.Body)
 	reglas := string(body)

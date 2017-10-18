@@ -39,7 +39,35 @@ func init() {
 	orm.RegisterModel(new(ActaInicio))
 }
 
-func ActaInicioProduccion(v *ContratoGeneral)(datos ActaInicioP,  err error){
+func ActaInicioHonorariosPruebas(v *ContratoGeneral)(datos ActaInicioP,  err error){
+
+	var temp ActaInicioP
+
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/acta_inicio_elaborado/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
+	defer resp1.Body.Close()
+	body, err := ioutil.ReadAll(resp1.Body)
+	reglas := string(body)
+	xmlData := []byte(reglas)
+	data := &ActaInicioP{}
+	err2 := xml.Unmarshal(xmlData, data)
+	 if nil != err2 {
+			 fmt.Println("Error unmarshalling from XML", err2)
+			 return
+	 }
+
+	 result, err := json.Marshal(data)
+	 if nil != err {
+			 fmt.Println("Error marshalling to JSON", err)
+			 return
+	 }
+
+	 resultado_peticion:= string(result)
+	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
+	 return temp, err3
+
+}
+
+func ActaInicioContratistasPruebas(v *ContratoGeneral)(datos ActaInicioP,  err error){
 
 	var temp ActaInicioP
 

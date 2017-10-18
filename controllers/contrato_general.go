@@ -21,16 +21,38 @@ func (c *ContratoGeneralController) URLMapping() {
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
-	c.Mapping("ContratosProduccion", c.ContratosProduccion)
+	c.Mapping("ContratosContratistasPruebas", c.ContratosContratistasPruebas)
+	c.Mapping("ContratosHonorariosPruebas", c.ContratosHonorariosPruebas)
 }
 
-
-func (c *ContratoGeneralController) ContratosProduccion(){
+func (c *ContratoGeneralController) ContratosHonorariosPruebas(){
 
 	var v models.ContratoGeneral
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		fmt.Println(v)
-			if listaContratos, err := models.ContratosProduccion(&v); err == nil {
+			if listaContratos, err := models.ContratosHonorariosPruebas(&v); err == nil {
+				c.Ctx.Output.SetStatus(201)
+				fmt.Println(listaContratos)
+				c.Data["json"] = listaContratos
+			} else {
+				c.Data["json"] = err.Error()
+			}
+	} else {
+		fmt.Println("error al enviar datos")
+		fmt.Println(err)
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+
+
+}
+
+func (c *ContratoGeneralController) ContratosContratistasPruebas(){
+
+	var v models.ContratoGeneral
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		fmt.Println(v)
+			if listaContratos, err := models.ContratosContratistasPruebas(&v); err == nil {
 				c.Ctx.Output.SetStatus(201)
 				fmt.Println(listaContratos)
 				c.Data["json"] = listaContratos
