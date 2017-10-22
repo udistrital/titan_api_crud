@@ -198,6 +198,7 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 
 		for _, contrato := range numero_contratos {
 			informe,error_consulta_pruebas := InformacionContratistaProduccion(contrato.NumeroContrato, contrato.VigenciaContrato)
+
 			fmt.Println(informe)
 
 			if error_consulta_pruebas == nil {
@@ -210,7 +211,7 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 			}
 
 			resumen = append(resumen, informe)
-			
+
 		}
 
 	} else {
@@ -225,7 +226,7 @@ func InformacionContratistaProduccion(NumeroContrato string, VigenciaContrato in
 	var temp InformePreliquidacion
 	fmt.Println(NumeroContrato)
 	fmt.Println(VigenciaContrato)
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/informacion_contrato_contratista/"+NumeroContrato+"/"+strconv.Itoa(VigenciaContrato))
+	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/informacion_contrato_elaborado_contratista/"+NumeroContrato+"/"+strconv.Itoa(VigenciaContrato))
 	defer resp1.Body.Close()
 	body, err := ioutil.ReadAll(resp1.Body)
 	reglas := string(body)

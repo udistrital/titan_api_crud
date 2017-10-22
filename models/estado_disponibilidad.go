@@ -9,52 +9,48 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type DetallePreliquidacion struct {
-	Id 								int                    `orm:"auto;column(id);pk"`
-	ValorCalculado     float64               `orm:"column(valor_calculado)"`
-	NumeroContrato     string                `orm:"column(numero_contrato);null"`
-	VigenciaContrato   int                   `orm:"column(vigencia_contrato);null"`
-	DiasLiquidados     float64               `orm:"column(dias_liquidados);null"`
-	TipoPreliquidacion *TipoPreliquidacion   `orm:"column(tipo_preliquidacion);rel(fk)"`
-	Preliquidacion     *Preliquidacion       `orm:"column(preliquidacion);rel(fk)"`
-	Concepto           *ConceptoNomina       `orm:"column(concepto);rel(fk)"`
-	EstadoDisponibilidad *EstadoDisponibilidad `orm:"column(estado_disponibilidad);rel(fk);null"`
+type EstadoDisponibilidad struct {
+	Id 								int   `orm:"auto;column(id);pk"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Activo            bool    `orm:"column(activo)"`
+	NumeroOrden       float64 `orm:"column(numero_orden);null"`
 }
 
-func (t *DetallePreliquidacion) TableName() string {
-	return "detalle_preliquidacion"
+func (t *EstadoDisponibilidad) TableName() string {
+	return "estado_disponibilidad"
 }
 
 func init() {
-	orm.RegisterModel(new(DetallePreliquidacion))
+	orm.RegisterModel(new(EstadoDisponibilidad))
 }
 
-// AddDetallePreliquidacion insert a new DetallePreliquidacion into database and returns
+// AddEstadoDisponibilidad insert a new EstadoDisponibilidad into database and returns
 // last inserted Id on success.
-func AddDetallePreliquidacion(m *DetallePreliquidacion) (id int64, err error) {
+func AddEstadoDisponibilidad(m *EstadoDisponibilidad) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
-	fmt.Println(err)
 	return
 }
 
-// GetDetallePreliquidacionById retrieves DetallePreliquidacion by Id. Returns error if
+// GetEstadoDisponibilidadById retrieves EstadoDisponibilidad by Id. Returns error if
 // Id doesn't exist
-func GetDetallePreliquidacionById(id int) (v *DetallePreliquidacion, err error) {
+func GetEstadoDisponibilidadById(id int) (v *EstadoDisponibilidad, err error) {
 	o := orm.NewOrm()
-	v = &DetallePreliquidacion{Id: id}
+	v = &EstadoDisponibilidad{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllDetallePreliquidacion retrieves all DetallePreliquidacion matches certain condition. Returns empty list if
+// GetAllEstadoDisponibilidad retrieves all EstadoDisponibilidad matches certain condition. Returns empty list if
 // no records exist
-func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllEstadoDisponibilidad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DetallePreliquidacion)).RelatedSel(5)
+	qs := o.QueryTable(new(EstadoDisponibilidad))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -104,7 +100,7 @@ func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortb
 		}
 	}
 
-	var l []DetallePreliquidacion
+	var l []EstadoDisponibilidad
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,11 +123,11 @@ func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortb
 	return nil, err
 }
 
-// UpdateDetallePreliquidacion updates DetallePreliquidacion by Id and returns error if
+// UpdateEstadoDisponibilidad updates EstadoDisponibilidad by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
+func UpdateEstadoDisponibilidadById(m *EstadoDisponibilidad) (err error) {
 	o := orm.NewOrm()
-	v := DetallePreliquidacion{Id: m.Id}
+	v := EstadoDisponibilidad{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -142,14 +138,17 @@ func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
 	return
 }
 
-// DeleteDetallePreliquidacion deletes DetallePreliquidacion by Id and returns error if
+// DeleteEstadoDisponibilidad deletes EstadoDisponibilidad by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteDetallePreliquidacion(id int) (err error) {
+func DeleteEstadoDisponibilidad(id int) (err error) {
 	o := orm.NewOrm()
-	res, err := o.Raw("DELETE FROM detalle_preliquidacion WHERE preliquidacion = ?", id).Exec()
-	if err == nil {
-    num, _ := res.RowsAffected()
-    fmt.Println("row affected nums: ", num)
+	v := EstadoDisponibilidad{Id: id}
+	// ascertain id exists in the database
+	if err = o.Read(&v); err == nil {
+		var num int64
+		if num, err = o.Delete(&EstadoDisponibilidad{Id: id}); err == nil {
+			fmt.Println("Number of records deleted in database:", num)
+		}
 	}
 	return
 }
