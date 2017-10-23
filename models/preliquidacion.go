@@ -30,6 +30,7 @@ type InformePreliquidacion struct {
 	NumDocumento   Documento  `xml:"Documento"`
 	NumeroContrato Contrato `xml:"contrato"`
 	Conceptos      []ConceptosInforme
+	Disponibilidad int
 }
 
 type Documento struct {
@@ -46,6 +47,7 @@ type ConceptosInforme struct {
 	Naturaleza string `orm:"column(naturaleza)"`
 	Valor      string `orm:"column(valor)"`
 	TipoPreliquidacion string `orm:"column(tipo)"`
+	EstadoDisponibilidad int `orm:"column(id_disp)"`
 }
 
 type Contrato_x_Vigencia struct {
@@ -191,18 +193,18 @@ func DeletePreliquidacion(id int) (err error) {
 func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, err error) {
 	o := orm.NewOrm()
 	var numero_contratos []Contrato_x_Vigencia
-
+	var est_disp int
 
 	_, err = o.Raw("select numero_contrato, vigencia_contrato from administrativa.detalle_preliquidacion where preliquidacion = ? group by numero_contrato,vigencia_contrato", v.Id).QueryRows(&numero_contratos)
 	if numero_contratos != nil && err == nil {
-
+		est_disp = 2
 		for _, contrato := range numero_contratos {
 			informe,error_consulta_pruebas := InformacionContratistaProduccion(contrato.NumeroContrato, contrato.VigenciaContrato)
 
 			fmt.Println(informe)
 
 			if error_consulta_pruebas == nil {
-				_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.numero_contrato = ? AND detalle.vigencia_contrato = ?",v.Id, contrato.NumeroContrato,contrato.VigenciaContrato).QueryRows(&informe.Conceptos)
+				_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, detalle.estado_disponibilidad as id_disp, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.numero_contrato = ? AND detalle.vigencia_contrato = ?",v.Id, contrato.NumeroContrato,contrato.VigenciaContrato).QueryRows(&informe.Conceptos)
 				if err != nil {
 					fmt.Println("err3: ", err)
 				}
@@ -210,6 +212,13 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 				fmt.Println("err2: ", err)
 			}
 
+			for _, concepto := range informe.Conceptos {
+				if(concepto.EstadoDisponibilidad == 1){
+					est_disp = 1
+				}
+			}
+
+			informe.Disponibilidad = est_disp
 			resumen = append(resumen, informe)
 
 		}
