@@ -6,7 +6,7 @@ import (
 	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
-
+	"fmt"
 	"github.com/astaxie/beego"
 )
 
@@ -23,6 +23,7 @@ func (c *PreliquidacionController) URLMapping() {
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("Resumen", c.Resumen)
+	c.Mapping("Contratos_x_preliquidacion", c.Contratos_x_preliquidacion)
 }
 
 // Post ...
@@ -172,7 +173,7 @@ func (c *PreliquidacionController) Delete() {
 }
 
 func (c *PreliquidacionController) Resumen() {
-	
+
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if res , err := models.ResumenPreliquidacion(&v); err == nil {
@@ -183,6 +184,37 @@ func (c *PreliquidacionController) Resumen() {
 		}
 	} else {
 		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
+// Contratos_x_preliquidacion ...
+// @Title Contratos_x_preliquidacion
+// @Description Agrupa los contratos de una preliquidacion segun mes, año y nomina
+// @Param idNomina query string false "nomina a listar"
+// @Param mesLiquidacion query string false "mes de la liquidacion a listar"
+// @Param anioLiquidacion query string false "anio de la liquidacion a listar"
+// @Success 201 {object} []models.Contrato_x_Vigencia
+// @Failure 403 body is empty
+// @router /contratos_x_preliquidacion [get]
+func (c *PreliquidacionController) Contratos_x_preliquidacion() {
+
+	idNomina, err1 := c.GetInt("idNomina")
+	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
+	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
+	if err1 == nil && err2 == nil && err3 == nil {
+	fmt.Println(idNomina)
+	fmt.Println(mesLiquidacion)
+	fmt.Println(anioLiquidacion)
+		if res , err := models.Contratos_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = res
+		} else {
+			c.Data["json"] = err.Error()
+		}
+	} else {
+		fmt.Println(err1)
+		c.Data["json"] = "error"
 	}
 	c.ServeJSON()
 }

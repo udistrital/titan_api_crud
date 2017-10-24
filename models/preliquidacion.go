@@ -260,3 +260,18 @@ func InformacionContratistaProduccion(NumeroContrato string, VigenciaContrato in
 	 return temp, err3
 
 }
+
+func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre []Contrato_x_Vigencia, err error) {
+	o := orm.NewOrm()
+	var numero_contratos []Contrato_x_Vigencia
+
+
+	_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&numero_contratos)
+	if err == nil {
+		fmt.Println(numero_contratos)
+
+	} else {
+		fmt.Println("err1: ", err)
+	}
+	return numero_contratos,err
+}

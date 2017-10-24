@@ -98,6 +98,8 @@ beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:D
 			Router:           `/resumen`,
 			AllowHTTPMethods: []string{"post"},
 			Params:           nil})
+
+	
 		/*
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:LiquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:LiquidacionController"],
 		beego.ControllerComments{
