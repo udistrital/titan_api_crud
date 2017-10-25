@@ -50,6 +50,11 @@ type ConceptosInforme struct {
 	EstadoDisponibilidad int `orm:"column(id_disp)"`
 }
 
+type Preliquidacion_x_contratos struct {
+	Id_Preliq int
+	Contratos_por_preliq []Contrato_x_Vigencia
+}
+
 type Contrato_x_Vigencia struct {
 	NumeroContrato string `orm:"column(numero_contrato)"`
 	VigenciaContrato int `orm:"column(vigencia_contrato)"`
@@ -261,17 +266,23 @@ func InformacionContratistaProduccion(NumeroContrato string, VigenciaContrato in
 
 }
 
-func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre []Contrato_x_Vigencia, err error) {
+func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre Preliquidacion_x_contratos, err error) {
 	o := orm.NewOrm()
-	var numero_contratos []Contrato_x_Vigencia
 
+	var preliq_x_cont  Preliquidacion_x_contratos
 
-	_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&numero_contratos)
+	_ = o.Raw("select pre.id from administrativa.preliquidacion as pre where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Id_Preliq)
 	if err == nil {
-		fmt.Println(numero_contratos)
+		
+		_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&preliq_x_cont.Contratos_por_preliq)
+		if err == nil {
+			fmt.Println(preliq_x_cont)
 
-	} else {
+		} else {
+			fmt.Println("err1: ", err)
+		}
+	}else{
 		fmt.Println("err1: ", err)
 	}
-	return numero_contratos,err
+	return preliq_x_cont,err
 }

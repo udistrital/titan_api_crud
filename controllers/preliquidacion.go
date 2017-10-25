@@ -194,7 +194,7 @@ func (c *PreliquidacionController) Resumen() {
 // @Param idNomina query string false "nomina a listar"
 // @Param mesLiquidacion query string false "mes de la liquidacion a listar"
 // @Param anioLiquidacion query string false "anio de la liquidacion a listar"
-// @Success 201 {object} []models.Contrato_x_Vigencia
+// @Success 201 {object} models.Preliquidacion_x_contratos
 // @Failure 403 body is empty
 // @router /contratos_x_preliquidacion [get]
 func (c *PreliquidacionController) Contratos_x_preliquidacion() {
