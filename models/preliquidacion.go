@@ -30,7 +30,7 @@ type InformePreliquidacion struct {
 	NumDocumento   Documento  `xml:"Documento"`
 	NumeroContrato Contrato `xml:"contrato"`
 	Conceptos      []ConceptosInforme
-	Disponibilidad int
+	Disponibilidad int			`xml:"null"`
 }
 
 type Documento struct {
