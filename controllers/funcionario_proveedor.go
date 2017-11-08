@@ -24,6 +24,7 @@ func (c *FuncionarioProveedorController) URLMapping() {
 }
 
 func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
+	fmt.Println("hola a todos")
 	var v models.Nomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if v.TipoNomina.Nombre == "CT" {
