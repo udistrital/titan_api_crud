@@ -61,6 +61,13 @@ type Contrato_x_Vigencia struct {
 	VigenciaContrato int `orm:"column(vigencia_contrato)"`
 }
 
+type Totales_x_preliq struct {
+	Total float64    `orm:"column(total);null"`
+	Id_concepto int   `orm:"column(id)"`
+	Alias_concepto string   `orm:"column(alias_concepto)"`
+	Nombre_concepto   string  `orm:"column(nombre_concepto)"`
+}
+
 func (t *Preliquidacion) TableName() string {
 	return "preliquidacion"
 }
@@ -286,4 +293,19 @@ func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre Preliquida
 		fmt.Println("err1: ", err)
 	}
 	return preliq_x_cont,err
+}
+
+func Totales_ss_x_preliquidacion(idNomina, mes, ano int) (totales_por_pre []Totales_x_preliq, err error) {
+	o := orm.NewOrm()
+
+	var totales  []Totales_x_preliq
+
+	_,err = o.Raw("SELECT SUM(valor_calculado) as total, cn.alias_concepto, cn.nombre_concepto, cn.id FROM administrativa.detalle_preliquidacion dp INNER JOIN administrativa.concepto_nomina cn ON cn.id = dp.concepto INNER JOIN  administrativa.preliquidacion pr ON pr.id = dp.preliquidacion WHERE cn.nombre_concepto = 'salud' OR cn.nombre_concepto = 'pension' OR cn.nombre_concepto = 'fondoSolidaridad' AND pr.mes = ? AND pr.ano = ? AND pr.estado_preliquidacion = 1 AND pr.nomina = ? GROUP BY cn.id, cn.alias_concepto, cn.nombre_concepto, cn.id;", mes, ano, idNomina).QueryRows(&totales)
+	if err == nil {
+		//fmt.Println(totales)
+
+	}else{
+		fmt.Println("err1: ", err)
+	}
+	return totales,err
 }

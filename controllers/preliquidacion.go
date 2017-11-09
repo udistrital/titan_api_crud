@@ -24,6 +24,7 @@ func (c *PreliquidacionController) URLMapping() {
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("Resumen", c.Resumen)
 	c.Mapping("Contratos_x_preliquidacion", c.Contratos_x_preliquidacion)
+	c.Mapping("Totales_ss_x_preliquidacion", c.Totales_ss_x_preliquidacion)
 }
 
 // Post ...
@@ -207,6 +208,37 @@ func (c *PreliquidacionController) Contratos_x_preliquidacion() {
 	fmt.Println(mesLiquidacion)
 	fmt.Println(anioLiquidacion)
 		if res , err := models.Contratos_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = res
+		} else {
+			c.Data["json"] = err.Error()
+		}
+	} else {
+		fmt.Println(err1)
+		c.Data["json"] = "error"
+	}
+	c.ServeJSON()
+}
+
+// Totales_ss_x_preliquidacion ...
+// @Title Totales_ss_x_preliquidacion
+// @Description Retorna los totales para los descuentos de salud, pension y fondo de solidaridad segun el tipo de nomina, el mes y el año
+// @Param idNomina query string false "nomina a listar"
+// @Param mesLiquidacion query string false "mes de la liquidacion a listar"
+// @Param anioLiquidacion query string false "anio de la liquidacion a listar"
+// @Success 201 {object} models.Totales_x_preliq
+// @Failure 403 body is empty
+// @router /totales_x_preliq [get]
+func (c *PreliquidacionController) Totales_ss_x_preliquidacion() {
+
+	idNomina, err1 := c.GetInt("idNomina")
+	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
+	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
+	if err1 == nil && err2 == nil && err3 == nil {
+	fmt.Println(idNomina)
+	fmt.Println(mesLiquidacion)
+	fmt.Println(anioLiquidacion)
+		if res , err := models.Totales_ss_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
