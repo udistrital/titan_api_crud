@@ -26,6 +26,7 @@ func (c *ContratoGeneralController) URLMapping() {
 }
 
 func (c *ContratoGeneralController) ContratosHonorariosPruebas(){
+	fmt.Println("contratos contratistas aca")
 
 	var v models.ContratoGeneral
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {

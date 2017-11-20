@@ -309,3 +309,24 @@ func Totales_ss_x_preliquidacion(idNomina, mes, ano int) (totales_por_pre []Tota
 	}
 	return totales,err
 }
+
+func Contratos_x_preliquidacion_cerrada(idNomina, mes, ano int) (cont_por_pre Preliquidacion_x_contratos, err error) {
+	o := orm.NewOrm()
+	var preliq_x_cont  Preliquidacion_x_contratos
+
+	err1 := o.Raw("select tipo_nom.nombre, pre.id from administrativa.preliquidacion as pre, administrativa.nomina as nom, administrativa.tipo_nomina as tipo_nom where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 1 AND nomina = ? AND pre.nomina = nom.id AND nom.tipo_nomina = tipo_nom.id;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Nombre_tipo_nomina,&preliq_x_cont.Id_Preliq)
+	if err1 == nil {
+
+		_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&preliq_x_cont.Contratos_por_preliq)
+		if err == nil {
+			fmt.Println(preliq_x_cont)
+
+		} else {
+			fmt.Println("err1: ", err)
+		}
+	}else{
+		fmt.Println("err1: ", err1)
+	}
+
+	return preliq_x_cont,err1
+}

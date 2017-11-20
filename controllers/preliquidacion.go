@@ -24,7 +24,9 @@ func (c *PreliquidacionController) URLMapping() {
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("Resumen", c.Resumen)
 	c.Mapping("Contratos_x_preliquidacion", c.Contratos_x_preliquidacion)
+	c.Mapping("Contratos_x_preliquidacion_cerrada", c.Contratos_x_preliquidacion_cerrada)
 	c.Mapping("Totales_ss_x_preliquidacion", c.Totales_ss_x_preliquidacion)
+
 }
 
 // Post ...
@@ -191,7 +193,7 @@ func (c *PreliquidacionController) Resumen() {
 
 // Contratos_x_preliquidacion ...
 // @Title Contratos_x_preliquidacion
-// @Description Agrupa los contratos de una preliquidacion segun mes, año y nomina
+// @Description Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado OP
 // @Param idNomina query string false "nomina a listar"
 // @Param mesLiquidacion query string false "mes de la liquidacion a listar"
 // @Param anioLiquidacion query string false "anio de la liquidacion a listar"
@@ -239,6 +241,37 @@ func (c *PreliquidacionController) Totales_ss_x_preliquidacion() {
 	fmt.Println(mesLiquidacion)
 	fmt.Println(anioLiquidacion)
 		if res , err := models.Totales_ss_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = res
+		} else {
+			c.Data["json"] = err.Error()
+		}
+	} else {
+		fmt.Println(err1)
+		c.Data["json"] = "error"
+	}
+	c.ServeJSON()
+}
+
+// Contratos_x_preliquidacion_cerrada ...
+// @Title Contratos_x_preliquidacion_cerrada
+// @Description Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado CERRADA
+// @Param idNomina query string false "nomina a listar"
+// @Param mesLiquidacion query string false "mes de la liquidacion a listar"
+// @Param anioLiquidacion query string false "anio de la liquidacion a listar"
+// @Success 201 {object} models.Preliquidacion_x_contratos
+// @Failure 403 body is empty
+// @router /contratos_x_preliquidacion_cerrada [get]
+func (c *PreliquidacionController) Contratos_x_preliquidacion_cerrada() {
+
+	idNomina, err1 := c.GetInt("idNomina")
+	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
+	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
+	if err1 == nil && err2 == nil && err3 == nil {
+	fmt.Println(idNomina)
+	fmt.Println(mesLiquidacion)
+	fmt.Println(anioLiquidacion)
+		if res , err := models.Contratos_x_preliquidacion_cerrada(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
