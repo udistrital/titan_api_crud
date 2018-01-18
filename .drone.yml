@@ -15,8 +15,10 @@ build:
 publish:
 
   docker:
-    repo: titan_api_crud
-    tags: desarrollo
+    repo: oas0/titan_api_crud
+    username: oas0
+    password: $$DOCKER_PUBLISH_PASSWORD
+    tags: develop
     when:
       branch: develop
       event: push
