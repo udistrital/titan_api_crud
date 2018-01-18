@@ -12,6 +12,8 @@ build:
       branch: develop
       event: push
 
+publish:
+
   docker:
     image: plugins/docker
     repo: titan_api_crud
