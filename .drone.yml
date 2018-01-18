@@ -17,6 +17,7 @@ publish:
   docker:
     repo: oas0/titan_api_crud
     username: oas0
+    email: computoud@googlegroups.com
     password: $$DOCKER_PUBLISH_PASSWORD
     tags: develop
     when:
