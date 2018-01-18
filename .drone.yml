@@ -13,19 +13,9 @@ build:
       event: push
 
   docker:
-    image: docker
-    commands:
-      - docker build -t titan_api_crud-desarrollo .
+    image: plugins/docker
+    repo: titan_api_crud
+    tags: desarrollo
     when:
-      branch: TODO
+      branch: develop
       event: push
-
-publish:
-
-  ecr:
-    image: TODO
-    origen: titan_api_crud-desarrollo
-    destino: 99001025740.dkr.ecr.us-east-1.amazonaws.com/oas:titan_api_crud-desarrollo
-  when:
-    branch: TODO
-    event: push
