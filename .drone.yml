@@ -1,0 +1,31 @@
+clone:
+  path: github.com/udistrital/titan_api_crud
+
+build:
+
+  go:
+    image: golang:1.8
+    commands:
+     - go get
+     - go build -o main
+    when:
+      branch: develop
+      event: push
+
+  docker:
+    image: docker
+    commands:
+      - docker build -t titan_api_crud-desarrollo .
+    when:
+      branch: TODO
+      event: push
+
+publish:
+
+  ecr:
+    image: TODO
+    origen: titan_api_crud-desarrollo
+    destino: 99001025740.dkr.ecr.us-east-1.amazonaws.com/oas:titan_api_crud-desarrollo
+  when:
+    branch: TODO
+    event: push
