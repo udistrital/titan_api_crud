@@ -17,9 +17,8 @@ publish:
   docker:
     repo: oas0/titan_api_crud
     tag:
+      - $${COMMIT:0:7}
       - latest
-      - desarrollo
-      - $$COMMIT
     username: oas0
     password: $$DOCKER_PUBLISH_PASSWORD
     email: computoud@googlegroups.com
