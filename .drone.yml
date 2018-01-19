@@ -22,8 +22,8 @@ publish:
       - desarrollo
       - $$COMMIT
     username: oas0
-    email: computoud@googlegroups.com
     password: $$DOCKER_PUBLISH_PASSWORD
+    debug: true
     when:
       branch: develop
       event: push
