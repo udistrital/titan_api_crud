@@ -15,7 +15,6 @@ build:
 publish:
 
   docker:
-    image: plugins/docker
     repo: oas0/titan_api_crud
     tags:
       - latest
@@ -23,6 +22,7 @@ publish:
       - $$COMMIT
     username: oas0
     password: $$DOCKER_PUBLISH_PASSWORD
+    email: computoud@googlegroups.com
     debug: true
     when:
       branch: develop
