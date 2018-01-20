@@ -12,6 +12,13 @@ build:
       branch: develop
       event: push
 
+  sed:
+    image: alpine
+    commands:
+      - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
+      - apk -U add zip
+      - zip app.zip imagedef.json
+
 publish:
 
   docker:
@@ -22,6 +29,17 @@ publish:
     username: oas0
     password: $$DOCKER_PUBLISH_PASSWORD
     email: computoud@googlegroups.com
+    when:
+      branch: develop
+      event: push
+
+  s3:
+    region: "us-east-1"
+    bucket: "drone-helper-bucket"
+    access_key: $$DRONE_AWS_ACCESS_KEY_ID
+    secret_key: $$DRONE_AWS_SECRET_ACCESS_KEY
+    source: app.zip
+    target: /apps/titan_api_crud-$$BRANCH.zip
     when:
       branch: develop
       event: push

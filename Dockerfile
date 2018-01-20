@@ -1,7 +1,7 @@
-# Dockerfile
-FROM debian:stretch
-COPY main /main
-COPY conf/app.conf /conf/app.conf
-RUN chmod +x main
+FROM mesosphere/aws-cli
 WORKDIR /
-ENTRYPOINT ["/main"]
+COPY entrypoint.sh entrypoint.sh
+COPY main main
+COPY conf/app.conf conf/app.conf
+RUN chmod +x main entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
