@@ -45,6 +45,7 @@ publish:
       event: push
 
 notify:
+
   webhook:
     urls:
       - https://api.telegram.org/bot$$DRONE_TELEGRAM_TOKEN/sendMessage
