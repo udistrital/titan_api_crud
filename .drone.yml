@@ -26,8 +26,8 @@ publish:
     tag:
       - $${COMMIT:0:7}
       - latest
-    username: oas0
-    password: $$DOCKER_PUBLISH_PASSWORD
+    username: $$DRONE_DOCKERID_LOGIN
+    password: $$DRONE_DOCKERID_PASSWORD
     email: computoud@googlegroups.com
     when:
       branch: develop
@@ -43,3 +43,18 @@ publish:
     when:
       branch: develop
       event: push
+
+notify:
+  webhook:
+    urls:
+      - https://api.telegram.org/bot$$DRONE_TELEGRAM_TOKEN/sendMessage
+    content_type: application/json
+    template: >
+      {
+        "chat_id": "-129350403",
+        "parse_mode": "Markdown",
+        "text": "`{{repo.full_name}}` [{{uppercase build.status}}]({{build.link_url}}) `{{build.branch}}`@{{truncate build.commit 7}}"
+      }
+    when:
+      branch:
+        - develop
