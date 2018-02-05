@@ -3,24 +3,31 @@ clone:
 
 build:
 
+  # build and test the go program
   go:
     image: golang:1.9
     commands:
-     - go get
+     - go get -t
      - GOOS=linux GOARCH=amd64 go build -o main
+     - go test ./... -cover
     when:
       branch: develop
       event: push
 
+  # prepare imagedef.json and app.zip for deployment
   sed:
     image: alpine
     commands:
       - sed -i 's|SED_TAG|'${CI_COMMIT:0:7}'|' imagedef.json
       - apk -U add zip
       - zip app.zip imagedef.json
+    when:
+      branch: develop
+      event: push
 
 publish:
 
+  # build and push docker image to docker hub
   docker:
     repo: oas0/titan_api_crud
     tag:
@@ -33,6 +40,7 @@ publish:
       branch: develop
       event: push
 
+  # upload app.zip to s3 bucket for CodePipline
   s3:
     region: "us-east-1"
     bucket: "drone-helper-bucket"
@@ -46,6 +54,7 @@ publish:
 
 notify:
 
+  # notify telegram
   webhook:
     urls:
       - https://api.telegram.org/bot$$DRONE_TELEGRAM_TOKEN/sendMessage
@@ -57,5 +66,5 @@ notify:
         "text": "`{{repo.full_name}}` [{{uppercase build.status}}]({{build.link_url}}) `{{build.branch}}`@{{truncate build.commit 7}}"
       }
     when:
-      branch:
-        - develop
+      branch: develop
+      event: push
