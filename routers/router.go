@@ -34,16 +34,18 @@ func init() {
 			),
 		),
 
-		beego.NSNamespace("/funcionario_cargo",
-					beego.NSInclude(
-						&controllers.FuncionarioCargoController{},
-					),
-				),
 		beego.NSNamespace("/funcionario_proveedor",
 		  beego.NSInclude(
 		    &controllers.FuncionarioProveedorController{},
 		  ),
 		),
+
+
+		beego.NSNamespace("/funcionario_cargo",
+					beego.NSInclude(
+						&controllers.FuncionarioCargoController{},
+					),
+				),
 
 		beego.NSNamespace("/parametro_estandar",
 			beego.NSInclude(

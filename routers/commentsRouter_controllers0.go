@@ -28,34 +28,6 @@ func init() {
 			Params: nil})
 */
 
-beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"],
-	beego.ControllerComments{
-		Method:           "ActaInicioContratistasPruebas",
-		Router:           `/actaInicioContratistasPruebas`,
-		AllowHTTPMethods: []string{"post"},
-		Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ActaInicioController"],
-		beego.ControllerComments{
-			Method:           "ActaInicioHonorariosPruebas",
-			Router:           `/actaInicioHonorariosPruebas`,
-			AllowHTTPMethods: []string{"post"},
-			Params:           nil})
-
-beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"],
-	beego.ControllerComments{
-		Method:           "ContratosContratistasPruebas",
-		Router:           `/contratosContratistasPruebas`,
-		AllowHTTPMethods: []string{"post"},
-		Params:           nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ContratoGeneralController"],
-		beego.ControllerComments{
-			Method:           "ContratosHonorariosPruebas",
-			Router:           `/contratosHonorariosPruebas`,
-			AllowHTTPMethods: []string{"post"},
-			Params:           nil})
-
 beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
 	beego.ControllerComments{
 		Method:           "ConsultarAsignacionBasica",
@@ -99,7 +71,7 @@ beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:D
 			AllowHTTPMethods: []string{"post"},
 			Params:           nil})
 
-	
+
 		/*
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:LiquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:LiquidacionController"],
 		beego.ControllerComments{
