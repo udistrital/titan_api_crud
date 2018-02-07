@@ -1057,6 +1057,14 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
 		beego.ControllerComments{
+			Method: "Resumen",
+			Router: `/resumen/`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
+		beego.ControllerComments{
 			Method: "Totales_ss_x_preliquidacion",
 			Router: `/totales_x_preliq`,
 			AllowHTTPMethods: []string{"get"},

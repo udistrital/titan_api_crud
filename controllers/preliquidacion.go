@@ -175,11 +175,19 @@ func (c *PreliquidacionController) Delete() {
 	c.ServeJSON()
 }
 
+// PreliquidacionController ...
+// @Title Resumen
+// @Description create Resumen
+// @Param	  body		body 	models.Preliquidacion	true		"body for Preliquidacion content"
+// @Success 201 {object} models.InformePreliquidacion
+// @Failure 403 body is empty
+// @router /resumen/ [post]
 func (c *PreliquidacionController) Resumen() {
 
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if res , err := models.ResumenPreliquidacion(&v); err == nil {
+			fmt.Println("respuesta",res)
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
