@@ -47,7 +47,7 @@ func GetAsignacionBasicaDocente(id_proveedor int) (asignacion_basica []Docente_x
 	idProveedorString := strconv.Itoa(id_proveedor)
 	_, err := o.Raw("SELECT cargo.id,cargo.asignacion_basica, per.emp_desde, per.emp_hasta,informacion_proveedor.puntos,per.regimen,persona_natural.cargo FROM personal.cargo AS cargo,agora.informacion_proveedor, personal.persona as per,agora.informacion_persona_natural as persona_natural WHERE persona_natural.num_documento_persona= informacion_proveedor.num_documento AND per.id =" + idProveedorString + " AND per.estado = 'A' AND per.id_cargo = cargo.id AND informacion_proveedor.id_proveedor=per.id").QueryRows(&temp)
 	if err == nil {
-		fmt.Println(temp[0].Regimen)
+
 		fmt.Println("Consulta exitosa")
 	}
 

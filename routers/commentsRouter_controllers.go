@@ -407,46 +407,6 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"],
-		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
-			AllowHTTPMethods: []string{"post"},
-			MethodParams: param.Make(),
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"],
-		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams: param.Make(),
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"],
-		beego.ControllerComments{
-			Method: "GetOne",
-			Router: `/:id`,
-			AllowHTTPMethods: []string{"get"},
-			MethodParams: param.Make(),
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"],
-		beego.ControllerComments{
-			Method: "Put",
-			Router: `/:id`,
-			AllowHTTPMethods: []string{"put"},
-			MethodParams: param.Make(),
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DatosPruebasController"],
-		beego.ControllerComments{
-			Method: "Delete",
-			Router: `/:id`,
-			AllowHTTPMethods: []string{"delete"},
-			MethodParams: param.Make(),
-			Params: nil})
-
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DepartamentoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DepartamentoController"],
 		beego.ControllerComments{
 			Method: "Post",
@@ -524,6 +484,22 @@ func init() {
 			Method: "Delete",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
+		beego.ControllerComments{
+			Method: "ConsultarAsignacionBasica",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
+		beego.ControllerComments{
+			Method: "ConsultarCedulaDocente",
+			Router: `/consultarCedulaDocente/`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 
@@ -644,6 +620,14 @@ func init() {
 			Method: "Delete",
 			Router: `/:id`,
 			AllowHTTPMethods: []string{"delete"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioPritecController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioPritecController"],
+		beego.ControllerComments{
+			Method: "ConsultarPrimaTecnica",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 
