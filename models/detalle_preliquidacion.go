@@ -153,3 +153,18 @@ func DeleteDetallePreliquidacion(id int) (err error) {
 	}
 	return
 }
+
+func GetPersonasPagosPendientes(nomina int)(detalle_p []DetallePreliquidacion, e error){
+	o := orm.NewOrm()
+
+	var detalle_pre  []DetallePreliquidacion
+
+	_,err := o.Raw(" SELECT vd.* FROM administrativa.detalle_preliquidacion vd JOIN (SELECT numero_contrato, vigencia_contrato,preliquidacion FROM administrativa.detalle_preliquidacion, administrativa.preliquidacion WHERE estado_disponibilidad = 1 AND preliquidacion.nomina =? AND preliquidacion.id=detalle_preliquidacion.preliquidacion GROUP BY numero_contrato, vigencia_contrato, preliquidacion)OP ON OP.numero_contrato = vd.numero_contrato AND OP.vigencia_contrato = vd.vigencia_contrato AND OP.preliquidacion = vd.preliquidacion AND vd.concepto = 11;",nomina).QueryRows(&detalle_pre)
+	if err == nil {
+		//fmt.Println(totales)
+
+	}else{
+		fmt.Println("err1: ", err)
+	}
+	return detalle_pre,err
+}

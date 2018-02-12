@@ -170,3 +170,24 @@ func (c *DetallePreliquidacionController) Delete() {
 	}
 	c.ServeJSON()
 }
+
+
+// GetPersonasPagosPendientese ...
+// @Title GetPersonasPagosPendientes
+// @Description obtener contrato y vigencia agrupados de personas que tengan pagos pendientes en meses anteriores
+// @Param idNomina query string false "nomina a listar"
+// @Success 200 {object} models.DetallePreliquidacion
+// @Failure 403
+// @router /get_personas_pago_pendiente [get]
+func (c *DetallePreliquidacionController) GetPersonasPagosPendientes() {
+
+	idNomina, _ := c.GetInt("idNomina")
+	v, err := models.GetPersonasPagosPendientes(idNomina)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		
+		c.Data["json"] = v
+	}
+	c.ServeJSON()
+}
