@@ -227,6 +227,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/estado_concepto_nomina",
+			beego.NSInclude(
+				&controllers.EstadoConceptoNominaController{},
+			),
+		),
+
 		beego.NSNamespace("/tipo_nomina",
 			beego.NSInclude(
 				&controllers.TipoNominaController{},

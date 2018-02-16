@@ -9,48 +9,48 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type ConceptoNomina struct {
-	Id 									int                      `orm:"auto;column(id);pk"`
-	NombreConcepto     string                    `orm:"column(nombre_concepto)"`
-	AliasConcepto      string                    `orm:"column(alias_concepto);null"`
-	TipoConcepto       *TipoConceptoNomina       `orm:"column(tipo_concepto);rel(fk)"`
-	NaturalezaConcepto *NaturalezaConceptoNomina `orm:"column(naturaleza_concepto);rel(fk)"`
-	EstadoConceptoNomina *EstadoConceptoNomina   `orm:"column(estado_concepto_nomina);rel(fk)"`
+type EstadoConceptoNomina struct {
+	Id 								int   `orm:"auto;column(id);pk"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Activo            bool    `orm:"column(activo)"`
+	NumeroOrden       float64 `orm:"column(numero_orden);null"`
 }
 
-func (t *ConceptoNomina) TableName() string {
-	return "concepto_nomina"
+func (t *EstadoConceptoNomina) TableName() string {
+	return "estado_concepto_nomina"
 }
 
 func init() {
-	orm.RegisterModel(new(ConceptoNomina))
+	orm.RegisterModel(new(EstadoConceptoNomina))
 }
 
-// AddConceptoNomina insert a new ConceptoNomina into database and returns
+// AddEstadoConceptoNomina insert a new EstadoConceptoNomina into database and returns
 // last inserted Id on success.
-func AddConceptoNomina(m *ConceptoNomina) (id int64, err error) {
+func AddEstadoConceptoNomina(m *EstadoConceptoNomina) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetConceptoNominaById retrieves ConceptoNomina by Id. Returns error if
+// GetEstadoConceptoNominaById retrieves EstadoConceptoNomina by Id. Returns error if
 // Id doesn't exist
-func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
+func GetEstadoConceptoNominaById(id int) (v *EstadoConceptoNomina, err error) {
 	o := orm.NewOrm()
-	v = &ConceptoNomina{Id: id}
+	v = &EstadoConceptoNomina{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllConceptoNomina retrieves all ConceptoNomina matches certain condition. Returns empty list if
+// GetAllEstadoConceptoNomina retrieves all EstadoConceptoNomina matches certain condition. Returns empty list if
 // no records exist
-func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllEstadoConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ConceptoNomina)).RelatedSel(5)
+	qs := o.QueryTable(new(EstadoConceptoNomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -100,7 +100,7 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []ConceptoNomina
+	var l []EstadoConceptoNomina
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -123,11 +123,11 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdateConceptoNomina updates ConceptoNomina by Id and returns error if
+// UpdateEstadoConceptoNomina updates EstadoConceptoNomina by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
+func UpdateEstadoConceptoNominaById(m *EstadoConceptoNomina) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: m.Id}
+	v := EstadoConceptoNomina{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -138,15 +138,15 @@ func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
 	return
 }
 
-// DeleteConceptoNomina deletes ConceptoNomina by Id and returns error if
+// DeleteEstadoConceptoNomina deletes EstadoConceptoNomina by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteConceptoNomina(id int) (err error) {
+func DeleteEstadoConceptoNomina(id int) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: id}
+	v := EstadoConceptoNomina{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&ConceptoNomina{Id: id}); err == nil {
+		if num, err = o.Delete(&EstadoConceptoNomina{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
