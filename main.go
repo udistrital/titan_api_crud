@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "github.com/udistrital/titan_api_crud/routers"
-
+	"github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
@@ -35,5 +35,6 @@ func init() {
 
 func main() {
 	orm.RegisterDataBase("default", "postgres", "postgres://"+beego.AppConfig.String("PGuser")+":"+beego.AppConfig.String("PGpass")+"@"+beego.AppConfig.String("PGurls")+"/"+beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+beego.AppConfig.String("PGschemas")+"")
+	apistatus.Init()
 	beego.Run()
 }
