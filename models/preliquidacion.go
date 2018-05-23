@@ -22,7 +22,7 @@ type Preliquidacion struct {
 type InformePreliquidacion struct {
 	//IdPersona      int     `orm:"column(id)"`
 	NumeroContrato  string
-	Vigencia       int      
+	Vigencia       int
 	Conceptos      []ConceptosInforme
 	Disponibilidad int
 }
@@ -197,7 +197,7 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 
 	_, err = o.Raw("select numero_contrato, vigencia_contrato from administrativa.detalle_preliquidacion where preliquidacion = ? group by numero_contrato,vigencia_contrato", v.Id).QueryRows(&numero_contratos)
 	if numero_contratos != nil && err == nil {
-		est_disp = 2
+
 		for _, contrato := range numero_contratos {
 
 			var informe InformePreliquidacion
@@ -208,15 +208,19 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 					fmt.Println("err3: ", err)
 				}
 			for _, concepto := range informe.Conceptos {
+			   est_disp = 2
 				if(concepto.EstadoDisponibilidad == 1){
+
 					est_disp = 1
 				}
 			}
 
 			informe.Disponibilidad = est_disp
+
 			resumen = append(resumen, informe)
 
 		}
+
 
 	} else {
 		fmt.Println("err1: ", err)
