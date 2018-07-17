@@ -15,6 +15,7 @@ type ConceptoNomina struct {
 	AliasConcepto      string                    `orm:"column(alias_concepto);null"`
 	TipoConcepto       *TipoConceptoNomina       `orm:"column(tipo_concepto);rel(fk)"`
 	NaturalezaConcepto *NaturalezaConceptoNomina `orm:"column(naturaleza_concepto);rel(fk)"`
+	EstadoConceptoNomina *EstadoConceptoNomina   `orm:"column(estado_concepto_nomina);rel(fk)"`
 }
 
 func (t *ConceptoNomina) TableName() string {

@@ -17,7 +17,8 @@ type ConceptoNominaPorPersona struct {
 	FechaDesde    time.Time             `orm:"column(fecha_desde);type(timestamp with time zone);null"`
 	FechaHasta    time.Time             `orm:"column(fecha_hasta);type(timestamp with time zone);null"`
 	FechaRegistro time.Time             `orm:"column(fecha_registro);type(timestamp with time zone);null"`
-	Persona       int										 `orm:"column(persona)"`
+	NumeroContrato string										 `orm:"column(numero_contrato)"`
+	VigenciaContrato int										 `orm:"column(vigencia_contrato)"`
 	Concepto      *ConceptoNomina       `orm:"column(concepto);rel(fk)"`
 	Nomina        *Nomina               `orm:"column(nomina);rel(fk)"`
 	Activo        bool                  `orm:"column(activo)"`

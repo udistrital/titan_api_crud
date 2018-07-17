@@ -2,16 +2,12 @@ package models
 
 import (
 	"errors"
-	"strconv"
 	"fmt"
 	"reflect"
 	"strings"
 	"time"
-	"net/http"
-	"encoding/json"
-	"encoding/xml"
 	"github.com/astaxie/beego/orm"
-	"io/ioutil"
+
 )
 
 type ContratoEstado struct {
@@ -79,63 +75,6 @@ func init() {
 	orm.RegisterModel(new(ContratoGeneral))
 }
 
-// AddContratoGeneral insert a new ContratoGeneral into database and returns
-// last inserted Id on success.
-func ContratosHonorariosPruebas(v *ContratoGeneral)(datos ContratoEstado,  err error){
-
-	var temp ContratoEstado
-
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contrato_elaborado_estado/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
-	defer resp1.Body.Close()
-	body, err := ioutil.ReadAll(resp1.Body)
-	reglas := string(body)
-	xmlData := []byte(reglas)
-	data := &ContratoEstado{}
-	err2 := xml.Unmarshal(xmlData, data)
-	 if nil != err2 {
-			 fmt.Println("Error unmarshalling from XML", err2)
-			 return
-	 }
-
-	 result, err := json.Marshal(data)
-	 if nil != err {
-			 fmt.Println("Error marshalling to JSON", err)
-			 return
-	 }
-
-	 resultado_peticion:= string(result)
-	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
-	 return temp, err3
-
-}
-
-func ContratosContratistasPruebas(v *ContratoGeneral)(datos ContratoEstado,  err error){
-
-	var temp ContratoEstado
-
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contrato_estado/"+v.Id+"/"+strconv.Itoa(v.Vigencia))
-	defer resp1.Body.Close()
-	body, err := ioutil.ReadAll(resp1.Body)
-	reglas := string(body)
-	xmlData := []byte(reglas)
-	data := &ContratoEstado{}
-	err2 := xml.Unmarshal(xmlData, data)
-	 if nil != err2 {
-			 fmt.Println("Error unmarshalling from XML", err2)
-			 return
-	 }
-
-	 result, err := json.Marshal(data)
-	 if nil != err {
-			 fmt.Println("Error marshalling to JSON", err)
-			 return
-	 }
-
-	 resultado_peticion:= string(result)
-	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
-	 return temp, err3
-
-}
 
 func AddContratoGeneral(m *ContratoGeneral) (id int64, err error) {
 	o := orm.NewOrm()
