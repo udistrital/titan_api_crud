@@ -3,10 +3,11 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
+
 	"github.com/astaxie/beego"
+	"github.com/udistrital/titan_api_crud/models"
 )
 
 // ConceptoNominaPorPersonaController operations for ConceptoNominaPorPersona
@@ -164,6 +165,29 @@ func (c *ConceptoNominaPorPersonaController) Delete() {
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteConceptoNominaPorPersona(id); err == nil {
 		c.Data["json"] = "OK"
+	} else {
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
+// Post ...
+// @Title TrConceptosPorPersona
+// @Description create ConceptoNominaPorPersona
+// @Param	body		body 	models.TrConceptosNomPersona	true		"body for TrConceptosNomPersona content"
+// @Success 201 {alert} models.Alerta
+// @Failure 403 body is empty
+// @router /TrConceptosPorPersona [post]
+func (c *ConceptoNominaPorPersonaController) TrConceptosPorPersona() {
+	var v models.TrConceptosNomPersona
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		beego.Info(v)
+		if alerta, err := models.RegistrarConceptos(&v); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = alerta
+		} else {
+			c.Data["json"] = err.Error()
+		}
 	} else {
 		c.Data["json"] = err.Error()
 	}
