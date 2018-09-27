@@ -181,7 +181,6 @@ func (c *ConceptoNominaPorPersonaController) Delete() {
 func (c *ConceptoNominaPorPersonaController) TrConceptosPorPersona() {
 	var v models.TrConceptosNomPersona
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		beego.Info(v)
 		if alerta, err := models.RegistrarConceptos(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = alerta
