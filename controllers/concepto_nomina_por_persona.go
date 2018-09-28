@@ -181,12 +181,11 @@ func (c *ConceptoNominaPorPersonaController) Delete() {
 func (c *ConceptoNominaPorPersonaController) TrConceptosPorPersona() {
 	var v models.TrConceptosNomPersona
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if alerta, err := models.RegistrarConceptos(&v); err == nil {
+		alerta, err := models.RegistrarConceptos(&v)
+		if err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = alerta
-		} else {
-			c.Data["json"] = err.Error()
 		}
+		c.Data["json"] = alerta
 	} else {
 		c.Data["json"] = err.Error()
 	}
