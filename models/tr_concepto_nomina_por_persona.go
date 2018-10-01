@@ -23,7 +23,6 @@ func RegistrarConceptos(m *TrConceptosNomPersona) (alerta Alert, err error) {
 			conceptos = append(conceptos, int(id))
 		}
 	}
-
 	alerta = Alert{Type: "success", Code: "Ok", Body: conceptos}
 	o.Commit()
 
