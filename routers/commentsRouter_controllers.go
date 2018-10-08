@@ -511,6 +511,14 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+		beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioCargoController"],
+			beego.ControllerComments{
+				Method: "ConsultarAsignacionBasicaFuncionario",
+				Router: `/get_asignacion_basica`,
+				AllowHTTPMethods: []string{"post"},
+				MethodParams: param.Make(),
+				Params: nil})
+
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
 		beego.ControllerComments{
 			Method: "ConsultarCedulaDocente",
@@ -684,6 +692,14 @@ func init() {
 			Method: "ConsultarPrimaTecnica",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioProveedorController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioProveedorController"],
+		beego.ControllerComments{
+			Method: "GetIdProveedorXFuncionario",
+			Router: `/get_funcionarios_planta`,
+			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})
 
