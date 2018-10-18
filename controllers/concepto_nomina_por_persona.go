@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/astaxie/beego"
+	"github.com/manucorporat/try"
 	"github.com/udistrital/titan_api_crud/models"
 )
 
@@ -189,5 +190,32 @@ func (c *ConceptoNominaPorPersonaController) TrConceptosPorPersona() {
 	} else {
 		c.Data["json"] = err.Error()
 	}
+	c.ServeJSON()
+}
+
+// TrActualizarIncapacidadProrroga ...
+// @Title TrActualizarIncapacidadProrroga
+// @Description actualiza el estado de una incapacidad y registra una nueva
+// @Param	body		body 	models.TrConceptosNomPersona	true		"body for TrConceptosNomPersona content"
+// @Success 201 {alert} models.Alerta
+// @Failure 403 body is empty
+// @router /TrActualizarIncapacidadProrroga [post]
+func (c *ConceptoNominaPorPersonaController) TrActualizarIncapacidadProrroga() {
+	var (
+		v models.TrConceptosNomPersona
+		// alerta Alert
+	)
+	try.This(func() {
+		err := json.Unmarshal(c.Ctx.Input.RequestBody, &v)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		conceptos, err := models.RegistrarYActualizarIncapacidad(&v)
+		beego.Info("conceptos: ", conceptos)
+	}).Catch(func(e try.E) {
+		beego.Error("Error en TrActualizarIncapacidadProrroga(): ", e)
+		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: nil}
+	})
 	c.ServeJSON()
 }

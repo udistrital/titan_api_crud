@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"github.com/astaxie/beego/orm"
 )
 
@@ -26,5 +28,31 @@ func RegistrarConceptos(m *TrConceptosNomPersona) (alerta Alert, err error) {
 	alerta = Alert{Type: "success", Code: "Ok", Body: conceptos}
 	o.Commit()
 
+	return
+}
+
+// RegistrarYActualizarIncapacidad cambia el estado del concepto y registra un nuevo, para la prorroga de la incapacidad
+func RegistrarYActualizarIncapacidad(m *TrConceptosNomPersona) (conceptos map[string]int, err error) {
+	fmt.Println("id: ", m.Conceptos[0].Id)
+	o := orm.NewOrm()
+	o.Begin()
+	incapacidad := m.Conceptos[0]
+	incapacidad.Activo = false
+	fmt.Println("incapacidad: ", incapacidad)
+	_, err = o.Update(incapacidad, "Activo")
+	if err != nil {
+		o.Rollback()
+		return
+	}
+	conceptos["IdAntiguo"] = incapacidad.Id
+	incapacidad.Activo = true
+	incapacidad.Id = 0
+	id, err := o.Insert(incapacidad)
+	if err != nil {
+		o.Rollback()
+		return
+	}
+	o.Commit()
+	conceptos["IdNuevo"] = int(id)
 	return
 }
