@@ -144,6 +144,20 @@ func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
 
 // DeleteDetallePreliquidacion deletes DetallePreliquidacion by Id and returns error if
 // the record to be deleted doesn't exist
+
+func DeleteDetallePreliquidacion(id int) (err error) {
+	o := orm.NewOrm()
+	v := DetallePreliquidacion{Id: id}
+	// ascertain id exists in the database
+	if err = o.Read(&v); err == nil {
+		var num int64
+		if num, err = o.Delete(&DetallePreliquidacion{Id: id}); err == nil {
+			fmt.Println("Number of records deleted in database:", num)
+		}
+	}
+	return
+}
+/*
 func DeleteDetallePreliquidacion(id int) (err error) {
 	o := orm.NewOrm()
 	res, err := o.Raw("DELETE FROM detalle_preliquidacion WHERE preliquidacion = ?", id).Exec()
@@ -153,7 +167,7 @@ func DeleteDetallePreliquidacion(id int) (err error) {
 	}
 	return
 }
-
+*/
 func GetPersonasPagosPendientes(nomina int)(detalle_p []DetallePreliquidacion, e error){
 	o := orm.NewOrm()
 
