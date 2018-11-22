@@ -201,10 +201,7 @@ func (c *ConceptoNominaPorPersonaController) TrConceptosPorPersona() {
 // @Failure 403 body is empty
 // @router /TrActualizarIncapacidadProrroga [post]
 func (c *ConceptoNominaPorPersonaController) TrActualizarIncapacidadProrroga() {
-	var (
-		v models.TrConceptosNomPersona
-		// alerta Alert
-	)
+	var v models.TrConceptosNomPersona
 	try.This(func() {
 		err := json.Unmarshal(c.Ctx.Input.RequestBody, &v)
 		if err != nil {
@@ -212,10 +209,43 @@ func (c *ConceptoNominaPorPersonaController) TrActualizarIncapacidadProrroga() {
 		}
 
 		conceptos, err := models.RegistrarYActualizarIncapacidad(&v)
-		beego.Info("conceptos: ", conceptos)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		c.Data["json"] = models.Alert{Type: "success", Code: "1", Body: conceptos}
 	}).Catch(func(e try.E) {
 		beego.Error("Error en TrActualizarIncapacidadProrroga(): ", e)
-		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: nil}
+		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: e}
+	})
+	c.ServeJSON()
+}
+
+// TrEliminarIncapacidadProrroga ...
+// @Title TrEliminarIncapacidadProrroga
+// @Description Elimina un registro de prorroga de incapacidad
+// y vuelve a activar el registro anterior correspondiente a esa prorroga.
+// @Param	body		body 	models.TrConceptosNomPersona	true		"body for TrConceptosNomPersona content"
+// @Success 201 {alert} models.Alerta
+// @Failure 403 body is empty
+// @router /TrEliminarIncapacidadProrroga [post]
+func (c *ConceptoNominaPorPersonaController) TrEliminarIncapacidadProrroga() {
+	var v []map[string]interface{}
+	try.This(func() {
+		err := json.Unmarshal(c.Ctx.Input.RequestBody, &v)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		err = models.EliminarIncapacidad(v)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		c.Data["json"] = models.Alert{Type: "success", Code: "1", Body: nil}
+	}).Catch(func(e try.E) {
+		beego.Error("Error en TrEliminarIncapacidadProrroga(): ", e)
+		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: e}
 	})
 	c.ServeJSON()
 }

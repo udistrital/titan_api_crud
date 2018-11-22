@@ -1,8 +1,6 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/astaxie/beego/orm"
 )
 
@@ -32,27 +30,55 @@ func RegistrarConceptos(m *TrConceptosNomPersona) (alerta Alert, err error) {
 }
 
 // RegistrarYActualizarIncapacidad cambia el estado del concepto y registra un nuevo, para la prorroga de la incapacidad
-func RegistrarYActualizarIncapacidad(m *TrConceptosNomPersona) (conceptos map[string]int, err error) {
-	fmt.Println("id: ", m.Conceptos[0].Id)
+func RegistrarYActualizarIncapacidad(m *TrConceptosNomPersona) (map[string]interface{}, error) {
 	o := orm.NewOrm()
 	o.Begin()
+	conceptos := make(map[string]interface{})
 	incapacidad := m.Conceptos[0]
 	incapacidad.Activo = false
-	fmt.Println("incapacidad: ", incapacidad)
-	_, err = o.Update(incapacidad, "Activo")
+
+	_, err := o.Update(&incapacidad, "activo")
 	if err != nil {
 		o.Rollback()
-		return
+		return conceptos, err
 	}
-	conceptos["IdAntiguo"] = incapacidad.Id
+
+	conceptos["Id"] = incapacidad.Id
 	incapacidad.Activo = true
 	incapacidad.Id = 0
-	id, err := o.Insert(incapacidad)
+	id, err := o.Insert(&incapacidad)
 	if err != nil {
 		o.Rollback()
-		return
+		return conceptos, err
 	}
 	o.Commit()
-	conceptos["IdNuevo"] = int(id)
-	return
+	conceptos["IdProrroga"] = int(id)
+	return conceptos, err
+}
+
+// EliminarIncapacidad esta función se llama en caso de que al registrar una prorroga de incapacidad, el api de ss este abajo
+// toma el registro hecho para la prorroga, le cambia el estado a inactivo, y luego tomar la incapacidad anterior y vuleve
+// su estado activo
+func EliminarIncapacidad(m []map[string]interface{}) error {
+	o := orm.NewOrm()
+	o.Begin()
+	infoRegistros := m[0]
+
+	incapacidadProrroga := ConceptoNominaPorPersona{Id: int(infoRegistros["IdProrroga"].(float64)), Activo: false}
+	incapacidadInactiva := ConceptoNominaPorPersona{Id: int(infoRegistros["Id"].(float64)), Activo: true}
+
+	_, err := o.Update(&incapacidadProrroga, "activo")
+	if err != nil {
+		o.Rollback()
+		return err
+	}
+
+	_, err = o.Update(&incapacidadInactiva, "activo")
+	if err != nil {
+		o.Rollback()
+		return err
+	}
+
+	o.Commit()
+	return err
 }
