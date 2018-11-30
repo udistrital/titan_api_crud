@@ -527,14 +527,6 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
-		beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:FuncionarioCargoController"],
-			beego.ControllerComments{
-				Method: "ConsultarAsignacionBasicaFuncionario",
-				Router: `/get_asignacion_basica`,
-				AllowHTTPMethods: []string{"post"},
-				MethodParams: param.Make(),
-				Params: nil})
-
 	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DocenteCargoController"],
 		beego.ControllerComments{
 			Method: "ConsultarCedulaDocente",
@@ -1124,6 +1116,14 @@ func init() {
 			Method: "Contratos_x_preliquidacion_cerrada",
 			Router: `/contratos_x_preliquidacion_cerrada`,
 			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
+		beego.ControllerComments{
+			Method: "Personas_x_preliquidacion",
+			Router: `/personas_x_preliquidacion/`,
+			AllowHTTPMethods: []string{"post"},
 			MethodParams: param.Make(),
 			Params: nil})
 
