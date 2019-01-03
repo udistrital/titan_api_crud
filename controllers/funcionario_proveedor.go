@@ -53,5 +53,6 @@ func (c *FuncionarioProveedorController) GetIdProveedorXFuncionario(){
 		c.Data["json"] = respuesta
 
 	}
+	
 	c.ServeJSON()
 }

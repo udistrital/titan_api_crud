@@ -29,8 +29,6 @@ func (c *FuncionarioCargoController) URLMapping() {
 // @Success 201 {object} []Docente_x_Cargo
 // @Failure 403 body is empty
 // @router /get_asignacion_basica [post]
-
-
 func (c *FuncionarioCargoController) ConsultarAsignacionBasicaFuncionario() {
   var v models.Funcionario_x_Cargo
     fmt.Println("vvvvv111v")
