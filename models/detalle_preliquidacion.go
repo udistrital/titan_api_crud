@@ -14,11 +14,13 @@ type DetallePreliquidacion struct {
 	ValorCalculado     float64               `orm:"column(valor_calculado)"`
 	NumeroContrato     string                `orm:"column(numero_contrato);null"`
 	VigenciaContrato   int                   `orm:"column(vigencia_contrato);null"`
+	Persona 					 int                   `orm:"column(persona)"`
 	DiasLiquidados     float64               `orm:"column(dias_liquidados);null"`
 	TipoPreliquidacion *TipoPreliquidacion   `orm:"column(tipo_preliquidacion);rel(fk)"`
 	Preliquidacion     *Preliquidacion       `orm:"column(preliquidacion);rel(fk)"`
 	Concepto           *ConceptoNomina       `orm:"column(concepto);rel(fk)"`
 	EstadoDisponibilidad *EstadoDisponibilidad `orm:"column(estado_disponibilidad);rel(fk);null"`
+
 }
 
 func (t *DetallePreliquidacion) TableName() string {
@@ -144,6 +146,20 @@ func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
 
 // DeleteDetallePreliquidacion deletes DetallePreliquidacion by Id and returns error if
 // the record to be deleted doesn't exist
+
+func DeleteDetallePreliquidacion(id int) (err error) {
+	o := orm.NewOrm()
+	v := DetallePreliquidacion{Id: id}
+	// ascertain id exists in the database
+	if err = o.Read(&v); err == nil {
+		var num int64
+		if num, err = o.Delete(&DetallePreliquidacion{Id: id}); err == nil {
+			fmt.Println("Number of records deleted in database:", num)
+		}
+	}
+	return
+}
+/*
 func DeleteDetallePreliquidacion(id int) (err error) {
 	o := orm.NewOrm()
 	res, err := o.Raw("DELETE FROM detalle_preliquidacion WHERE preliquidacion = ?", id).Exec()
@@ -152,4 +168,19 @@ func DeleteDetallePreliquidacion(id int) (err error) {
     fmt.Println("row affected nums: ", num)
 	}
 	return
+}
+*/
+func GetPersonasPagosPendientes(nomina int)(detalle_p []DetallePreliquidacion, e error){
+	o := orm.NewOrm()
+
+	var detalle_pre  []DetallePreliquidacion
+
+	_,err := o.Raw(" SELECT vd.* FROM administrativa.detalle_preliquidacion vd JOIN (SELECT numero_contrato, vigencia_contrato,preliquidacion FROM administrativa.detalle_preliquidacion, administrativa.preliquidacion WHERE estado_disponibilidad = 1 AND preliquidacion.nomina =? AND preliquidacion.id=detalle_preliquidacion.preliquidacion GROUP BY numero_contrato, vigencia_contrato, preliquidacion)OP ON OP.numero_contrato = vd.numero_contrato AND OP.vigencia_contrato = vd.vigencia_contrato AND OP.preliquidacion = vd.preliquidacion AND vd.concepto = 11;",nomina).QueryRows(&detalle_pre)
+	if err == nil {
+		//fmt.Println(totales)
+
+	}else{
+		fmt.Println("err1: ", err)
+	}
+	return detalle_pre,err
 }

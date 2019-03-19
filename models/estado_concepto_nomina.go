@@ -9,56 +9,48 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type DatosPruebas struct {
-	Id 									int                      `orm:"auto;column(id);pk"`
-	NumDocumento				int 											`orm:"column(num_documento)"`
-	MesPreliq						int 											`orm:"column(mes_preliquidacion)"`
-	AnoPreliq						int 											`orm:"column(ano_preliquidacion)"`
-	ValorSalario				string										`orm:"column(valor_salario)"`
-	ValorReteica				string										`orm:"column(valor_reteica)"`
-	ValorEstampillaUD		string										`orm:"column(valor_estampillaud)"`
-	ValorProCultura			string										`orm:"column(valor_procultura)"`
-	ValorAdultoMayor	  string										`orm:"column(valor_adultomayor)"`
-	ValorPrimaTecnica	  string										`orm:"column(valor_prima_tecnica)"`
-	ValorPrimaAnt			  string										`orm:"column(valor_prima_ant)"`
-	ValorSalud 				  string										`orm:"column(valor_salud)"`
-	ValorPension    	  string										`orm:"column(valor_pension)"`
+type EstadoConceptoNomina struct {
+	Id 								int   `orm:"auto;column(id);pk"`
+	Nombre            string  `orm:"column(nombre)"`
+	Descripcion       string  `orm:"column(descripcion);null"`
+	CodigoAbreviacion string  `orm:"column(codigo_abreviacion);null"`
+	Activo            bool    `orm:"column(activo)"`
+	NumeroOrden       float64 `orm:"column(numero_orden);null"`
 }
 
-func (t *DatosPruebas) TableName() string {
-	return "datos_pruebas"
+func (t *EstadoConceptoNomina) TableName() string {
+	return "estado_concepto_nomina"
 }
 
 func init() {
-	orm.RegisterModel(new(DatosPruebas))
+	orm.RegisterModel(new(EstadoConceptoNomina))
 }
 
-// AddDatosPruebas insert a new DatosPruebas into database and returns
+// AddEstadoConceptoNomina insert a new EstadoConceptoNomina into database and returns
 // last inserted Id on success.
-func AddDatosPruebas(m *DatosPruebas) (id int64, err error) {
+func AddEstadoConceptoNomina(m *EstadoConceptoNomina) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetDatosPruebasById retrieves DatosPruebas by Id. Returns error if
+// GetEstadoConceptoNominaById retrieves EstadoConceptoNomina by Id. Returns error if
 // Id doesn't exist
-func GetDatosPruebasById(id int) (v *DatosPruebas, err error) {
+func GetEstadoConceptoNominaById(id int) (v *EstadoConceptoNomina, err error) {
 	o := orm.NewOrm()
-	v = &DatosPruebas{Id: id}
+	v = &EstadoConceptoNomina{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllDatosPruebas retrieves all DatosPruebas matches certain condition. Returns empty list if
+// GetAllEstadoConceptoNomina retrieves all EstadoConceptoNomina matches certain condition. Returns empty list if
 // no records exist
-func GetAllDatosPruebas(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllEstadoConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
-	fmt.Println("datos pruebaaaaaaaaaaaaa")
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DatosPruebas)).RelatedSel(5)
+	qs := o.QueryTable(new(EstadoConceptoNomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -108,7 +100,7 @@ func GetAllDatosPruebas(query map[string]string, fields []string, sortby []strin
 		}
 	}
 
-	var l []DatosPruebas
+	var l []EstadoConceptoNomina
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -131,11 +123,11 @@ func GetAllDatosPruebas(query map[string]string, fields []string, sortby []strin
 	return nil, err
 }
 
-// UpdateDatosPruebas updates DatosPruebas by Id and returns error if
+// UpdateEstadoConceptoNomina updates EstadoConceptoNomina by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateDatosPruebasById(m *DatosPruebas) (err error) {
+func UpdateEstadoConceptoNominaById(m *EstadoConceptoNomina) (err error) {
 	o := orm.NewOrm()
-	v := DatosPruebas{Id: m.Id}
+	v := EstadoConceptoNomina{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -146,15 +138,15 @@ func UpdateDatosPruebasById(m *DatosPruebas) (err error) {
 	return
 }
 
-// DeleteDatosPruebas deletes DatosPruebas by Id and returns error if
+// DeleteEstadoConceptoNomina deletes EstadoConceptoNomina by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteDatosPruebas(id int) (err error) {
+func DeleteEstadoConceptoNomina(id int) (err error) {
 	o := orm.NewOrm()
-	v := DatosPruebas{Id: id}
+	v := EstadoConceptoNomina{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&DatosPruebas{Id: id}); err == nil {
+		if num, err = o.Delete(&EstadoConceptoNomina{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

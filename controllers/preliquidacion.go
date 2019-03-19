@@ -23,6 +23,7 @@ func (c *PreliquidacionController) URLMapping() {
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
 	c.Mapping("Resumen", c.Resumen)
+	c.Mapping("Personas_x_preliquidacion", c.Personas_x_preliquidacion)
 	c.Mapping("Contratos_x_preliquidacion", c.Contratos_x_preliquidacion)
 	c.Mapping("Contratos_x_preliquidacion_cerrada", c.Contratos_x_preliquidacion_cerrada)
 	c.Mapping("Totales_ss_x_preliquidacion", c.Totales_ss_x_preliquidacion)
@@ -175,11 +176,41 @@ func (c *PreliquidacionController) Delete() {
 	c.ServeJSON()
 }
 
+// PreliquidacionController ...
+// @Title Resumen
+// @Description create Resumen
+// @Param	  body		body 	models.Preliquidacion	true		"body for Preliquidacion content"
+// @Success 201 {object} models.InformePreliquidacion
+// @Failure 403 body is empty
+// @router /resumen/ [post]
 func (c *PreliquidacionController) Resumen() {
 
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if res , err := models.ResumenPreliquidacion(&v); err == nil {
+			c.Ctx.Output.SetStatus(201)
+			c.Data["json"] = res
+		} else {
+			c.Data["json"] = err.Error()
+		}
+	} else {
+		c.Data["json"] = err.Error()
+	}
+	c.ServeJSON()
+}
+
+// PreliquidacionController ...
+// @Title Personas_x_preliquidacion
+// @Description create Personas_x_preliquidacion
+// @Param	  body		body 	models.Preliquidacion	true		"body for Preliquidacion content"
+// @Success 201 {object} []models.PersonasPreliquidacion
+// @Failure 403 body is empty
+// @router /personas_x_preliquidacion/ [post]
+func (c *PreliquidacionController) Personas_x_preliquidacion() {
+
+	var v models.Preliquidacion
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+		if res , err := models.ListarPersonasPorPreliquidacion(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {

@@ -24,31 +24,35 @@ func (c *FuncionarioProveedorController) URLMapping() {
 }
 
 func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
-	fmt.Println("hola a todos")
+
 	var v models.Nomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if v.TipoNomina.Nombre == "CT" {
-			if listaContratos, err := models.ListaContratosContratistas(&v); err == nil {
-				c.Ctx.Output.SetStatus(201)
-				c.Data["json"] = listaContratos
-			} else {
-				c.Data["json"] = err.Error()
-				fmt.Println("error : ", err)
-			}
 
-		} else if v.TipoNomina.Nombre == "HCS" || v.TipoNomina.Nombre == "HCH" {
-				if listaContratos, err := models.ListaContratosDocentesDVE(&v); err == nil {
-					c.Ctx.Output.SetStatus(201)
-					c.Data["json"] = listaContratos
-				} else {
-					c.Data["json"] = err.Error()
-					fmt.Println("error : ", err)
-				}
-			}
 
 	} else {
 		c.Data["json"] = err.Error()
 		fmt.Println("error 2: ", err)
 	}
+	c.ServeJSON()
+}
+
+// GetIdProveedorXFuncionario ...
+// @Title GetIdProveedorXFuncionario
+// @Description Retorna los contratos de planta
+// @Success 201 {object} models.Funcionario_x_Proveedor
+// @Failure 403 body is empty
+// @router /get_funcionarios_planta [get]
+func (c *FuncionarioProveedorController) GetIdProveedorXFuncionario(){
+
+	respuesta := models.GetIdProveedorXFuncionario();
+
+	if(respuesta != nil){
+		c.Ctx.Output.SetStatus(201)
+		c.Data["json"] = respuesta
+	}else{
+		c.Data["json"] = respuesta
+
+	}
+	
 	c.ServeJSON()
 }

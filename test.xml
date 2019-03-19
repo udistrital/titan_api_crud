@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="2" failures="0" time="0.021" name="github.com/udistrital/titan_api_crud">
+		<properties>
+			<property name="go.version" value="go1.6.3"></property>
+		</properties>
+		<testcase classname="titan_api_crud" name="TestDev" time="0.000"></testcase>
+		<testcase classname="titan_api_crud" name="TestNonDev" time="0.000"></testcase>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="0.006" name="github.com/udistrital/titan_api_crud/controllers">
+		<properties>
+			<property name="go.version" value="go1.6.3"></property>
+		</properties>
+		<testcase classname="controllers" name="TestURLMapping" time="0.000"></testcase>
+	</testsuite>
+	<testsuite tests="1" failures="1" time="0.000" name="github.com/udistrital/titan_api_crud/models">
+		<properties>
+			<property name="go.version" value="go1.6.3"></property>
+		</properties>
+		<testcase classname="models" name="[build failed]" time="0.000">
+			<failure message="Failed" type=""></failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="1" failures="0" time="0.044" name="github.com/udistrital/titan_api_crud/routers">
+		<properties>
+			<property name="go.version" value="go1.6.3"></property>
+		</properties>
+		<testcase classname="routers" name="Test1" time="0.000"></testcase>
+	</testsuite>
+</testsuites>

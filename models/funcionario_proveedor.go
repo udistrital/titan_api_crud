@@ -2,25 +2,18 @@ package models
 
 import (
 
-	"strconv"
-	"fmt"
-	"net/http"
-	"encoding/json"
-	"encoding/xml"
+
 	"github.com/astaxie/beego/orm"
-	"io/ioutil"
+	"fmt"
 )
 
-type Estructura struct {
-	 FuncionarioProveedor []Funcionario_x_Proveedor  `xml:"contrato_tipo"`
-}
 
 type Funcionario_x_Proveedor struct {
-	Id              int     `xml:"id_proveedor"`
-	NombreProveedor string  `xml:"nom_proveedor"`
-	NumDocumento    float64 `xml:"num_documento"`
-	NumeroContrato  string  `xml:"numero_contrato"`
-	VigenciaContrato  string  `xml:"vigencia"`
+	Id               int  `orm:"column(id_proveedor)"`
+	NombreProveedor string `orm:"column(nom_proveedor)"`
+	NumDocumento    float64   `orm:"column(num_documento)"`
+	NumeroContrato  string  `orm:"column(numero_contrato)"`
+	VigenciaContrato  int `orm:"column(vigencia)"`
 	//IdEPS                  int  							`xml:"id_eps"`
 	//IdARL                  int  							`xml:"id_arl"`
 	//IdFondoPension         int  							`xml:"id_fondo_pension"`
@@ -62,7 +55,7 @@ func GetIdProveedorXFuncionario() (arregloIDs []Funcionario_x_Proveedor) {
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
-
+	
 	return temp
 }
 
@@ -95,71 +88,4 @@ _, err := o.Raw("SELECT beneficiario.informacion_proveedor, informacionproveedor
 		fmt.Println("Consulta exitosa")
 	}
 	return temp
-}
-
-func ListaContratosContratistas(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
-	var temp []Funcionario_x_Proveedor
-
-
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_tipo/"+strconv.Itoa(v.TipoNomina.Id))
-	defer resp1.Body.Close()
-	body, err := ioutil.ReadAll(resp1.Body)
-	reglas := string(body)
-	xmlData := []byte(reglas)
-	data := &Estructura{}
-	err2 := xml.Unmarshal(xmlData, data)
-	 if nil != err2 {
-			 fmt.Println("Error unmarshalling from XML", err2)
-			 return
-	 }
-
-	 result, err := json.Marshal(data.FuncionarioProveedor)
-	 if nil != err {
-			 fmt.Println("Error marshalling to JSON", err)
-			 return
-	 }
-
-	 resultado_peticion:= string(result)
-	  fmt.Println(resultado_peticion)
-	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
-
-	 return temp, err3
-
-}
-
-func ListaContratosDocentesDVE(v *Nomina) (datos []Funcionario_x_Proveedor, err error) {
-
-	var temp []Funcionario_x_Proveedor
-	var tipo_nom string
-
-	if(v.TipoNomina.Nombre == "HCH") {
-		tipo_nom = "3"
-	}else {
-		tipo_nom = "2"
-	}
-
-	resp1,_ := http.Get("http://jbpm.udistritaloas.edu.co:8280/services/contrato_suscrito_DataService.HTTPEndpoint/contratos_elaborado_tipo/"+tipo_nom)
-	defer resp1.Body.Close()
-	body, err := ioutil.ReadAll(resp1.Body)
-	reglas := string(body)
-	xmlData := []byte(reglas)
-	data := &Estructura{}
-	err2 := xml.Unmarshal(xmlData, data)
-	 if nil != err2 {
-			 fmt.Println("Error unmarshalling from XML", err2)
-			 return
-	 }
-
-	 result, err := json.Marshal(data.FuncionarioProveedor)
-	 if nil != err {
-			 fmt.Println("Error marshalling to JSON", err)
-			 return
-	 }
-
-	 resultado_peticion:= string(result)
-	  fmt.Println(resultado_peticion)
-	 err3 := json.Unmarshal([]byte(resultado_peticion), &temp)
-
-	 return temp, err3
-
 }
