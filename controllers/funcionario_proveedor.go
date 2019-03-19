@@ -35,3 +35,24 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 	}
 	c.ServeJSON()
 }
+
+// GetIdProveedorXFuncionario ...
+// @Title GetIdProveedorXFuncionario
+// @Description Retorna los contratos de planta
+// @Success 201 {object} models.Funcionario_x_Proveedor
+// @Failure 403 body is empty
+// @router /get_funcionarios_planta [get]
+func (c *FuncionarioProveedorController) GetIdProveedorXFuncionario(){
+
+	respuesta := models.GetIdProveedorXFuncionario();
+
+	if(respuesta != nil){
+		c.Ctx.Output.SetStatus(201)
+		c.Data["json"] = respuesta
+	}else{
+		c.Data["json"] = respuesta
+
+	}
+	
+	c.ServeJSON()
+}

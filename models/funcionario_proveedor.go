@@ -7,16 +7,13 @@ import (
 	"fmt"
 )
 
-type Estructura struct {
-	 FuncionarioProveedor []Funcionario_x_Proveedor  `xml:"contrato_tipo"`
-}
 
 type Funcionario_x_Proveedor struct {
-	Id              int     `xml:"id_proveedor"`
-	NombreProveedor string  `xml:"nom_proveedor"`
-	NumDocumento    float64 `xml:"num_documento"`
-	NumeroContrato  string  `xml:"numero_contrato"`
-	VigenciaContrato  string  `xml:"vigencia"`
+	Id               int  `orm:"column(id_proveedor)"`
+	NombreProveedor string `orm:"column(nom_proveedor)"`
+	NumDocumento    float64   `orm:"column(num_documento)"`
+	NumeroContrato  string  `orm:"column(numero_contrato)"`
+	VigenciaContrato  int `orm:"column(vigencia)"`
 	//IdEPS                  int  							`xml:"id_eps"`
 	//IdARL                  int  							`xml:"id_arl"`
 	//IdFondoPension         int  							`xml:"id_fondo_pension"`
@@ -58,7 +55,7 @@ func GetIdProveedorXFuncionario() (arregloIDs []Funcionario_x_Proveedor) {
 	if err == nil {
 		fmt.Println("Consulta exitosa")
 	}
-
+	
 	return temp
 }
 

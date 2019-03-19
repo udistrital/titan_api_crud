@@ -17,16 +17,16 @@ func init() {
 }
 
 // last inserted Id on success.
-func GetPorcentajePT (id_proveedor int)  (porcentajePT int){
+func GetPorcentajePT (id_proveedor int)  (porcentajePT []int){
 	o := orm.NewOrm()
   var temp []int;
   idProveedorString := strconv.Itoa(id_proveedor)
 	_, err := o.Raw("SELECT valor_porcentaje FROM personal.porcentaje_prima_tecnica WHERE id_proveedor = "+idProveedorString+" AND estado_porcentaje = 'A';").QueryRows(&temp)
-  if err == nil{
-      fmt.Println("Consulta exitosa")
+  if err == nil {
+      fmt.Println("no hay error al consultar prima tecnica",err)
   }else{
-      temp[0] = 0;
+      fmt.Println("error al consultar prima tecnica",err)
   }
 
-  return temp[0]
+  return temp
 }

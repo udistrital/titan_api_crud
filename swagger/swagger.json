@@ -62,11 +62,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ActaInicio"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -114,6 +117,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ActaInicio"
                         }
@@ -149,6 +153,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ActaInicio"
                         }
@@ -230,11 +235,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ArgoOrdenadores"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -282,6 +290,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ArgoOrdenadores"
                         }
@@ -317,6 +326,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ArgoOrdenadores"
                         }
@@ -398,11 +408,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Banco"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -450,6 +463,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Banco"
                         }
@@ -485,6 +499,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Banco"
                         }
@@ -566,11 +581,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Beneficiario"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -618,6 +636,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Beneficiario"
                         }
@@ -653,6 +672,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Beneficiario"
                         }
@@ -734,11 +754,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Cargo"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -786,6 +809,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Cargo"
                         }
@@ -821,6 +845,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Cargo"
                         }
@@ -902,11 +927,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.CategoriaBeneficiario"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -954,6 +982,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.CategoriaBeneficiario"
                         }
@@ -989,6 +1018,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.CategoriaBeneficiario"
                         }
@@ -1070,11 +1100,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Ciudad"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -1122,6 +1155,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Ciudad"
                         }
@@ -1157,6 +1191,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Ciudad"
                         }
@@ -1238,11 +1273,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNomina"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -1290,6 +1328,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNomina"
                         }
@@ -1325,6 +1364,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNomina"
                         }
@@ -1406,11 +1446,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNominaPorPersona"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -1440,6 +1483,90 @@
                 }
             }
         },
+        "/concepto_nomina_por_persona/TrActualizarIncapacidadProrroga": {
+            "post": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "actualiza el estado de una incapacidad y registra una nueva",
+                "operationId": "ConceptoNominaPorPersonaController.TrActualizarIncapacidadProrroga",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrConceptosNomPersona content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrConceptosNomPersona"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{alert} models.Alerta"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/concepto_nomina_por_persona/TrConceptosPorPersona": {
+            "post": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "create ConceptoNominaPorPersona",
+                "operationId": "ConceptoNominaPorPersonaController.TrConceptosPorPersona",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrConceptosNomPersona content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrConceptosNomPersona"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{alert} models.Alerta"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/concepto_nomina_por_persona/TrEliminarIncapacidadProrroga": {
+            "post": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "Elimina un registro de prorroga de incapacidad",
+                "operationId": "ConceptoNominaPorPersonaController.TrEliminarIncapacidadProrroga",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for TrConceptosNomPersona content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.TrConceptosNomPersona"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{alert} models.Alerta"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
         "/concepto_nomina_por_persona/{id}": {
             "get": {
                 "tags": [
@@ -1458,6 +1585,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNominaPorPersona"
                         }
@@ -1493,6 +1621,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ConceptoNominaPorPersona"
                         }
@@ -1574,11 +1703,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ContratoGeneral"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -1626,6 +1758,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ContratoGeneral"
                         }
@@ -1661,6 +1794,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ContratoGeneral"
                         }
@@ -1676,174 +1810,6 @@
                 ],
                 "description": "delete the ContratoGeneral",
                 "operationId": "ContratoGeneralController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "403": {
-                        "description": "id is empty"
-                    }
-                }
-            }
-        },
-        "/datos_pruebas/": {
-            "get": {
-                "tags": [
-                    "datos_pruebas"
-                ],
-                "description": "get DatosPruebas",
-                "operationId": "DatosPruebasController.Get All",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "query",
-                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "fields",
-                        "description": "Fields returned. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "sortby",
-                        "description": "Sorted-by fields. e.g. col1,col2 ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "order",
-                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "Limit the size of result set. Must be an integer",
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "offset",
-                        "description": "Start position of result set. Must be an integer",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/models.DatosPruebas"
-                        }
-                    },
-                    "403": {}
-                }
-            },
-            "post": {
-                "tags": [
-                    "datos_pruebas"
-                ],
-                "description": "create DatosPruebas",
-                "operationId": "DatosPruebasController.Post",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for DatosPruebas content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.DatosPruebas"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "{int} models.DatosPruebas"
-                    },
-                    "403": {
-                        "description": "body is empty"
-                    }
-                }
-            }
-        },
-        "/datos_pruebas/{id}": {
-            "get": {
-                "tags": [
-                    "datos_pruebas"
-                ],
-                "description": "get DatosPruebas by id",
-                "operationId": "DatosPruebasController.Get One",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The key for staticblock",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/models.DatosPruebas"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is empty"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "datos_pruebas"
-                ],
-                "description": "update the DatosPruebas",
-                "operationId": "DatosPruebasController.Put",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for DatosPruebas content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.DatosPruebas"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/models.DatosPruebas"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is not int"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "datos_pruebas"
-                ],
-                "description": "delete the DatosPruebas",
-                "operationId": "DatosPruebasController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -1910,11 +1876,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Departamento"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -1962,6 +1931,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Departamento"
                         }
@@ -1997,6 +1967,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Departamento"
                         }
@@ -2078,11 +2049,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.DetallePreliquidacion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -2112,6 +2086,34 @@
                 }
             }
         },
+        "/detalle_preliquidacion/get_personas_pago_pendiente": {
+            "get": {
+                "tags": [
+                    "detalle_preliquidacion"
+                ],
+                "description": "obtener contrato y vigencia agrupados de personas que tengan pagos pendientes en meses anteriores",
+                "operationId": "DetallePreliquidacionController.GetPersonasPagosPendientes",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "idNomina",
+                        "description": "nomina a listar",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.DetallePreliquidacion"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/detalle_preliquidacion/{id}": {
             "get": {
                 "tags": [
@@ -2130,6 +2132,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.DetallePreliquidacion"
                         }
@@ -2165,6 +2168,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.DetallePreliquidacion"
                         }
@@ -2195,6 +2199,72 @@
                     },
                     "403": {
                         "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/docente_cargo/": {
+            "post": {
+                "tags": [
+                    "docente_cargo"
+                ],
+                "description": "create Consultar asignación básica según cargo",
+                "operationId": "DocenteCargoController.ConsultarAsignacionBasica",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for models.Docente_x_Cargo",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Docente_x_Cargo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/.Docente_x_Cargo"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/docente_cargo/consultarCedulaDocente/": {
+            "post": {
+                "tags": [
+                    "docente_cargo"
+                ],
+                "description": "create Consultar cédula del docente",
+                "operationId": "DocenteCargoController.ConsultarCedulaDocente",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body string",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/.CedulaDocente"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
                     }
                 }
             }
@@ -2246,11 +2316,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoCivil"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -2298,6 +2371,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoCivil"
                         }
@@ -2333,6 +2407,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoCivil"
                         }
@@ -2348,6 +2423,179 @@
                 ],
                 "description": "delete the EstadoCivil",
                 "operationId": "EstadoCivilController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/estado_concepto_nomina/": {
+            "get": {
+                "tags": [
+                    "estado_concepto_nomina"
+                ],
+                "description": "get EstadoConceptoNomina",
+                "operationId": "EstadoConceptoNominaController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EstadoConceptoNomina"
+                        }
+                    },
+                    "403": {
+                        "description": ""
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "estado_concepto_nomina"
+                ],
+                "description": "create EstadoConceptoNomina",
+                "operationId": "EstadoConceptoNominaController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for EstadoConceptoNomina content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EstadoConceptoNomina"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.EstadoConceptoNomina"
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/estado_concepto_nomina/{id}": {
+            "get": {
+                "tags": [
+                    "estado_concepto_nomina"
+                ],
+                "description": "get EstadoConceptoNomina by id",
+                "operationId": "EstadoConceptoNominaController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EstadoConceptoNomina"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is empty"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "estado_concepto_nomina"
+                ],
+                "description": "update the EstadoConceptoNomina",
+                "operationId": "EstadoConceptoNominaController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for EstadoConceptoNomina content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.EstadoConceptoNomina"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.EstadoConceptoNomina"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "estado_concepto_nomina"
+                ],
+                "description": "delete the EstadoConceptoNomina",
+                "operationId": "EstadoConceptoNominaController.Delete",
                 "parameters": [
                     {
                         "in": "path",
@@ -2414,11 +2662,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoDisponibilidad"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -2466,6 +2717,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoDisponibilidad"
                         }
@@ -2501,6 +2753,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoDisponibilidad"
                         }
@@ -2582,11 +2835,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoPreliquidacion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -2634,6 +2890,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoPreliquidacion"
                         }
@@ -2669,6 +2926,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.EstadoPreliquidacion"
                         }
@@ -2699,6 +2957,91 @@
                     },
                     "403": {
                         "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/funcionario_cargo/get_asignacion_basica": {
+            "post": {
+                "tags": [
+                    "funcionario_cargo"
+                ],
+                "description": "create Consultar asignación básica según cargo",
+                "operationId": "FuncionarioCargoController.ConsultarAsignacionBasicaFuncionario",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for models..Funcionario_x_Cargo",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Funcionario_x_Cargo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/.Docente_x_Cargo"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/funcionario_primatec/": {
+            "post": {
+                "tags": [
+                    "funcionario_primatec"
+                ],
+                "description": "Consulta prima técnica del funcionario",
+                "operationId": "FuncionarioPritecController.ConsultarPrimaTecnica",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body int",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "format": "int64",
+                            "type": "integer"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/funcionario_proveedor/get_funcionarios_planta": {
+            "get": {
+                "tags": [
+                    "funcionario_proveedor"
+                ],
+                "description": "Retorna los contratos de planta",
+                "operationId": "FuncionarioProveedorController.GetIdProveedorXFuncionario",
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Funcionario_x_Proveedor"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
                     }
                 }
             }
@@ -2750,11 +3093,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionPensionado"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             }
         },
@@ -2776,6 +3122,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionPensionado"
                         }
@@ -2811,6 +3158,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionPensionado"
                         }
@@ -2892,11 +3240,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionProveedor"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -2944,6 +3295,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionProveedor"
                         }
@@ -2979,6 +3331,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.InformacionProveedor"
                         }
@@ -3060,11 +3413,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.LugarEjecucion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3112,6 +3468,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.LugarEjecucion"
                         }
@@ -3147,6 +3504,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.LugarEjecucion"
                         }
@@ -3228,11 +3586,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.NaturalezaConceptoNomina"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3280,6 +3641,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.NaturalezaConceptoNomina"
                         }
@@ -3315,6 +3677,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.NaturalezaConceptoNomina"
                         }
@@ -3396,11 +3759,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Nomina"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3448,6 +3814,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Nomina"
                         }
@@ -3483,6 +3850,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Nomina"
                         }
@@ -3564,11 +3932,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Pais"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3616,6 +3987,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Pais"
                         }
@@ -3651,6 +4023,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Pais"
                         }
@@ -3732,11 +4105,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ParametroEstandar"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3784,6 +4160,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ParametroEstandar"
                         }
@@ -3819,6 +4196,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.ParametroEstandar"
                         }
@@ -3900,11 +4278,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Parametros"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -3952,6 +4333,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Parametros"
                         }
@@ -3987,6 +4369,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Parametros"
                         }
@@ -4068,11 +4451,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.PorcentajePrimaTecnica"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4120,6 +4506,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.PorcentajePrimaTecnica"
                         }
@@ -4155,6 +4542,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.PorcentajePrimaTecnica"
                         }
@@ -4236,11 +4624,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Preliquidacion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4275,7 +4666,7 @@
                 "tags": [
                     "preliquidacion"
                 ],
-                "description": "Agrupa los contratos de una preliquidacion segun mes, año y nomina",
+                "description": "Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado OP",
                 "operationId": "PreliquidacionController.Contratos_x_preliquidacion",
                 "parameters": [
                     {
@@ -4299,8 +4690,154 @@
                 ],
                 "responses": {
                     "201": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Preliquidacion_x_contratos"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/preliquidacion/contratos_x_preliquidacion_cerrada": {
+            "get": {
+                "tags": [
+                    "preliquidacion"
+                ],
+                "description": "Agrupa los contratos de una preliquidacion segun mes, año y nomina para preliquidaicones en estado CERRADA",
+                "operationId": "PreliquidacionController.Contratos_x_preliquidacion_cerrada",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "idNomina",
+                        "description": "nomina a listar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "mesLiquidacion",
+                        "description": "mes de la liquidacion a listar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "anioLiquidacion",
+                        "description": "anio de la liquidacion a listar",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Preliquidacion_x_contratos"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/preliquidacion/personas_x_preliquidacion/": {
+            "post": {
+                "tags": [
+                    "preliquidacion"
+                ],
+                "description": "create Personas_x_preliquidacion",
+                "operationId": "PreliquidacionController.Personas_x_preliquidacion",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Preliquidacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Preliquidacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.PersonasPreliquidacion"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/preliquidacion/resumen/": {
+            "post": {
+                "tags": [
+                    "preliquidacion"
+                ],
+                "description": "create Resumen",
+                "operationId": "PreliquidacionController.Resumen",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Preliquidacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Preliquidacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.InformePreliquidacion"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/preliquidacion/totales_x_preliq": {
+            "get": {
+                "tags": [
+                    "preliquidacion"
+                ],
+                "description": "Retorna los totales para los descuentos de salud, pension y fondo de solidaridad segun el tipo de nomina, el mes y el año",
+                "operationId": "PreliquidacionController.Totales_ss_x_preliquidacion",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "idNomina",
+                        "description": "nomina a listar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "mesLiquidacion",
+                        "description": "mes de la liquidacion a listar",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "anioLiquidacion",
+                        "description": "anio de la liquidacion a listar",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Totales_x_preliq"
                         }
                     },
                     "403": {
@@ -4327,6 +4864,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Preliquidacion"
                         }
@@ -4362,6 +4900,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Preliquidacion"
                         }
@@ -4443,11 +4982,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.RelacionParametro"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4495,6 +5037,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.RelacionParametro"
                         }
@@ -4530,6 +5073,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.RelacionParametro"
                         }
@@ -4611,11 +5155,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Resolucion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4663,6 +5210,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Resolucion"
                         }
@@ -4698,6 +5246,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Resolucion"
                         }
@@ -4779,11 +5328,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.SupervisorContrato"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4831,6 +5383,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.SupervisorContrato"
                         }
@@ -4866,6 +5419,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.SupervisorContrato"
                         }
@@ -4947,11 +5501,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Sustituto"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -4999,6 +5556,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Sustituto"
                         }
@@ -5034,6 +5592,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.Sustituto"
                         }
@@ -5115,11 +5674,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoConceptoNomina"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -5167,6 +5729,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoConceptoNomina"
                         }
@@ -5202,6 +5765,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoConceptoNomina"
                         }
@@ -5283,11 +5847,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoContrato"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -5335,6 +5902,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoContrato"
                         }
@@ -5370,6 +5938,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoContrato"
                         }
@@ -5451,11 +6020,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoNomina"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -5503,6 +6075,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoNomina"
                         }
@@ -5538,6 +6111,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoNomina"
                         }
@@ -5619,11 +6193,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPension"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -5671,6 +6248,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPension"
                         }
@@ -5706,6 +6284,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPension"
                         }
@@ -5787,11 +6366,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPensionado"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -5839,6 +6421,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPensionado"
                         }
@@ -5874,6 +6457,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPensionado"
                         }
@@ -5955,11 +6539,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPreliquidacion"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -6007,6 +6594,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPreliquidacion"
                         }
@@ -6042,6 +6630,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.TipoPreliquidacion"
                         }
@@ -6123,11 +6712,14 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.UnidadEjecutora"
                         }
                     },
-                    "403": {}
+                    "403": {
+                        "description": ""
+                    }
                 }
             },
             "post": {
@@ -6175,6 +6767,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.UnidadEjecutora"
                         }
@@ -6210,6 +6803,7 @@
                 ],
                 "responses": {
                     "200": {
+                        "description": "",
                         "schema": {
                             "$ref": "#/definitions/models.UnidadEjecutora"
                         }
@@ -6246,6 +6840,12 @@
         }
     },
     "definitions": {
+        ".CedulaDocente": {
+            "type": "object"
+        },
+        ".Docente_x_Cargo": {
+            "type": "object"
+        },
         "models.ActaInicio": {
             "title": "ActaInicio",
             "type": "object",
@@ -6455,6 +7055,9 @@
                 "AliasConcepto": {
                     "type": "string"
                 },
+                "EstadoConceptoNomina": {
+                    "$ref": "#/definitions/models.EstadoConceptoNomina"
+                },
                 "Id": {
                     "type": "integer",
                     "format": "int64"
@@ -6503,6 +7106,9 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "NumeroContrato": {
+                    "type": "string"
+                },
                 "Persona": {
                     "type": "integer",
                     "format": "int64"
@@ -6510,6 +7116,36 @@
                 "ValorNovedad": {
                     "type": "number",
                     "format": "double"
+                },
+                "VigenciaContrato": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.ConceptosInforme": {
+            "title": "ConceptosInforme",
+            "type": "object",
+            "properties": {
+                "EstadoDisponibilidad": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Naturaleza": {
+                    "type": "string"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "TipoPreliquidacion": {
+                    "type": "string"
+                },
+                "Valor": {
+                    "type": "string"
                 }
             }
         },
@@ -6677,55 +7313,6 @@
                 }
             }
         },
-        "models.DatosPruebas": {
-            "title": "DatosPruebas",
-            "type": "object",
-            "properties": {
-                "AnoPreliq": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "Id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "MesPreliq": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "NumDocumento": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "ValorAdultoMayor": {
-                    "type": "string"
-                },
-                "ValorEstampillaUD": {
-                    "type": "string"
-                },
-                "ValorPension": {
-                    "type": "string"
-                },
-                "ValorPrimaAnt": {
-                    "type": "string"
-                },
-                "ValorPrimaTecnica": {
-                    "type": "string"
-                },
-                "ValorProCultura": {
-                    "type": "string"
-                },
-                "ValorReteica": {
-                    "type": "string"
-                },
-                "ValorSalario": {
-                    "type": "string"
-                },
-                "ValorSalud": {
-                    "type": "string"
-                }
-            }
-        },
         "models.Departamento": {
             "title": "Departamento",
             "type": "object",
@@ -6789,6 +7376,10 @@
                 "NumeroContrato": {
                     "type": "string"
                 },
+                "Persona": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "Preliquidacion": {
                     "$ref": "#/definitions/models.Preliquidacion"
                 },
@@ -6805,6 +7396,38 @@
                 }
             }
         },
+        "models.Docente_x_Cargo": {
+            "title": "Docente_x_Cargo",
+            "type": "object",
+            "properties": {
+                "Asignacion_basica": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Cargo": {
+                    "type": "string"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Puntos": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Regimen": {
+                    "type": "string"
+                }
+            }
+        },
         "models.EstadoCivil": {
             "title": "EstadoCivil",
             "type": "object",
@@ -6815,6 +7438,32 @@
                 },
                 "NombreEstadoCivil": {
                     "type": "string"
+                }
+            }
+        },
+        "models.EstadoConceptoNomina": {
+            "title": "EstadoConceptoNomina",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "CodigoAbreviacion": {
+                    "type": "string"
+                },
+                "Descripcion": {
+                    "type": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre": {
+                    "type": "string"
+                },
+                "NumeroOrden": {
+                    "type": "number",
+                    "format": "double"
                 }
             }
         },
@@ -6867,6 +7516,52 @@
                 "NumeroOrden": {
                     "type": "number",
                     "format": "double"
+                }
+            }
+        },
+        "models.Funcionario_x_Cargo": {
+            "title": "Funcionario_x_Cargo",
+            "type": "object",
+            "properties": {
+                "Asignacion_basica": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "format": "string"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.Funcionario_x_Proveedor": {
+            "title": "Funcionario_x_Proveedor",
+            "type": "object",
+            "properties": {
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NombreProveedor": {
+                    "type": "string"
+                },
+                "NumDocumento": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "NumeroContrato": {
+                    "type": "string"
+                },
+                "VigenciaContrato": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
@@ -6996,6 +7691,29 @@
                 },
                 "Web": {
                     "type": "string"
+                }
+            }
+        },
+        "models.InformePreliquidacion": {
+            "title": "InformePreliquidacion",
+            "type": "object",
+            "properties": {
+                "Conceptos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ConceptosInforme"
+                    }
+                },
+                "Disponibilidad": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumeroContrato": {
+                    "type": "string"
+                },
+                "Vigencia": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
@@ -7146,6 +7864,23 @@
                 },
                 "RelParametro": {
                     "$ref": "#/definitions/models.RelacionParametro"
+                }
+            }
+        },
+        "models.PersonasPreliquidacion": {
+            "title": "PersonasPreliquidacion",
+            "type": "object",
+            "properties": {
+                "IdPersona": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumeroContrato": {
+                    "type": "string"
+                },
+                "VigenciaContrato": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
@@ -7437,6 +8172,38 @@
                 }
             }
         },
+        "models.Totales_x_preliq": {
+            "title": "Totales_x_preliq",
+            "type": "object",
+            "properties": {
+                "Alias_concepto": {
+                    "type": "string"
+                },
+                "Id_concepto": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Nombre_concepto": {
+                    "type": "string"
+                },
+                "Total": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        },
+        "models.TrConceptosNomPersona": {
+            "title": "TrConceptosNomPersona",
+            "type": "object",
+            "properties": {
+                "Conceptos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                    }
+                }
+            }
+        },
         "models.UnidadEjecutora": {
             "title": "UnidadEjecutora",
             "type": "object",
@@ -7456,10 +8223,6 @@
     },
     "tags": [
         {
-            "name": "datos_pruebas",
-            "description": "DatosPruebasController operations for DatosPruebas\n"
-        },
-        {
             "name": "docente_cargo",
             "description": "operations for DocenteCargo\n"
         },
@@ -7468,11 +8231,11 @@
             "description": "ConceptoController operations for Concepto\n"
         },
         {
-            "name": "funcionario_cargo",
+            "name": "funcionario_proveedor",
             "description": "ConceptoController operations for Concepto\n"
         },
         {
-            "name": "funcionario_proveedor",
+            "name": "funcionario_cargo",
             "description": "ConceptoController operations for Concepto\n"
         },
         {
@@ -7598,6 +8361,10 @@
         {
             "name": "estado_disponibilidad",
             "description": "EstadoDisponibilidadController operations for EstadoDisponibilidad\n"
+        },
+        {
+            "name": "estado_concepto_nomina",
+            "description": "EstadoConceptoNominaController operations for EstadoConceptoNomina\n"
         },
         {
             "name": "tipo_nomina",
