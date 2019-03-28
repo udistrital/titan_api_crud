@@ -21,10 +21,10 @@ pipeline:
      #- gometalinter.v1 ./... --deadline=60s --checkstyle > report.xml
      - gocov test ./... | gocov-xml > coverage.xml
      - go test -v ./... | go-junit-report > test.xml
-     
     when:
       branch: [master, develop]
       event: push
+  
   # build and run sonar-scanner
   sonar-scanner:
     image: openjdk:8-alpine
@@ -40,7 +40,7 @@ pipeline:
      - cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
      - sonar-scanner
     when:
-      branch: [master, dev]
+      branch: [master, develop]
 
   # prepare imagedef.json and app.zip for deployment
   sed:
