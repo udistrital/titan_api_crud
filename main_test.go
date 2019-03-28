@@ -12,6 +12,7 @@ func TestDev(t *testing.T) {
 }
 
 // test something real here
+// aaaa
 func TestNonDev(t *testing.T) {
   beego.BConfig.RunMode = "prod"
   test()
