@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 	"strings"
-
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/manucorporat/try"
 	"github.com/udistrital/titan_api_crud/models"
@@ -215,7 +215,7 @@ func (c *ConceptoNominaPorPersonaController) TrActualizarIncapacidadProrroga() {
 
 		c.Data["json"] = models.Alert{Type: "success", Code: "1", Body: conceptos}
 	}).Catch(func(e try.E) {
-		beego.Error("Error en TrActualizarIncapacidadProrroga(): ", e)
+		fmt.Println("Error en TrActualizarIncapacidadProrroga(): ", e)
 		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: e}
 	})
 	c.ServeJSON()
@@ -244,7 +244,7 @@ func (c *ConceptoNominaPorPersonaController) TrEliminarIncapacidadProrroga() {
 
 		c.Data["json"] = models.Alert{Type: "success", Code: "1", Body: nil}
 	}).Catch(func(e try.E) {
-		beego.Error("Error en TrEliminarIncapacidadProrroga(): ", e)
+		fmt.Println("Error en TrEliminarIncapacidadProrroga(): ", e)
 		c.Data["json"] = models.Alert{Type: "error", Code: "titan_api_crud_error", Body: e}
 	})
 	c.ServeJSON()
