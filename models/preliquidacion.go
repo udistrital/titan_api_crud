@@ -36,7 +36,7 @@ type PersonasPreliquidacion struct {
 	IdPersona int						`orm:"column(persona)"`
 	NumeroContrato string  `orm:"column(numero_contrato)"`
 	VigenciaContrato int   `orm:"column(vigencia_contrato)"`
-
+	Pendiente string `orm:"column(estado_disponibilidad)"`
 }
 
 type ConceptosInforme struct {
@@ -203,7 +203,7 @@ func ListarPersonasPorPreliquidacion(v *Preliquidacion) (per []PersonasPreliquid
 	var personas []PersonasPreliquidacion
 
 
-	_, err = o.Raw("select persona from administrativa.detalle_preliquidacion where preliquidacion = ? group by persona", v.Id).QueryRows(&personas)
+	_, err = o.Raw("select persona,numero_contrato, vigencia_contrato, estado_disponibilidad from administrativa.detalle_preliquidacion where preliquidacion = ? group by persona, numero_contrato, vigencia_contrato, estado_disponibilidad", v.Id).QueryRows(&personas)
 	if len(personas) != 0 && err == nil {
 
 
