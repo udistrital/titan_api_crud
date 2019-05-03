@@ -33,10 +33,10 @@ type Contrato_x_Vigencia struct {
 }
 
 type PersonasPreliquidacion struct {
-	IdPersona int						`orm:"column(persona)"`
-	NumeroContrato string  `orm:"column(numero_contrato)"`
-	VigenciaContrato int   `orm:"column(vigencia_contrato)"`
-	Pendiente string `orm:"column(estado_disponibilidad)"`
+	IdPersona 																	int						`orm:"column(persona)"`
+	NumeroContrato 															string  			`orm:"column(numero_contrato)"`
+	VigenciaContrato 														int   				`orm:"column(vigencia_contrato)"`
+	EstadoDisponibilidad 												int	    			 `orm:"column(estado_disponibilidad)"`
 }
 
 type ConceptosInforme struct {
@@ -211,6 +211,7 @@ func ListarPersonasPorPreliquidacion(v *Preliquidacion) (per []PersonasPreliquid
 		fmt.Println("err1: ", err)
 
 	}
+	fmt.Println("personas",personas)
 	return personas, err
 }
 
