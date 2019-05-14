@@ -8,6 +8,8 @@ import (
 	"strings"
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/udistrital/utils_oas/formatdata"
+		"github.com/fatih/structs"
 )
 
 // DetallePreliquidacionController operations for DetallePreliquidacion
@@ -186,8 +188,37 @@ func (c *DetallePreliquidacionController) GetPersonasPagosPendientes() {
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
-		
+
 		c.Data["json"] = v
 	}
+	c.ServeJSON()
+}
+
+// UpdateEstadoDisponibilidadDisponibles ...
+// @Title UpdateEstadoDisponibilidadDisponibles
+// @Description Se actualizan a "pagado" todos los detalles de preliquidacion que se encuentran disponibles (cuyo cumplido se aprobó)
+// @Param idPreliquidacion query string false "preliquidacion"
+// @Success 200 {object} models.DetallePreliquidacion
+// @Failure 403
+// @router /update_estado_disponibilidad_detalle [get]
+func (c *DetallePreliquidacionController) UpdateEstadoDisponibilidadDisponibles() {
+	idPreliquidacion, err := c.GetInt("idPreliquidacion")
+	if err == nil {
+		err = models.UpdateEstadoDisponibilidadDisponibles(idPreliquidacion)
+			if err == nil {
+				c.Data["json"] = models.Alert{Code: "S_AP001", Body: nil, Type: "success"}
+			} else {
+				alertdb := structs.Map(err)
+				var code string
+				formatdata.FillStruct(alertdb["Code"], &code)
+				alert := models.Alert{Type: "error", Code: "E_" + code, Body: err}
+				c.Data["json"] = alert
+			}
+
+	} else {
+		c.Data["json"] = models.Alert{Code: "E_0458", Body: err.Error(), Type: "error"}
+	}
+
+
 	c.ServeJSON()
 }

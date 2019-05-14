@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-
 	"github.com/astaxie/beego/orm"
 )
 
@@ -183,4 +182,12 @@ func GetPersonasPagosPendientes(nomina int)(detalle_p []DetallePreliquidacion, e
 		fmt.Println("err1: ", err)
 	}
 	return detalle_pre,err
+}
+
+func UpdateEstadoDisponibilidadDisponibles(preliquidacion int)(err error){
+	o := orm.NewOrm()
+	qb, _ := orm.NewQueryBuilder("mysql")
+	qb.Update("administrativa" + ".detalle_preliquidacion").Set("estado_disponibilidad = 3").Where("estado_disponibilidad = 2 AND preliquidacion = ?")
+	_, err = o.Raw(qb.String(), preliquidacion).Exec()
+	return
 }
