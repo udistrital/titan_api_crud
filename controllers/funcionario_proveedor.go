@@ -28,7 +28,6 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 	var v models.Nomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 
-
 	} else {
 		c.Data["json"] = err.Error()
 		fmt.Println("error 2: ", err)
@@ -42,17 +41,17 @@ func (c *FuncionarioProveedorController) ConsultarIDProveedor() {
 // @Success 201 {object} models.Funcionario_x_Proveedor
 // @Failure 403 body is empty
 // @router /get_funcionarios_planta [get]
-func (c *FuncionarioProveedorController) GetIdProveedorXFuncionario(){
+func (c *FuncionarioProveedorController) GetIdProveedorXFuncionario() {
 
-	respuesta := models.GetIdProveedorXFuncionario();
+	respuesta := models.GetIdProveedorXFuncionario()
 
-	if(respuesta != nil){
+	if respuesta != nil {
 		c.Ctx.Output.SetStatus(201)
 		c.Data["json"] = respuesta
-	}else{
+	} else {
 		c.Data["json"] = respuesta
 
 	}
-	
+
 	c.ServeJSON()
 }
