@@ -22,8 +22,7 @@ pipeline:
      - gocov test ./... | gocov-xml > coverage.xml
      - go test -v ./... | go-junit-report > test.xml
     when:
-      branch: [desarrollo, develop]
-      event: push
+      branch: [develop]
   
   # build and run sonar-scanner
   sonar-scanner:
@@ -40,7 +39,7 @@ pipeline:
      - cp sonar-project.properties ./sonar-scanner-$RELEASE-linux/conf/sonar-scanner.properties
      - sonar-scanner
     when:
-      branch: [desarrollo, develop]
+      branch: [develop]
 
   # prepare imagedef.json and app.zip for deployment
   sed:
