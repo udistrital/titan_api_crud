@@ -23,7 +23,6 @@ pipeline:
      - go test -v ./... | go-junit-report > test.xml
     when:
       branch: [develop]
-      event: push
   
   # build and run sonar-scanner
   sonar-scanner:
