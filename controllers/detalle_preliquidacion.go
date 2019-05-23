@@ -3,13 +3,15 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/titan_api_crud/models"
+	"fmt"
 	"strconv"
 	"strings"
-	"fmt"
+
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"github.com/fatih/structs"
+	"github.com/udistrital/titan_api_crud/models"
 	"github.com/udistrital/utils_oas/formatdata"
-		"github.com/fatih/structs"
 )
 
 // DetallePreliquidacionController operations for DetallePreliquidacion
@@ -31,7 +33,7 @@ func (c *DetallePreliquidacionController) URLMapping() {
 // @Description create DetallePreliquidacion
 // @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
 // @Success 201 {int} models.DetallePreliquidacion
-// @Failure 403 body is empty
+// @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *DetallePreliquidacionController) Post() {
 	var v models.DetallePreliquidacion
@@ -40,10 +42,16 @@ func (c *DetallePreliquidacionController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -53,14 +61,17 @@ func (c *DetallePreliquidacionController) Post() {
 // @Description get DetallePreliquidacion by id
 // @Param	id		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.DetallePreliquidacion
-// @Failure 403 :id is empty
+// @Failure 404 not found resource
 // @router /:id [get]
 func (c *DetallePreliquidacionController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetDetallePreliquidacionById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	} else {
 		c.Data["json"] = v
 	}
@@ -77,7 +88,7 @@ func (c *DetallePreliquidacionController) GetOne() {
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.DetallePreliquidacion
-// @Failure 403
+// @Failure 404 not found resource
 // @router / [get]
 func (c *DetallePreliquidacionController) GetAll() {
 	var fields []string
@@ -123,8 +134,14 @@ func (c *DetallePreliquidacionController) GetAll() {
 
 	l, err := models.GetAllDetallePreliquidacion(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	} else {
+		if l == nil {
+			l = append(l, map[string]interface{}{})
+		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -136,7 +153,7 @@ func (c *DetallePreliquidacionController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
 // @Success 200 {object} models.DetallePreliquidacion
-// @Failure 403 :id is not int
+// @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *DetallePreliquidacionController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -144,12 +161,18 @@ func (c *DetallePreliquidacionController) Put() {
 	v := models.DetallePreliquidacion{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateDetallePreliquidacionById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -159,20 +182,22 @@ func (c *DetallePreliquidacionController) Put() {
 // @Description delete the DetallePreliquidacion
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 404 not found resource
 // @router /:id [delete]
 func (c *DetallePreliquidacionController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteDetallePreliquidacion(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
 		fmt.Println(err.Error())
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	}
 	c.ServeJSON()
 }
-
 
 // GetPersonasPagosPendientese ...
 // @Title GetPersonasPagosPendientes
@@ -205,20 +230,19 @@ func (c *DetallePreliquidacionController) UpdateEstadoDisponibilidadDisponibles(
 	idPreliquidacion, err := c.GetInt("idPreliquidacion")
 	if err == nil {
 		err = models.UpdateEstadoDisponibilidadDisponibles(idPreliquidacion)
-			if err == nil {
-				c.Data["json"] = models.Alert{Code: "S_AP001", Body: nil, Type: "success"}
-			} else {
-				alertdb := structs.Map(err)
-				var code string
-				formatdata.FillStruct(alertdb["Code"], &code)
-				alert := models.Alert{Type: "error", Code: "E_" + code, Body: err}
-				c.Data["json"] = alert
-			}
+		if err == nil {
+			c.Data["json"] = models.Alert{Code: "S_AP001", Body: nil, Type: "success"}
+		} else {
+			alertdb := structs.Map(err)
+			var code string
+			formatdata.FillStruct(alertdb["Code"], &code)
+			alert := models.Alert{Type: "error", Code: "E_" + code, Body: err}
+			c.Data["json"] = alert
+		}
 
 	} else {
 		c.Data["json"] = models.Alert{Code: "E_0458", Body: err.Error(), Type: "error"}
 	}
-
 
 	c.ServeJSON()
 }

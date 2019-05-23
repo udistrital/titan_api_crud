@@ -3,11 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/titan_api_crud/models"
+	"fmt"
 	"strconv"
 	"strings"
-	"fmt"
+
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
+	"github.com/udistrital/titan_api_crud/models"
 )
 
 // PreliquidacionController operations for Preliquidacion
@@ -35,7 +37,7 @@ func (c *PreliquidacionController) URLMapping() {
 // @Description create Preliquidacion
 // @Param	body		body 	models.Preliquidacion	true		"body for Preliquidacion content"
 // @Success 201 {int} models.Preliquidacion
-// @Failure 403 body is empty
+// @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *PreliquidacionController) Post() {
 	var v models.Preliquidacion
@@ -44,10 +46,16 @@ func (c *PreliquidacionController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -57,14 +65,17 @@ func (c *PreliquidacionController) Post() {
 // @Description get Preliquidacion by id
 // @Param	id		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.Preliquidacion
-// @Failure 403 :id is empty
+// @Failure 404 not found resource
 // @router /:id [get]
 func (c *PreliquidacionController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetPreliquidacionById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	} else {
 		c.Data["json"] = v
 	}
@@ -81,7 +92,7 @@ func (c *PreliquidacionController) GetOne() {
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.Preliquidacion
-// @Failure 403
+// @Failure 404 not found resource
 // @router / [get]
 func (c *PreliquidacionController) GetAll() {
 	var fields []string
@@ -127,8 +138,14 @@ func (c *PreliquidacionController) GetAll() {
 
 	l, err := models.GetAllPreliquidacion(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	} else {
+		if l == nil {
+			l = append(l, map[string]interface{}{})
+		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -140,7 +157,7 @@ func (c *PreliquidacionController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.Preliquidacion	true		"body for Preliquidacion content"
 // @Success 200 {object} models.Preliquidacion
-// @Failure 403 :id is not int
+// @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *PreliquidacionController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -148,12 +165,18 @@ func (c *PreliquidacionController) Put() {
 	v := models.Preliquidacion{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdatePreliquidacionById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = v
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+			c.Data["system"] = err
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -163,15 +186,18 @@ func (c *PreliquidacionController) Put() {
 // @Description delete the Preliquidacion
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 404 not found resource
 // @router /:id [delete]
 func (c *PreliquidacionController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeletePreliquidacion(id); err == nil {
-		c.Data["json"] = "OK"
+		c.Data["json"] = map[string]interface{}{"Id": id}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
+		c.Data["system"] = err
+		c.Abort("404")
 	}
 	c.ServeJSON()
 }
@@ -187,7 +213,7 @@ func (c *PreliquidacionController) Resumen() {
 
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if res , err := models.ResumenPreliquidacion(&v); err == nil {
+		if res, err := models.ResumenPreliquidacion(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
@@ -210,7 +236,7 @@ func (c *PreliquidacionController) Personas_x_preliquidacion() {
 
 	var v models.Preliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if res , err := models.ListarPersonasPorPreliquidacion(&v); err == nil {
+		if res, err := models.ListarPersonasPorPreliquidacion(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
@@ -237,10 +263,10 @@ func (c *PreliquidacionController) Contratos_x_preliquidacion() {
 	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
 	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
 	if err1 == nil && err2 == nil && err3 == nil {
-	fmt.Println(idNomina)
-	fmt.Println(mesLiquidacion)
-	fmt.Println(anioLiquidacion)
-		if res , err := models.Contratos_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+		fmt.Println(idNomina)
+		fmt.Println(mesLiquidacion)
+		fmt.Println(anioLiquidacion)
+		if res, err := models.Contratos_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
@@ -268,10 +294,10 @@ func (c *PreliquidacionController) Totales_ss_x_preliquidacion() {
 	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
 	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
 	if err1 == nil && err2 == nil && err3 == nil {
-	fmt.Println(idNomina)
-	fmt.Println(mesLiquidacion)
-	fmt.Println(anioLiquidacion)
-		if res , err := models.Totales_ss_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+		fmt.Println(idNomina)
+		fmt.Println(mesLiquidacion)
+		fmt.Println(anioLiquidacion)
+		if res, err := models.Totales_ss_x_preliquidacion(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {
@@ -299,10 +325,10 @@ func (c *PreliquidacionController) Contratos_x_preliquidacion_cerrada() {
 	mesLiquidacion, err2 := c.GetInt("mesLiquidacion")
 	anioLiquidacion, err3 := c.GetInt("anioLiquidacion")
 	if err1 == nil && err2 == nil && err3 == nil {
-	fmt.Println(idNomina)
-	fmt.Println(mesLiquidacion)
-	fmt.Println(anioLiquidacion)
-		if res , err := models.Contratos_x_preliquidacion_cerrada(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
+		fmt.Println(idNomina)
+		fmt.Println(mesLiquidacion)
+		fmt.Println(anioLiquidacion)
+		if res, err := models.Contratos_x_preliquidacion_cerrada(idNomina, mesLiquidacion, anioLiquidacion); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = res
 		} else {

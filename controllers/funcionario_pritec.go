@@ -1,14 +1,15 @@
 package controllers
 
 import (
-  	"encoding/json"
-//	"errors"
+	"encoding/json"
+	//	"errors"
 	//"strconv"
 	//"strings"
 	"github.com/udistrital/titan_api_crud/models"
 
+	"fmt"
+
 	"github.com/astaxie/beego"
-  "fmt"
 )
 
 // ConceptoController operations for Concepto
@@ -30,17 +31,16 @@ func (c *FuncionarioPritecController) URLMapping() {
 // @Failure 403 body is empty
 // @router / [post]
 func (c *FuncionarioPritecController) ConsultarPrimaTecnica() {
-  var v int
-  if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
+	var v int
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 
-    respuesta := models.GetPorcentajePT(v)
-    c.Ctx.Output.SetStatus(201)
-    c.Data["json"] = respuesta
+		respuesta := models.GetPorcentajePT(v)
+		c.Ctx.Output.SetStatus(201)
+		c.Data["json"] = respuesta
 
-
-  } else {
-    c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = err.Error()
 		fmt.Println("error 2: ", err)
-  }
-  c.ServeJSON()
-  }
+	}
+	c.ServeJSON()
+}
