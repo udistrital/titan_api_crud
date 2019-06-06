@@ -19,7 +19,6 @@ pipeline:
   # build and test the go program
   go-test:
     image: golang:1.9
-    #command_timeout: 3m
     commands:
      - go get -u gopkg.in/alecthomas/gometalinter.v1
      - gometalinter.v1 --install
