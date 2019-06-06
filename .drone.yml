@@ -32,7 +32,7 @@ pipeline:
       branch: [master, develop]
 
   # build and run sonar-scanner
-  sonar-scanner:
+  sonar-scanner-test:
     image: openjdk:8-alpine
     commands:
      - export RELEASE=3.3.0.1492
@@ -61,7 +61,7 @@ pipeline:
       event: push
 
   # build and push docker image to docker hub
-  publish_dockerhub:
+  publish-dockerhub:
     image: plugins/docker
     repo: oas0/${DRONE_REPO##udistrital/}
     secrets: [ docker_username, docker_password ]
@@ -93,7 +93,7 @@ pipeline:
 
   #Notify results to telegram
   #telegram_token is the bot token and telegram_to is the group id that start with "-" character
-  notify_telegram:
+  notify-telegram:
     image: appleboy/drone-telegram    
     secrets: [ telegram_token, telegram_to ]
     format: html
