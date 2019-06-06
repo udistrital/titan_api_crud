@@ -14,6 +14,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
       branch: [master, develop]
+      event: push
 
   # build and test the go program
   go-test:
@@ -30,6 +31,7 @@ pipeline:
      - go test -v ./... | go-junit-report > test.xml
     when:
       branch: [develop]
+      event: push
 
   # build and run sonar-scanner
   sonar-scanner-test:
@@ -47,6 +49,7 @@ pipeline:
      - sonar-scanner
     when:
       branch: [develop]
+      event: push
 
   # prepare imagedef.json and app.zip for deployment
   sed:
