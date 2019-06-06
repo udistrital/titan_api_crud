@@ -5,6 +5,7 @@ workspace:
     branch: [master, develop]
     event: push
 
+timeout: 90m
 pipeline:
 
   # build go program
@@ -19,7 +20,6 @@ pipeline:
 
   # build and test the go program
   go-test:
-    timeout: 90m
     image: golang:1.9
     #command_timeout: 3m
     commands:
