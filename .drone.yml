@@ -3,6 +3,7 @@ workspace:
   path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
   when:
     branch: [master, develop]
+    event: push
 
 pipeline:
 
