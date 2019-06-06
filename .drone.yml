@@ -3,6 +3,7 @@ workspace:
   path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
   when:
     branch: [master, develop]
+    event: push
 
 pipeline:
 
@@ -14,6 +15,7 @@ pipeline:
      - GOOS=linux GOARCH=amd64 go build -o main
     when:
       branch: [master, develop]
+      event: push
 
   # build and test the go program
   go-test:
@@ -30,6 +32,7 @@ pipeline:
      - go test -v ./... | go-junit-report > test.xml
     when:
       branch: [develop]
+      event: push
 
   # build and run sonar-scanner
   sonar-scanner-test:
@@ -47,6 +50,7 @@ pipeline:
      - sonar-scanner
     when:
       branch: [develop]
+      event: push
 
   # prepare imagedef.json and app.zip for deployment
   sed:
@@ -70,6 +74,7 @@ pipeline:
       - latest
     when:
       branch: [master, develop]
+      event: push
 
   # Update service ECS (Elastic Container Service) in AWS
   go-awsecs:
@@ -90,6 +95,7 @@ pipeline:
        $GOPATH/bin/update-aws-ecs-service -cluster $CLUSTER -service $SERVICE -container-image $container_name=$MYCONTAINER
     when:
       branch: [master, develop]
+      event: push
 
   #Notify results to telegram
   #telegram_token is the bot token and telegram_to is the group id that start with "-" character
@@ -108,4 +114,4 @@ pipeline:
     when:
       status: [success, failure]
       branch: [master, develop]
-
+      event: push
