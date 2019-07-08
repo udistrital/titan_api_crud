@@ -39,7 +39,7 @@ func init() {
 func main() {
 	orm.RegisterDataBase("default", "postgres", "postgres://"+beego.AppConfig.String("PGuser")+":"+beego.AppConfig.String("PGpass")+"@"+beego.AppConfig.String("PGurls")+"/"+beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+beego.AppConfig.String("PGschemas")+"")
 	apistatus.Init()
-	//Probado auditoria
+  //Prueba de auditoria
 	auditoria.InitMiddleware()
 	beego.ErrorController(&customerror.CustomErrorController{})
 	beego.Run()
