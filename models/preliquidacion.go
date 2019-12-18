@@ -6,12 +6,13 @@ import (
 	"reflect"
 	"strings"
 	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type Preliquidacion struct {
 	Nomina               *Nomina               `orm:"column(nomina);rel(fk)"`
-	Id 									int                      `orm:"auto;column(id);pk"`
+	Id                   int                   `orm:"auto;column(id);pk"`
 	Descripcion          string                `orm:"column(descripcion);null"`
 	Mes                  int                   `orm:"column(mes)"`
 	Ano                  int                   `orm:"column(ano)"`
@@ -21,46 +22,44 @@ type Preliquidacion struct {
 
 type InformePreliquidacion struct {
 	//IdPersona      int     `orm:"column(id)"`
-	NumeroContrato  string
+	NumeroContrato string
 	Vigencia       int
 	Conceptos      []ConceptosInforme
 	Disponibilidad int
 }
 
 type Contrato_x_Vigencia struct {
-	NumeroContrato string `orm:"column(numero_contrato)"`
-	VigenciaContrato int `orm:"column(vigencia_contrato)"`
+	NumeroContrato   string `orm:"column(numero_contrato)"`
+	VigenciaContrato int    `orm:"column(vigencia_contrato)"`
 }
 
 type PersonasPreliquidacion struct {
-	IdPersona 																	int						`orm:"column(persona)"`
-	NumeroContrato 															string  			`orm:"column(numero_contrato)"`
-	VigenciaContrato 														int   				`orm:"column(vigencia_contrato)"`
-	EstadoDisponibilidad 												int	    			 `orm:"column(estado_disponibilidad)"`
+	IdPersona            int    `orm:"column(persona)"`
+	NumeroContrato       string `orm:"column(numero_contrato)"`
+	VigenciaContrato     int    `orm:"column(vigencia_contrato)"`
+	EstadoDisponibilidad int    `orm:"column(estado_disponibilidad)"`
 }
 
 type ConceptosInforme struct {
-	Id         int    `orm:"column(id)"`
-	Nombre     string `orm:"column(nombre)"`
-	Naturaleza string `orm:"column(naturaleza)"`
-	Valor      string `orm:"column(valor)"`
-	TipoPreliquidacion string `orm:"column(tipo)"`
-	EstadoDisponibilidad int `orm:"column(id_disp)"`
+	Id                   int    `orm:"column(id)"`
+	Nombre               string `orm:"column(nombre)"`
+	Naturaleza           string `orm:"column(naturaleza)"`
+	Valor                string `orm:"column(valor)"`
+	TipoPreliquidacion   string `orm:"column(tipo)"`
+	EstadoDisponibilidad int    `orm:"column(id_disp)"`
 }
 
 type Preliquidacion_x_contratos struct {
-	Id_Preliq int `orm:"column(id)"`
-	Nombre_tipo_nomina string  `orm:"column(nombre)"`
+	Id_Preliq            int    `orm:"column(id)"`
+	Nombre_tipo_nomina   string `orm:"column(nombre)"`
 	Contratos_por_preliq []Contrato_x_Vigencia
 }
 
-
-
 type Totales_x_preliq struct {
-	Total float64    `orm:"column(total);null"`
-	Id_concepto int   `orm:"column(id)"`
-	Alias_concepto string   `orm:"column(alias_concepto)"`
-	Nombre_concepto   string  `orm:"column(nombre_concepto)"`
+	Total           float64 `orm:"column(total);null"`
+	Id_concepto     int     `orm:"column(id)"`
+	Alias_concepto  string  `orm:"column(alias_concepto)"`
+	Nombre_concepto string  `orm:"column(nombre_concepto)"`
 }
 
 func (t *Preliquidacion) TableName() string {
@@ -202,19 +201,16 @@ func ListarPersonasPorPreliquidacion(v *Preliquidacion) (per []PersonasPreliquid
 	o := orm.NewOrm()
 	var personas []PersonasPreliquidacion
 
-
-	_, err = o.Raw("select persona,numero_contrato, vigencia_contrato, estado_disponibilidad from administrativa.detalle_preliquidacion where preliquidacion = ? group by persona, numero_contrato, vigencia_contrato, estado_disponibilidad", v.Id).QueryRows(&personas)
+	_, err = o.Raw("select persona,numero_contrato, vigencia_contrato, estado_disponibilidad from administrativa.detalle_preliquidacion where preliquidacion = ? and estado_disponibilidad=2 group by persona, numero_contrato, vigencia_contrato, estado_disponibilidad", v.Id).QueryRows(&personas)
 	if len(personas) != 0 && err == nil {
-
 
 	} else {
 		fmt.Println("err1: ", err)
 
 	}
-	fmt.Println("personas",personas)
+	fmt.Println("personas", personas)
 	return personas, err
 }
-
 
 func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, err error) {
 	o := orm.NewOrm()
@@ -227,13 +223,13 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 		for _, contrato := range personas {
 
 			var informe InformePreliquidacion
-			_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, detalle.estado_disponibilidad as id_disp, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.persona = ?",v.Id, contrato).QueryRows(&informe.Conceptos)
-				if err != nil {
-					fmt.Println("err3: ", err)
-				}
+			_, err = o.Raw("SELECT concepto.id as id, concepto.alias_concepto as nombre, naturaleza.nombre as naturaleza, detalle.valor_calculado as valor, detalle.estado_disponibilidad as id_disp, tipo.nombre as tipo from administrativa.detalle_preliquidacion as detalle, administrativa.concepto_nomina as concepto, administrativa.naturaleza_concepto_nomina as naturaleza, administrativa.tipo_preliquidacion as tipo WHERE detalle.concepto = concepto.id AND concepto.naturaleza_concepto = naturaleza.id AND detalle.tipo_preliquidacion = tipo.id AND detalle.preliquidacion = ? AND detalle.persona = ?", v.Id, contrato).QueryRows(&informe.Conceptos)
+			if err != nil {
+				fmt.Println("err3: ", err)
+			}
 			for _, concepto := range informe.Conceptos {
-			   est_disp = 2
-				if(concepto.EstadoDisponibilidad == 1){
+				est_disp = 2
+				if concepto.EstadoDisponibilidad == 1 {
 
 					est_disp = 1
 				}
@@ -245,21 +241,18 @@ func ResumenPreliquidacion(v *Preliquidacion) (resumen []InformePreliquidacion, 
 
 		}
 
-
 	} else {
 		fmt.Println("err1: ", err)
 	}
 	return
 }
 
-
-
 func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre Preliquidacion_x_contratos, err error) {
 	o := orm.NewOrm()
 
-	var preliq_x_cont  Preliquidacion_x_contratos
+	var preliq_x_cont Preliquidacion_x_contratos
 
-	_ = o.Raw("select tipo_nom.nombre, pre.id from administrativa.preliquidacion as pre, administrativa.nomina as nom, administrativa.tipo_nomina as tipo_nom where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ? AND pre.nomina = nom.id AND nom.tipo_nomina = tipo_nom.id;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Nombre_tipo_nomina,&preliq_x_cont.Id_Preliq)
+	_ = o.Raw("select tipo_nom.nombre, pre.id from administrativa.preliquidacion as pre, administrativa.nomina as nom, administrativa.tipo_nomina as tipo_nom where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ? AND pre.nomina = nom.id AND nom.tipo_nomina = tipo_nom.id;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Nombre_tipo_nomina, &preliq_x_cont.Id_Preliq)
 	if err == nil {
 
 		_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&preliq_x_cont.Contratos_por_preliq)
@@ -269,32 +262,32 @@ func Contratos_x_preliquidacion(idNomina, mes, ano int) (cont_por_pre Preliquida
 		} else {
 			fmt.Println("err1: ", err)
 		}
-	}else{
+	} else {
 		fmt.Println("err1: ", err)
 	}
-	return preliq_x_cont,err
+	return preliq_x_cont, err
 }
 
 func Totales_ss_x_preliquidacion(idNomina, mes, ano int) (totales_por_pre []Totales_x_preliq, err error) {
 	o := orm.NewOrm()
 
-	var totales  []Totales_x_preliq
+	var totales []Totales_x_preliq
 
-	_,err = o.Raw("SELECT SUM(valor_calculado) as total, cn.alias_concepto, cn.nombre_concepto, cn.id FROM administrativa.detalle_preliquidacion dp INNER JOIN administrativa.concepto_nomina cn ON cn.id = dp.concepto INNER JOIN  administrativa.preliquidacion pr ON pr.id = dp.preliquidacion WHERE cn.nombre_concepto = 'salud' OR cn.nombre_concepto = 'pension' OR cn.nombre_concepto = 'fondoSolidaridad' AND pr.mes = ? AND pr.ano = ? AND pr.estado_preliquidacion = 1 AND pr.nomina = ? GROUP BY cn.id, cn.alias_concepto, cn.nombre_concepto, cn.id;", mes, ano, idNomina).QueryRows(&totales)
+	_, err = o.Raw("SELECT SUM(valor_calculado) as total, cn.alias_concepto, cn.nombre_concepto, cn.id FROM administrativa.detalle_preliquidacion dp INNER JOIN administrativa.concepto_nomina cn ON cn.id = dp.concepto INNER JOIN  administrativa.preliquidacion pr ON pr.id = dp.preliquidacion WHERE cn.nombre_concepto = 'salud' OR cn.nombre_concepto = 'pension' OR cn.nombre_concepto = 'fondoSolidaridad' AND pr.mes = ? AND pr.ano = ? AND pr.estado_preliquidacion = 1 AND pr.nomina = ? GROUP BY cn.id, cn.alias_concepto, cn.nombre_concepto, cn.id;", mes, ano, idNomina).QueryRows(&totales)
 	if err == nil {
 		//fmt.Println(totales)
 
-	}else{
+	} else {
 		fmt.Println("err1: ", err)
 	}
-	return totales,err
+	return totales, err
 }
 
 func Contratos_x_preliquidacion_cerrada(idNomina, mes, ano int) (cont_por_pre Preliquidacion_x_contratos, err error) {
 	o := orm.NewOrm()
-	var preliq_x_cont  Preliquidacion_x_contratos
+	var preliq_x_cont Preliquidacion_x_contratos
 
-	err1 := o.Raw("select tipo_nom.nombre, pre.id from administrativa.preliquidacion as pre, administrativa.nomina as nom, administrativa.tipo_nomina as tipo_nom where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 1 AND nomina = ? AND pre.nomina = nom.id AND nom.tipo_nomina = tipo_nom.id;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Nombre_tipo_nomina,&preliq_x_cont.Id_Preliq)
+	err1 := o.Raw("select tipo_nom.nombre, pre.id from administrativa.preliquidacion as pre, administrativa.nomina as nom, administrativa.tipo_nomina as tipo_nom where pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 1 AND nomina = ? AND pre.nomina = nom.id AND nom.tipo_nomina = tipo_nom.id;", ano, mes, idNomina).QueryRow(&preliq_x_cont.Nombre_tipo_nomina, &preliq_x_cont.Id_Preliq)
 	if err1 == nil {
 
 		_, err = o.Raw("select detalle.numero_contrato, detalle.vigencia_contrato from administrativa.detalle_preliquidacion as detalle, administrativa.preliquidacion as pre where detalle.preliquidacion = pre.id AND pre.ano = ? AND pre.mes=? AND pre.estado_preliquidacion = 4 AND nomina = ?  group by detalle.numero_contrato,detalle.vigencia_contrato;", ano, mes, idNomina).QueryRows(&preliq_x_cont.Contratos_por_preliq)
@@ -304,9 +297,9 @@ func Contratos_x_preliquidacion_cerrada(idNomina, mes, ano int) (cont_por_pre Pr
 		} else {
 			fmt.Println("err1: ", err)
 		}
-	}else{
+	} else {
 		fmt.Println("err1: ", err1)
 	}
 
-	return preliq_x_cont,err1
+	return preliq_x_cont, err1
 }
