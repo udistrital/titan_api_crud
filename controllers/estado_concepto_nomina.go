@@ -3,11 +3,13 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
-	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
 
+	"github.com/udistrital/titan_api_crud/models"
+
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 )
 
 // EstadoConceptoNominaController operations for EstadoConceptoNomina
@@ -29,19 +31,23 @@ func (c *EstadoConceptoNominaController) URLMapping() {
 // @Description create EstadoConceptoNomina
 // @Param	body		body 	models.EstadoConceptoNomina	true		"body for EstadoConceptoNomina content"
 // @Success 201 {int} models.EstadoConceptoNomina
-// @Failure 403 body is empty
+// @Failure 400 the request contains incorrect syntax
 // @router / [post]
 func (c *EstadoConceptoNominaController) Post() {
 	var v models.EstadoConceptoNomina
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if _, err := models.AddEstadoConceptoNomina(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
-			c.Data["json"] = v
+			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["mesaage"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["mesaage"] = "Error service POST: The request contains an incorrect data type or an invalid parameter"
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -51,16 +57,18 @@ func (c *EstadoConceptoNominaController) Post() {
 // @Description get EstadoConceptoNomina by id
 // @Param	id		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.EstadoConceptoNomina
-// @Failure 403 :id is empty
+// @Failure 404 not found resource
 // @router /:id [get]
 func (c *EstadoConceptoNominaController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetEstadoConceptoNominaById(id)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["mesaage"] = "Error service GetOne: The request contains an incorrect parameter or no record exists"
+		c.Abort("404")
 	} else {
-		c.Data["json"] = v
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Request successful", "Data": v}
 	}
 	c.ServeJSON()
 }
@@ -75,7 +83,7 @@ func (c *EstadoConceptoNominaController) GetOne() {
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.EstadoConceptoNomina
-// @Failure 403
+// @Failure 404 not found resource
 // @router / [get]
 func (c *EstadoConceptoNominaController) GetAll() {
 	var fields []string
@@ -121,9 +129,14 @@ func (c *EstadoConceptoNominaController) GetAll() {
 
 	l, err := models.GetAllEstadoConceptoNomina(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["mesaage"] = "Error service GetAll: The request contains an incorrect parameter or no record exists"
+		c.Abort("404")
 	} else {
-		c.Data["json"] = l
+		if l == nil {
+			l = append(l, map[string]interface{}{})
+		}
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Request successful", "Data": l}
 	}
 	c.ServeJSON()
 }
@@ -134,7 +147,7 @@ func (c *EstadoConceptoNominaController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.EstadoConceptoNomina	true		"body for EstadoConceptoNomina content"
 // @Success 200 {object} models.EstadoConceptoNomina
-// @Failure 403 :id is not int
+// @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
 func (c *EstadoConceptoNominaController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -142,12 +155,16 @@ func (c *EstadoConceptoNominaController) Put() {
 	v := models.EstadoConceptoNomina{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateEstadoConceptoNominaById(&v); err == nil {
-			c.Data["json"] = "OK"
+			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Update successful", "Data": v}
 		} else {
-			c.Data["json"] = err.Error()
+			logs.Error(err)
+			c.Data["mesaage"] = "Error service Put: The request contains an incorrect data type or an invalid parameter"
+			c.Abort("400")
 		}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["mesaage"] = "Error service Put: The request contains an incorrect data type or an invalid parameter"
+		c.Abort("400")
 	}
 	c.ServeJSON()
 }
@@ -157,15 +174,18 @@ func (c *EstadoConceptoNominaController) Put() {
 // @Description delete the EstadoConceptoNomina
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 403 id is empty
+// @Failure 404 not found resource
 // @router /:id [delete]
 func (c *EstadoConceptoNominaController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteEstadoConceptoNomina(id); err == nil {
-		c.Data["json"] = "OK"
+		d := map[string]interface{}{"Id": id}
+		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {
-		c.Data["json"] = err.Error()
+		logs.Error(err)
+		c.Data["mesaage"] = "Error service Delete: Request contains incorrect parameter"
+		c.Abort("404")
 	}
 	c.ServeJSON()
 }
