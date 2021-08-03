@@ -3,13 +3,11 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
 
-	"github.com/udistrital/titan_api_crud/models"
-
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
 )
 
 // EstadoDisponibilidadController operations for EstadoDisponibilidad
@@ -31,7 +29,7 @@ func (c *EstadoDisponibilidadController) URLMapping() {
 // @Description create EstadoDisponibilidad
 // @Param	body		body 	models.EstadoDisponibilidad	true		"body for EstadoDisponibilidad content"
 // @Success 201 {int} models.EstadoDisponibilidad
-// @Failure 400 the request contains incorrect syntax
+// @Failure 403 body is empty
 // @router / [post]
 func (c *EstadoDisponibilidadController) Post() {
 	var v models.EstadoDisponibilidad
@@ -40,16 +38,10 @@ func (c *EstadoDisponibilidadController) Post() {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
@@ -59,17 +51,14 @@ func (c *EstadoDisponibilidadController) Post() {
 // @Description get EstadoDisponibilidad by id
 // @Param	id		path 	string	true		"The key for staticblock"
 // @Success 200 {object} models.EstadoDisponibilidad
-// @Failure 404 not found resource
+// @Failure 403 :id is empty
 // @router /:id [get]
 func (c *EstadoDisponibilidadController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	v, err := models.GetEstadoDisponibilidadById(id)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
 	}
@@ -86,7 +75,7 @@ func (c *EstadoDisponibilidadController) GetOne() {
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
 // @Success 200 {object} models.EstadoDisponibilidad
-// @Failure 404 not found resource
+// @Failure 403
 // @router / [get]
 func (c *EstadoDisponibilidadController) GetAll() {
 	var fields []string
@@ -132,14 +121,8 @@ func (c *EstadoDisponibilidadController) GetAll() {
 
 	l, err := models.GetAllEstadoDisponibilidad(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
-		if l == nil {
-			l = append(l, map[string]interface{}{})
-		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -151,7 +134,7 @@ func (c *EstadoDisponibilidadController) GetAll() {
 // @Param	id		path 	string	true		"The id you want to update"
 // @Param	body		body 	models.EstadoDisponibilidad	true		"body for EstadoDisponibilidad content"
 // @Success 200 {object} models.EstadoDisponibilidad
-// @Failure 400 the request contains incorrect syntax
+// @Failure 403 :id is not int
 // @router /:id [put]
 func (c *EstadoDisponibilidadController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
@@ -159,18 +142,12 @@ func (c *EstadoDisponibilidadController) Put() {
 	v := models.EstadoDisponibilidad{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		if err := models.UpdateEstadoDisponibilidadById(&v); err == nil {
-			c.Data["json"] = v
+			c.Data["json"] = "OK"
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
@@ -180,18 +157,15 @@ func (c *EstadoDisponibilidadController) Put() {
 // @Description delete the EstadoDisponibilidad
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 404 not found resource
+// @Failure 403 id is empty
 // @router /:id [delete]
 func (c *EstadoDisponibilidadController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
 	if err := models.DeleteEstadoDisponibilidad(id); err == nil {
-		c.Data["json"] = map[string]interface{}{"Id": id}
+		c.Data["json"] = "OK"
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }

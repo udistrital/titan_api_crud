@@ -3,22 +3,20 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"github.com/udistrital/titan_api_crud/models"
 	"strconv"
 	"strings"
 
-	"github.com/udistrital/titan_api_crud/models"
-
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/logs"
 )
 
-// TipoPensionadoController operations for TipoPensionado
-type TipoPensionadoController struct {
+// EstudianteController operations for Estudiante
+type EstudianteController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *TipoPensionadoController) URLMapping() {
+func (c *EstudianteController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -28,48 +26,39 @@ func (c *TipoPensionadoController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create TipoPensionado
-// @Param	body		body 	models.TipoPensionado	true		"body for TipoPensionado content"
-// @Success 201 {int} models.TipoPensionado
-// @Failure 400 the request contains incorrect syntax
+// @Description create Estudiante
+// @Param	body		body 	models.Estudiante	true		"body for Estudiante content"
+// @Success 201 {int} models.Estudiante
+// @Failure 403 body is empty
 // @router / [post]
-func (c *TipoPensionadoController) Post() {
-	var v models.TipoPensionado
+func (c *EstudianteController) Post() {
+	var v models.Estudiante
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddTipoPensionado(&v); err == nil {
+		if _, err := models.AddEstudiante(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // GetOne ...
 // @Title Get One
-// @Description get TipoPensionado by id
+// @Description get Estudiante by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.TipoPensionado
-// @Failure 404 not found resource
+// @Success 200 {object} models.Estudiante
+// @Failure 403 :id is empty
 // @router /:id [get]
-func (c *TipoPensionadoController) GetOne() {
+func (c *EstudianteController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetTipoPensionadoById(id)
+	v, err := models.GetEstudianteById(id)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
 	}
@@ -78,17 +67,17 @@ func (c *TipoPensionadoController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get TipoPensionado
+// @Description get Estudiante
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.TipoPensionado
-// @Failure 404 not found resource
+// @Success 200 {object} models.Estudiante
+// @Failure 403
 // @router / [get]
-func (c *TipoPensionadoController) GetAll() {
+func (c *EstudianteController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -130,16 +119,10 @@ func (c *TipoPensionadoController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllTipoPensionado(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllEstudiante(query, fields, sortby, order, offset, limit)
 	if err != nil {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	} else {
-		if l == nil {
-			l = append(l, map[string]interface{}{})
-		}
 		c.Data["json"] = l
 	}
 	c.ServeJSON()
@@ -147,51 +130,42 @@ func (c *TipoPensionadoController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the TipoPensionado
+// @Description update the Estudiante
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.TipoPensionado	true		"body for TipoPensionado content"
-// @Success 200 {object} models.TipoPensionado
-// @Failure 400 the request contains incorrect syntax
+// @Param	body		body 	models.Estudiante	true		"body for Estudiante content"
+// @Success 200 {object} models.Estudiante
+// @Failure 403 :id is not int
 // @router /:id [put]
-func (c *TipoPensionadoController) Put() {
+func (c *EstudianteController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.TipoPensionado{Id: id}
+	v := models.Estudiante{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateTipoPensionadoById(&v); err == nil {
-			c.Data["json"] = v
+		if err := models.UpdateEstudianteById(&v); err == nil {
+			c.Data["json"] = "OK"
 		} else {
-			logs.Error(err)
-			//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-			c.Data["system"] = err
-			c.Abort("400")
+			c.Data["json"] = err.Error()
 		}
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("400")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }
 
 // Delete ...
 // @Title Delete
-// @Description delete the TipoPensionado
+// @Description delete the Estudiante
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
-// @Failure 404 not found resource
+// @Failure 403 id is empty
 // @router /:id [delete]
-func (c *TipoPensionadoController) Delete() {
+func (c *EstudianteController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteTipoPensionado(id); err == nil {
-		c.Data["json"] = map[string]interface{}{"Id": id}
+	if err := models.DeleteEstudiante(id); err == nil {
+		c.Data["json"] = "OK"
 	} else {
-		logs.Error(err)
-		//c.Data["development"] = map[string]interface{}{"Code": "000", "Body": err.Error(), "Type": "error"}
-		c.Data["system"] = err
-		c.Abort("404")
+		c.Data["json"] = err.Error()
 	}
 	c.ServeJSON()
 }

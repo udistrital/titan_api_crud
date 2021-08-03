@@ -5,17 +5,21 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type ConceptoNomina struct {
-	Id 									int                      `orm:"auto;column(id);pk"`
-	NombreConcepto     string                    `orm:"column(nombre_concepto)"`
-	AliasConcepto      string                    `orm:"column(alias_concepto);null"`
-	TipoConcepto       *TipoConceptoNomina       `orm:"column(tipo_concepto);rel(fk)"`
-	NaturalezaConcepto *NaturalezaConceptoNomina `orm:"column(naturaleza_concepto);rel(fk)"`
-	EstadoConceptoNomina *EstadoConceptoNomina   `orm:"column(estado_concepto_nomina);rel(fk)"`
+	Id                         int                       `orm:"column(id);pk"`
+	NombreConcepto             string                    `orm:"column(nombre_concepto)"`
+	AliasConcepto              string                    `orm:"column(alias_concepto);null"`
+	NaturalezaConceptoNominaId *NaturalezaConceptoNomina `orm:"column(naturaleza_concepto_nomina_id);rel(fk)"`
+	TipoConceptoNominaId       *TipoConceptoNomina       `orm:"column(tipo_concepto_nomina_id);rel(fk)"`
+	EstadoConceptoNominaId     *EstadoConceptoNomina     `orm:"column(estado_concepto_nomina_id);rel(fk)"`
+	Activo                     bool                      `orm:"column(activo)"`
+	FechaCreacion              time.Time                 `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion          time.Time                 `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
 }
 
 func (t *ConceptoNomina) TableName() string {
@@ -50,7 +54,7 @@ func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
 func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ConceptoNomina)).RelatedSel(5)
+	qs := o.QueryTable(new(ConceptoNomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

@@ -5,15 +5,18 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type Nomina struct {
-	Id 							int               `orm:"auto;column(id);pk"`
-	Descripcion     string           `orm:"column(descripcion)"`
-	TipoNomina      *TipoNomina      `orm:"column(tipo_nomina);rel(fk)"`
-	Activo          bool             `orm:"column(activo)"`
+	Id                int         `orm:"column(id);pk"`
+	Descripcion       string      `orm:"column(descripcion);null"`
+	Activo            bool        `orm:"column(activo)"`
+	FechaCreacion     time.Time   `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion time.Time   `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
+	TipoNominaId      *TipoNomina `orm:"column(tipo_nomina_id);rel(fk)"`
 }
 
 func (t *Nomina) TableName() string {
@@ -48,7 +51,7 @@ func GetNominaById(id int) (v *Nomina, err error) {
 func GetAllNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Nomina)).RelatedSel(5)
+	qs := o.QueryTable(new(Nomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

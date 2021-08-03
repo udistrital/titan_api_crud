@@ -5,21 +5,26 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
+
 	"github.com/astaxie/beego/orm"
 )
 
 type DetallePreliquidacion struct {
-	Id 								int                    `orm:"auto;column(id);pk"`
-	ValorCalculado     float64               `orm:"column(valor_calculado)"`
-	NumeroContrato     string                `orm:"column(numero_contrato);null"`
-	VigenciaContrato   int                   `orm:"column(vigencia_contrato);null"`
-	Persona 					 int                   `orm:"column(persona)"`
-	DiasLiquidados     float64               `orm:"column(dias_liquidados);null"`
-	TipoPreliquidacion *TipoPreliquidacion   `orm:"column(tipo_preliquidacion);rel(fk)"`
-	Preliquidacion     *Preliquidacion       `orm:"column(preliquidacion);rel(fk)"`
-	Concepto           *ConceptoNomina       `orm:"column(concepto);rel(fk)"`
-	EstadoDisponibilidad *EstadoDisponibilidad `orm:"column(estado_disponibilidad);rel(fk);null"`
-
+	Id                     int                   `orm:"column(id);pk"`
+	ValorCalculado         float64               `orm:"column(valor_calculado)"`
+	NumeroContrato         string                `orm:"column(numero_contrato)"`
+	VigenciaContrato       int                   `orm:"column(vigencia_contrato)"`
+	DiasLiquidados         float64               `orm:"column(dias_liquidados)"`
+	TipoPreliquidacionId   *TipoPreliquidacion   `orm:"column(tipo_preliquidacion_id);rel(fk)"`
+	PreliquidacionId       *Preliquidacion       `orm:"column(preliquidacion_id);rel(fk)"`
+	ConceptoNominaId       *ConceptoNomina       `orm:"column(concepto_nomina_id);rel(fk)"`
+	EstadoDisponibilidadId *EstadoDisponibilidad `orm:"column(estado_disponibilidad_id);rel(fk)"`
+	PersonaId              int                   `orm:"column(persona_id)"`
+	DependenciaId          int                   `orm:"column(dependencia_id);null"`
+	FechaCreacion          time.Time             `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion      time.Time             `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
+	Activo                 bool                  `orm:"column(activo)"`
 }
 
 func (t *DetallePreliquidacion) TableName() string {
@@ -35,7 +40,6 @@ func init() {
 func AddDetallePreliquidacion(m *DetallePreliquidacion) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
-	fmt.Println(err)
 	return
 }
 
@@ -55,7 +59,7 @@ func GetDetallePreliquidacionById(id int) (v *DetallePreliquidacion, err error) 
 func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DetallePreliquidacion)).RelatedSel(5)
+	qs := o.QueryTable(new(DetallePreliquidacion))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -145,7 +149,6 @@ func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
 
 // DeleteDetallePreliquidacion deletes DetallePreliquidacion by Id and returns error if
 // the record to be deleted doesn't exist
-
 func DeleteDetallePreliquidacion(id int) (err error) {
 	o := orm.NewOrm()
 	v := DetallePreliquidacion{Id: id}
@@ -156,38 +159,5 @@ func DeleteDetallePreliquidacion(id int) (err error) {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
-	return
-}
-/*
-func DeleteDetallePreliquidacion(id int) (err error) {
-	o := orm.NewOrm()
-	res, err := o.Raw("DELETE FROM detalle_preliquidacion WHERE preliquidacion = ?", id).Exec()
-	if err == nil {
-    num, _ := res.RowsAffected()
-    fmt.Println("row affected nums: ", num)
-	}
-	return
-}
-*/
-func GetPersonasPagosPendientes(nomina int)(detalle_p []DetallePreliquidacion, e error){
-	o := orm.NewOrm()
-
-	var detalle_pre  []DetallePreliquidacion
-
-	_,err := o.Raw(" SELECT vd.* FROM administrativa.detalle_preliquidacion vd JOIN (SELECT numero_contrato, vigencia_contrato,preliquidacion FROM administrativa.detalle_preliquidacion, administrativa.preliquidacion WHERE estado_disponibilidad = 1 AND preliquidacion.nomina =? AND preliquidacion.id=detalle_preliquidacion.preliquidacion GROUP BY numero_contrato, vigencia_contrato, preliquidacion)OP ON OP.numero_contrato = vd.numero_contrato AND OP.vigencia_contrato = vd.vigencia_contrato AND OP.preliquidacion = vd.preliquidacion AND vd.concepto = 11;",nomina).QueryRows(&detalle_pre)
-	if err == nil {
-		//fmt.Println(totales)
-
-	}else{
-		fmt.Println("err1: ", err)
-	}
-	return detalle_pre,err
-}
-
-func UpdateEstadoDisponibilidadDisponibles(preliquidacion int)(err error){
-	o := orm.NewOrm()
-	qb, _ := orm.NewQueryBuilder("mysql")
-	qb.Update("administrativa" + ".detalle_preliquidacion").Set("estado_disponibilidad = 3").Where("estado_disponibilidad = 2 AND preliquidacion = ?")
-	_, err = o.Raw(qb.String(), preliquidacion).Exec()
 	return
 }

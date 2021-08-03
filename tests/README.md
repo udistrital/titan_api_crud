@@ -1,1 +1,0 @@
-## Folder tests para almacenar los test de golang
