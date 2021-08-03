@@ -1,6 +1,7 @@
 # titan_api_crud
 API CRUD del liquidador de nominas (TITAN)
 
+Probando permisos
 
 ## Especificaciones Técnicas
 
