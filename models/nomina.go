@@ -11,7 +11,7 @@ import (
 )
 
 type Nomina struct {
-	Id                int         `orm:"column(id);pk"`
+	Id                int         `orm:"column(id);pk;auto"`
 	Descripcion       string      `orm:"column(descripcion);null"`
 	Activo            bool        `orm:"column(activo)"`
 	FechaCreacion     time.Time   `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`

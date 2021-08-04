@@ -6,10 +6,8 @@ import (
 )
 
 func init() {
-	
-	//Para concepto_nomina
 
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -18,7 +16,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -27,7 +25,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -36,7 +34,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -45,7 +43,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:ConceptoNominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -54,9 +52,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//Para detelle_preliquidacion
-
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -65,7 +61,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -74,7 +70,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -83,7 +79,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -92,7 +88,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:detalle_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:DetallePreliquidacionController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -101,9 +97,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para estado_concepto_nomina
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -112,7 +106,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -121,7 +115,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -130,7 +124,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -139,7 +133,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -148,9 +142,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para estado_disponibilidad
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -159,7 +151,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -168,7 +160,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -177,7 +169,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -186,7 +178,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_disponibilidad"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoDisponibilidadController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -195,9 +187,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para estado_preliquidacion
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -206,7 +196,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -215,7 +205,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -224,7 +214,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -233,7 +223,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:estado_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:EstadoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -242,9 +232,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para naturaleza_concepto_nomina
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -253,7 +241,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -262,7 +250,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -271,7 +259,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -280,7 +268,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:naturaleza_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NaturalezaConceptoNominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -289,9 +277,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para nomina
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -300,7 +286,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -309,7 +295,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -318,7 +304,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -327,7 +313,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:NominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -336,9 +322,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para preliquidacion
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -347,7 +331,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -356,7 +340,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -365,7 +349,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -374,7 +358,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:PreliquidacionController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -383,9 +367,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para tipo_concepto_nomina
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -394,7 +376,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -403,7 +385,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -412,7 +394,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -421,7 +403,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_concepto_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoConceptoNominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -430,10 +412,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para tipo_nomina
-
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -442,7 +421,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -451,7 +430,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -460,7 +439,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -469,7 +448,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_nomina"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoNominaController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",
@@ -478,9 +457,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-	//para tipo_preliquidacion
-
-	beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Post",
             Router: "/",
@@ -489,7 +466,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"],
         beego.ControllerComments{
             Method: "GetAll",
             Router: "/",
@@ -498,7 +475,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"],
         beego.ControllerComments{
             Method: "GetOne",
             Router: "/:id",
@@ -507,7 +484,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Put",
             Router: "/:id",
@@ -516,7 +493,7 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:tipo_preliquidacion"],
+    beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"] = append(beego.GlobalControllerRouter["github.com/udistrital/titan_api_crud/controllers:TipoPreliquidacionController"],
         beego.ControllerComments{
             Method: "Delete",
             Router: "/:id",

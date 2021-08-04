@@ -11,7 +11,7 @@ import (
 )
 
 type Preliquidacion struct {
-	Id                     int                   `orm:"column(id);pk"`
+	Id                     int                   `orm:"column(id);pk;auto"`
 	Descripcion            string                `orm:"column(descripcion);null"`
 	Mes                    int                   `orm:"column(mes)"`
 	Ano                    int                   `orm:"column(ano)"`
