@@ -19,12 +19,37 @@ func init() {
 
 // Run the migrations
 func (m *IngresarRegistros_20210804_170918) Up() {
-	// use m.SQL("CREATE TABLE ...") to make schema update
+	file, err := ioutil.ReadFile("../scripts/20210804_170918_ingresar_registros_up.sql")
+
+	if err != nil {
+	// handle error
+	fmt.Println(err)
+	}
+
+	requests := strings.Split(string(file), ";")
+
+	for _, request := range requests {
+	fmt.Println(request)
+	m.SQL(request)
+	// do whatever you need with result and error
+	}
 
 }
 
 // Reverse the migrations
 func (m *IngresarRegistros_20210804_170918) Down() {
-	// use m.SQL("DROP TABLE ...") to reverse schema update
+	file, err := ioutil.ReadFile("../scripts/20210804_170918_ingresar_registros_down.sql")
 
+	if err != nil {
+	// handle error
+	fmt.Println(err)
+	}
+
+	requests := strings.Split(string(file), ";")
+
+	for _, request := range requests {
+	fmt.Println(request)
+	m.SQL(request)
+	// do whatever you need with result and error
+	}
 }
