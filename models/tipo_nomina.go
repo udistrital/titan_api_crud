@@ -11,6 +11,7 @@ import (
 )
 
 type TipoNomina struct {
+	Id                int       `orm:"column(id);pk;auto"`
 	Nombre            string    `orm:"column(nombre)"`
 	Descripcion       string    `orm:"column(descripcion);null"`
 	CodigoAbreviacion string    `orm:"column(codigo_abreviacion);null"`
@@ -18,7 +19,6 @@ type TipoNomina struct {
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
 	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
-	Id                int       `orm:"column(id);pk;auto"`
 }
 
 func (t *TipoNomina) TableName() string {
