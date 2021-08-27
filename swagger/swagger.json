@@ -188,6 +188,179 @@
                 }
             }
         },
+        "/concepto_nomina_por_persona/": {
+            "get": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "get ConceptoNominaPorPersona",
+                "operationId": "ConceptoNominaPorPersonaController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "create ConceptoNominaPorPersona",
+                "operationId": "ConceptoNominaPorPersonaController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ConceptoNominaPorPersona content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ConceptoNominaPorPersona"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/concepto_nomina_por_persona/{id}": {
+            "get": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "get ConceptoNominaPorPersona by id",
+                "operationId": "ConceptoNominaPorPersonaController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "update the ConceptoNominaPorPersona",
+                "operationId": "ConceptoNominaPorPersonaController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ConceptoNominaPorPersona content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNominaPorPersona"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "concepto_nomina_por_persona"
+                ],
+                "description": "delete the ConceptoNominaPorPersona",
+                "operationId": "ConceptoNominaPorPersonaController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/detalle_preliquidacion/": {
             "get": {
                 "tags": [
@@ -1956,6 +2129,60 @@
                 }
             }
         },
+        "models.ConceptoNominaPorPersona": {
+            "title": "ConceptoNominaPorPersona",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "ConceptoNominaId": {
+                    "$ref": "#/definitions/models.ConceptoNomina"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaDesde": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaHasta": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NominaId": {
+                    "$ref": "#/definitions/models.Nomina"
+                },
+                "NumCuotas": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NumeroContrato": {
+                    "type": "string"
+                },
+                "PersonaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ValorNovedad": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "VigenciaContrato": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.DetallePreliquidacion": {
             "title": "DetallePreliquidacion",
             "type": "object",
@@ -2360,6 +2587,10 @@
         {
             "name": "estado_preliquidacion",
             "description": "EstadoPreliquidacionController operations for EstadoPreliquidacion\n"
+        },
+        {
+            "name": "concepto_nomina_por_persona",
+            "description": "ConceptoNominaPorPersonaController operations for ConceptoNominaPorPersona\n"
         }
     ]
 }

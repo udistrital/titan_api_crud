@@ -10,51 +10,55 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Preliquidacion struct {
-	Id                     int                   `orm:"column(id);pk;auto"`
-	Descripcion            string                `orm:"column(descripcion);null"`
-	Mes                    int                   `orm:"column(mes)"`
-	Ano                    int                   `orm:"column(ano)"`
-	Activo                 bool                  `orm:"column(activo)"`
-	FechaModificacion      time.Time             `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
-	EstadoPreliquidacionId *EstadoPreliquidacion `orm:"column(estado_preliquidacion_id);rel(fk)"`
-	NominaId               *Nomina               `orm:"column(nomina_id);rel(fk)"`
-	FechaCreacion          time.Time             `orm:"column(fecha_creacion);type(timestamp without time zone);null;auto_now_add"`
+type ConceptoNominaPorPersona struct {
+	Id                int             `orm:"auto;column(id);pk"`
+	ValorNovedad      float64         `orm:"column(valor_novedad)"`
+	NumCuotas         int             `orm:"column(num_cuotas)"`
+	FechaDesde        time.Time       `orm:"column(fecha_desde);type(timestamp with time zone);null"`
+	FechaHasta        time.Time       `orm:"column(fecha_hasta);type(timestamp with time zone);null"`
+	NominaId          *Nomina         `orm:"column(nomina_id);rel(fk)"`
+	ConceptoNominaId  *ConceptoNomina `orm:"column(concepto_nomina_id);rel(fk)"`
+	NumeroContrato    string          `orm:"column(numero_contrato)"`
+	VigenciaContrato  int             `orm:"column(vigencia_contrato)"`
+	PersonaId         int             `orm:"column(persona_id)"`
+	FechaCreacion     time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);null"`
+	FechaModificacion time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);null"`
+	Activo            bool            `orm:"column(activo)"`
 }
 
-func (t *Preliquidacion) TableName() string {
-	return "preliquidacion"
+func (t *ConceptoNominaPorPersona) TableName() string {
+	return "concepto_nomina_por_persona"
 }
 
 func init() {
-	orm.RegisterModel(new(Preliquidacion))
+	orm.RegisterModel(new(ConceptoNominaPorPersona))
 }
 
-// AddPreliquidacion insert a new Preliquidacion into database and returns
+// AddConceptoNominaPorPersona insert a new ConceptoNominaPorPersona into database and returns
 // last inserted Id on success.
-func AddPreliquidacion(m *Preliquidacion) (id int64, err error) {
+func AddConceptoNominaPorPersona(m *ConceptoNominaPorPersona) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetPreliquidacionById retrieves Preliquidacion by Id. Returns error if
+// GetConceptoNominaPorPersonaById retrieves ConceptoNominaPorPersona by Id. Returns error if
 // Id doesn't exist
-func GetPreliquidacionById(id int) (v *Preliquidacion, err error) {
+func GetConceptoNominaPorPersonaById(id int) (v *ConceptoNominaPorPersona, err error) {
 	o := orm.NewOrm()
-	v = &Preliquidacion{Id: id}
+	v = &ConceptoNominaPorPersona{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllPreliquidacion retrieves all Preliquidacion matches certain condition. Returns empty list if
+// GetAllConceptoNominaPorPersona retrieves all ConceptoNominaPorPersona matches certain condition. Returns empty list if
 // no records exist
-func GetAllPreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllConceptoNominaPorPersona(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Preliquidacion)).RelatedSel()
+	qs := o.QueryTable(new(ConceptoNominaPorPersona)).RelatedSel(5)
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -104,7 +108,7 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []Preliquidacion
+	var l []ConceptoNominaPorPersona
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,11 +131,11 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdatePreliquidacion updates Preliquidacion by Id and returns error if
+// UpdateConceptoNominaPorPersona updates ConceptoNominaPorPersona by Id and returns error if
 // the record to be updated doesn't exist
-func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
+func UpdateConceptoNominaPorPersonaById(m *ConceptoNominaPorPersona) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: m.Id}
+	v := ConceptoNominaPorPersona{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -142,15 +146,15 @@ func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
 	return
 }
 
-// DeletePreliquidacion deletes Preliquidacion by Id and returns error if
+// DeleteConceptoNominaPorPersona deletes ConceptoNominaPorPersona by Id and returns error if
 // the record to be deleted doesn't exist
-func DeletePreliquidacion(id int) (err error) {
+func DeleteConceptoNominaPorPersona(id int) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: id}
+	v := ConceptoNominaPorPersona{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Preliquidacion{Id: id}); err == nil {
+		if num, err = o.Delete(&ConceptoNominaPorPersona{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

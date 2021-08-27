@@ -11,3 +11,4 @@ DELETE FROM titan_preliquidacion.preliquidacion
 DELETE FROM titan_preliquidacion.nomina
 DELETE FROM titan_preliquidacion.estado_preliquidacion
 DELETE FROM titan_preliquidacion.tipo_nomina
+DELETE FROM titan_preliquidacion.concepto_nomina_por_persona

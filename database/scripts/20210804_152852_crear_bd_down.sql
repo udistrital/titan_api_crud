@@ -9,3 +9,4 @@ DROP TABLE IF EXISTS titan_preliquidacion.estado_concepto_nomina CASCADE;
 DROP TABLE IF EXISTS titan_preliquidacion.tipo_concepto_nomina CASCADE;
 DROP TABLE IF EXISTS titan_preliquidacion.concepto_nomina CASCADE;
 DROP TABLE IF EXISTS titan_preliquidacion.detalle_preliquidacion CASCADE;
+DROP TABLE IF EXISTS titan_preliquidacion.concepto_nomina_por_persona CASCADE;

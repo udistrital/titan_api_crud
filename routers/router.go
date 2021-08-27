@@ -8,8 +8,8 @@
 package routers
 
 import (
-	"github.com/udistrital/titan_api_crud/controllers"
 	"github.com/astaxie/beego"
+	"github.com/udistrital/titan_api_crud/controllers"
 )
 
 func init() {
@@ -78,6 +78,12 @@ func init() {
 		beego.NSNamespace("/estado_preliquidacion",
 			beego.NSInclude(
 				&controllers.EstadoPreliquidacionController{},
+			),
+		),
+
+		beego.NSNamespace("/concepto_nomina_por_persona",
+			beego.NSInclude(
+				&controllers.ConceptoNominaPorPersonaController{},
 			),
 		),
 	)

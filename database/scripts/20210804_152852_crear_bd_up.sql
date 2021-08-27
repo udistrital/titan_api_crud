@@ -49,10 +49,9 @@ CREATE TABLE titan_preliquidacion.nomina
     CONSTRAINT pk_nomina PRIMARY KEY (id),
     CONSTRAINT uq_tipo_nomina_nomina UNIQUE (tipo_nomina_id),
     CONSTRAINT fk_nomina_tipo_nomina FOREIGN KEY (tipo_nomina_id)
-        REFERENCES titan_preliquidacion.tipo_nomina (id) MATCH SIMPLE
+        REFERENCES titan_preliquidacion.tipo_nomina (id) MATCH FULL
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-        NOT VALID
 );
 
 COMMENT ON TABLE titan_preliquidacion.nomina
@@ -83,11 +82,11 @@ CREATE TABLE titan_preliquidacion.preliquidacion
     CONSTRAINT pk_preliquidacion PRIMARY KEY (id),
     CONSTRAINT uq_periodo_peliquidacion UNIQUE (mes, ano, nomina_id),
     CONSTRAINT fk_preliquidacion_estado_preliquidacion FOREIGN KEY (estado_preliquidacion_id)
-        REFERENCES titan_preliquidacion.estado_preliquidacion (id) MATCH SIMPLE
+        REFERENCES titan_preliquidacion.estado_preliquidacion (id) MATCH FULL
         ON UPDATE NO ACTION
         ON DELETE NO ACTION,
     CONSTRAINT fk_preliquidacion_nomina FOREIGN KEY (nomina_id)
-        REFERENCES titan_preliquidacion.nomina (id) MATCH SIMPLE
+        REFERENCES titan_preliquidacion.nomina (id) MATCH FULL
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
@@ -312,3 +311,54 @@ COMMENT ON COLUMN titan_preliquidacion.detalle_preliquidacion.preliquidacion_id
 
 COMMENT ON COLUMN titan_preliquidacion.detalle_preliquidacion.concepto_nomina_id
     IS 'Llave foranea a concepto_nomina. Indica bajo que concepto se realiza el pago';
+
+
+CREATE TABLE IF NOT EXISTS titan_preliquidacion.concepto_nomina_por_persona
+(
+    id serial NOT NULL,
+    valor_novedad numeric(18,8) NOT NULL,
+    num_cuotas numeric(5,0) NOT NULL,
+    fecha_desde timestamp without time zone,
+    fecha_hasta timestamp without time zone,
+    nomina_id integer NOT NULL,
+    concepto_nomina_id integer NOT NULL,
+    numero_contrato character varying(15) NOT NULL,
+    vigencia_contrato integer NOT NULL,
+    persona_id integer NOT NULL,
+    fecha_creacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activo boolean NOT NULL DEFAULT true,
+    CONSTRAINT pk_concepto_nomina_por_persona PRIMARY KEY (id),
+    CONSTRAINT fk_concepto_nomina_por_persona_concepto_nomina FOREIGN KEY (concepto_nomina_id)
+        REFERENCES titan_preliquidacion.concepto_nomina (id) MATCH FULL
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_concepto_nomina_por_persona_nomina FOREIGN KEY (nomina_id)
+        REFERENCES titan_preliquidacion.nomina (id) MATCH FULL
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+COMMENT ON TABLE titan_preliquidacion.concepto_nomina_por_persona
+    IS 'Describe las novedades asociadas a las personas';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.nomina_id
+    IS 'Llave foranea a nomina. Nomina sobre la cual se calculara la novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.concepto_nomina_id
+    IS 'Llave foreanea a concepto. Concepto asociado a la novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.numero_contrato
+    IS 'Numero de contrato de persona a la que se le asocia la novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.vigencia_contrato
+    IS 'Vigencia del contrato de persona a la que se le asocia novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.fecha_creacion
+    IS 'Fecha de registro de la novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.fecha_modificacion
+    IS 'fecha de modificacion de la novedad';
+
+COMMENT ON COLUMN titan_preliquidacion.concepto_nomina_por_persona.activo
+    IS 'Indica si la novedad esta activa o no';
