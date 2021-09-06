@@ -1,5 +1,5 @@
 
---Datos tipo_nomina_id
+--Datos tipo_nomina
 
 INSERT INTO titan_preliquidacion.tipo_nomina (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (1, 'FP', 'Funcionarios de planta', 'TN-PLAN', true, NULL);
 INSERT INTO titan_preliquidacion.tipo_nomina (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (2, 'DP', 'Docentes de planta', 'TN-PLAN', true, NULL);
@@ -8,14 +8,14 @@ INSERT INTO titan_preliquidacion.tipo_nomina (id, nombre, descripcion, codigo_ab
 INSERT INTO titan_preliquidacion.tipo_nomina (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (5, 'HCS', 'Vinculacion Docente Salarios', 'TN-HC', true, NULL);
 INSERT INTO titan_preliquidacion.tipo_nomina (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (6, 'CT', 'Contrato de Prestacion de Servicios Profesionales o Apoyo a la Gestion', 'TN-CONT', true, NULL);
 
---Datos estado_preliquidacion_id
+--Datos estado_preliquidacion
 
 INSERT INTO titan_preliquidacion.estado_preliquidacion (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (1, 'Cerrada', 'No se permiten más cambios en la preliquidación pues ya ha sido liquidada', 'EPL_001', true, NULL);
 INSERT INTO titan_preliquidacion.estado_preliquidacion (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (2, 'Abierta', 'La preliquidación puede volver a calcularse', 'EPL_002', true, NULL);
 INSERT INTO titan_preliquidacion.estado_preliquidacion (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (3, 'SolicitudNecesidad', 'Se ha solicitado una necesidad para esta preliquidación', 'EPL_003', true, NULL);
 INSERT INTO titan_preliquidacion.estado_preliquidacion (id, nombre, descripcion, codigo_abreviacion, activo, numero_orden) VALUES (4, 'OrdenPagoPendientes', 'Se han generado ordenes de pago pero hay personas pendientes de pago', 'EPL_004', true, NULL);
 
---Datos nomina_id
+--Datos nomina
 
 INSERT INTO titan_preliquidacion.nomina (id, descripcion, activo, tipo_nomina_id) VALUES (1, 'Funcionarios administrativos-Planta', true, 1);
 INSERT INTO titan_preliquidacion.nomina (id, descripcion, activo, tipo_nomina_id) VALUES (2, 'Docentes de planta', true, 2);

@@ -1,12 +1,1 @@
-DROP TABLE IF EXISTS titan_preliquidacion.tipo_nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.estado_preliquidacion CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.preliquidacion CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.tipo_preliquidacion CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.estado_disponibilidad CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.naturaleza_concepto_nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.estado_concepto_nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.tipo_concepto_nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.concepto_nomina CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.detalle_preliquidacion CASCADE;
-DROP TABLE IF EXISTS titan_preliquidacion.concepto_nomina_por_persona CASCADE;
+DROP schema IF EXISTS titan_preliquidacion CASCADE;

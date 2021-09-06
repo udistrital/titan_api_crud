@@ -1,3 +1,6 @@
+--Crear schema
+
+CREATE schema titan_preliquidacion
 
 --Tipo nomina
 
@@ -43,8 +46,8 @@ CREATE TABLE titan_preliquidacion.nomina
     id serial NOT NULL,
     descripcion character varying(50),
     activo boolean NOT NULL DEFAULT TRUE,
-    fecha_creacion timestamp without time zone NOT NULL,
-    fecha_modificacion timestamp without time zone NOT NULL,
+    fecha_creacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
     tipo_nomina_id integer,
     CONSTRAINT pk_nomina PRIMARY KEY (id),
     CONSTRAINT uq_tipo_nomina_nomina UNIQUE (tipo_nomina_id),
@@ -137,7 +140,7 @@ COMMENT ON TABLE titan_preliquidacion.tipo_preliquidacion
 
 CREATE TABLE titan_preliquidacion.estado_disponibilidad
 (
-    id serial NOT NULL
+    id serial NOT NULL,
     nombre character varying(50) NOT NULL,
     descripcion character varying(100),
     codigo_abreviacion character varying(20),
@@ -337,7 +340,7 @@ CREATE TABLE IF NOT EXISTS titan_preliquidacion.concepto_nomina_por_persona
         REFERENCES titan_preliquidacion.nomina (id) MATCH FULL
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
-)
+);
 
 COMMENT ON TABLE titan_preliquidacion.concepto_nomina_por_persona
     IS 'Describe las novedades asociadas a las personas';
