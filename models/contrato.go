@@ -5,48 +5,69 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type TipoContrato struct {
-	Id           int    `orm:"column(id);pk"`
-	TipoContrato string `orm:"column(tipo_contrato);null"`
+type Contrato struct {
+	Id                   int             `orm:"column(id);pk"`
+	NumeroContrato       string          `orm:"column(numero_contrato)"`
+	Vigencia             int             `orm:"column(vigencia)"`
+	NombreCompleto       string          `orm:"column(nombre_completo)"`
+	Documento            string          `orm:"column(documento)"`
+	PersonaId            int             `orm:"column(persona_id);null"`
+	Cumplido             bool            `orm:"column(cumplido)"`
+	Preliquidado         bool            `orm:"column(preliquidado)"`
+	FechaInicio          time.Time       `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin             time.Time       `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	ValorContrato        float64         `orm:"column(valor_contrato)"`
+	InteresesVivienda    float64         `orm:"column(intereses_vivienda)"`
+	MedicinaPrepagadaUvt float64         `orm:"column(medicina_prepagada_uvt)"`
+	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
+	ResponsableIva       bool            `orm:"column(responsable_iva)"`
+	AFC                  float64         `orm:"column(AFC)"`
+	Dependientes         bool            `orm:"column(dependientes)"`
+	DependenciaId        int             `orm:"column(dependencia_id);null"`
+	PreliquidacionId     *Preliquidacion `orm:"column(preliquidacion_id);rel(fk)"`
+	Activo               bool            `orm:"column(activo)"`
+	FechaCreacion        time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
+	FechaModificacion    time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }
 
-func (t *TipoContrato) TableName() string {
-	return "tipo_contrato"
+func (t *Contrato) TableName() string {
+	return "contrato"
 }
 
 func init() {
-	orm.RegisterModel(new(TipoContrato))
+	orm.RegisterModel(new(Contrato))
 }
 
-// AddTipoContrato insert a new TipoContrato into database and returns
+// AddContrato insert a new Contrato into database and returns
 // last inserted Id on success.
-func AddTipoContrato(m *TipoContrato) (id int64, err error) {
+func AddContrato(m *Contrato) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetTipoContratoById retrieves TipoContrato by Id. Returns error if
+// GetContratoById retrieves Contrato by Id. Returns error if
 // Id doesn't exist
-func GetTipoContratoById(id int) (v *TipoContrato, err error) {
+func GetContratoById(id int) (v *Contrato, err error) {
 	o := orm.NewOrm()
-	v = &TipoContrato{Id: id}
+	v = &Contrato{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllTipoContrato retrieves all TipoContrato matches certain condition. Returns empty list if
+// GetAllContrato retrieves all Contrato matches certain condition. Returns empty list if
 // no records exist
-func GetAllTipoContrato(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllContrato(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(TipoContrato))
+	qs := o.QueryTable(new(Contrato))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -96,7 +117,7 @@ func GetAllTipoContrato(query map[string]string, fields []string, sortby []strin
 		}
 	}
 
-	var l []TipoContrato
+	var l []Contrato
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -119,11 +140,11 @@ func GetAllTipoContrato(query map[string]string, fields []string, sortby []strin
 	return nil, err
 }
 
-// UpdateTipoContrato updates TipoContrato by Id and returns error if
+// UpdateContrato updates Contrato by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateTipoContratoById(m *TipoContrato) (err error) {
+func UpdateContratoById(m *Contrato) (err error) {
 	o := orm.NewOrm()
-	v := TipoContrato{Id: m.Id}
+	v := Contrato{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -134,15 +155,15 @@ func UpdateTipoContratoById(m *TipoContrato) (err error) {
 	return
 }
 
-// DeleteTipoContrato deletes TipoContrato by Id and returns error if
+// DeleteContrato deletes Contrato by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteTipoContrato(id int) (err error) {
+func DeleteContrato(id int) (err error) {
 	o := orm.NewOrm()
-	v := TipoContrato{Id: id}
+	v := Contrato{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&TipoContrato{Id: id}); err == nil {
+		if num, err = o.Delete(&Contrato{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
