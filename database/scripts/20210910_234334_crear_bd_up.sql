@@ -1,3 +1,5 @@
+CREATE SCHEMA titan
+
 CREATE TABLE IF NOT EXISTS titan.preliquidacion
 (
     id serial NOT NULL,
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS titan.contrato
     medicina_prepagada_uvt numeric(20,7) NOT NULL,
     pension_voluntaria numeric(20,7) NOT NULL,
     responsable_iva boolean NOT NULL DEFAULT false,
-    "AFC" numeric(20,7) NOT NULL,
+    AFC numeric(20,7) NOT NULL,
     dependientes boolean NOT NULL DEFAULT false,
     dependencia_id integer,
     preliquidacion_id integer NOT NULL,
@@ -44,15 +46,29 @@ CREATE TABLE IF NOT EXISTS titan.contrato
         ON DELETE NO ACTION
 );
 
+CREATE TABLE IF NOT EXISTS titan.concepto_nomina
+(
+    id serial NOT NULL,
+    nombre_concepto character varying(80) NOT NULL,
+    alias_concepto character varying(80),
+    naturaleza_concepto_nomina_id integer NOT NULL,
+    tipo_concepto_nomina_id integer NOT NULL,
+    estado_concepto_nomina_id integer NOT NULL,
+    activo boolean NOT NULL DEFAULT TRUE,
+    fecha_creacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_concepto_nomina PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS titan.detalle_preliquidacion
 (
-    id integer NOT NULL DEFAULT nextval('titan.detalle_preliquidacion_id_seq'::regclass),
+    id serial,
     valor_calculado numeric(20,7) NOT NULL,
     contrato_id integer NOT NULL,
-    numero_contrato character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    numero_contrato character varying(20)NOT NULL,
     vigencia_contrato integer NOT NULL,
     dias_liquidados numeric(2,0) NOT NULL,
-    dias_especificos character varying(50) COLLATE pg_catalog."default",
+    dias_especificos character varying(50),
     tipo_preliquidacion_id integer NOT NULL,
     concepto_nomina_id integer NOT NULL,
     estado_disponibilidad_id integer NOT NULL,
@@ -63,5 +79,11 @@ CREATE TABLE IF NOT EXISTS titan.detalle_preliquidacion
     CONSTRAINT fk_detalle_preliquidacion_contrato FOREIGN KEY (contrato_id)
         REFERENCES titan.contrato (id) MATCH SIMPLE
         ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_detalle_preliquidacion_concepto_nomina FOREIGN KEY (concepto_nomina_id)
+        REFERENCES titan.concepto_nomina (id) MATCH FULL
+        ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+

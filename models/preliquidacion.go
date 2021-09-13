@@ -12,14 +12,14 @@ import (
 
 type Preliquidacion struct {
 	Id                     int       `orm:"column(id);pk"`
-	Descripcion            string    `orm:"column(descripcion)"`
+	Descripcion            string    `orm:"column(descripcion);null"`
 	Mes                    int       `orm:"column(mes)"`
 	Ano                    int       `orm:"column(ano)"`
-	EstadoPreliquidacionId int       `orm:"column(estado_preliquidacion_id)"`
-	NominaId               int       `orm:"column(nomina_id)"`
+	EstadoPreliquidacionId int       `orm:"column(estado_preliquidacion_id);"`
+	NominaId               int       `orm:"column(nomina_id);"`
 	Activo                 bool      `orm:"column(activo)"`
-	FechaCreacion          time.Time `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion      time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	FechaCreacion          time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add"`
+	FechaModificacion      time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add"`
 }
 
 func (t *Preliquidacion) TableName() string {

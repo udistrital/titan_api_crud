@@ -26,7 +26,7 @@ type Contrato struct {
 	MedicinaPrepagadaUvt float64         `orm:"column(medicina_prepagada_uvt)"`
 	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
 	ResponsableIva       bool            `orm:"column(responsable_iva)"`
-	AFC                  float64         `orm:"column(AFC)"`
+	Afc                  float64         `orm:"column(afc)"`
 	Dependientes         bool            `orm:"column(dependientes)"`
 	DependenciaId        int             `orm:"column(dependencia_id);null"`
 	PreliquidacionId     *Preliquidacion `orm:"column(preliquidacion_id);rel(fk)"`

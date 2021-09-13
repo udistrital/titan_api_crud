@@ -15,6 +15,179 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/concepto_nomina/": {
+            "get": {
+                "tags": [
+                    "concepto_nomina"
+                ],
+                "description": "get ConceptoNomina",
+                "operationId": "ConceptoNominaController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNomina"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "concepto_nomina"
+                ],
+                "description": "create ConceptoNomina",
+                "operationId": "ConceptoNominaController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ConceptoNomina content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNomina"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ConceptoNomina"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/concepto_nomina/{id}": {
+            "get": {
+                "tags": [
+                    "concepto_nomina"
+                ],
+                "description": "get ConceptoNomina by id",
+                "operationId": "ConceptoNominaController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNomina"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "concepto_nomina"
+                ],
+                "description": "update the ConceptoNomina",
+                "operationId": "ConceptoNominaController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ConceptoNomina content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNomina"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ConceptoNomina"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "concepto_nomina"
+                ],
+                "description": "delete the ConceptoNomina",
+                "operationId": "ConceptoNominaController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/contrato/": {
             "get": {
                 "tags": [
@@ -368,6 +541,44 @@
                 ],
                 "description": "get Preliquidacion",
                 "operationId": "PreliquidacionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "",
@@ -498,16 +709,55 @@
         }
     },
     "definitions": {
+        "models.ConceptoNomina": {
+            "title": "ConceptoNomina",
+            "type": "object",
+            "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
+                "AliasConcepto": {
+                    "type": "string"
+                },
+                "EstadoConceptoNominaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NaturalezaConceptoNominaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "NombreConcepto": {
+                    "type": "string"
+                },
+                "TipoConceptoNominaId": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
         "models.Contrato": {
             "title": "Contrato",
             "type": "object",
             "properties": {
-                "AFC": {
-                    "type": "number",
-                    "format": "double"
-                },
                 "Activo": {
                     "type": "boolean"
+                },
+                "Afc": {
+                    "type": "number",
+                    "format": "double"
                 },
                 "Cumplido": {
                     "type": "boolean"
@@ -591,8 +841,7 @@
                     "type": "boolean"
                 },
                 "ConceptoNominaId": {
-                    "type": "integer",
-                    "format": "int64"
+                    "$ref": "#/definitions/models.ConceptoNomina"
                 },
                 "ContratoId": {
                     "$ref": "#/definitions/models.Contrato"
@@ -680,16 +929,20 @@
     },
     "tags": [
         {
+            "name": "preliquidacion",
+            "description": "PreliquidacionController operations for Preliquidacion\n"
+        },
+        {
             "name": "contrato",
             "description": "ContratoController operations for Contrato\n"
         },
         {
-            "name": "detalle_preliquidacion",
-            "description": "DetallePreliquidacionController operations for DetallePreliquidacion\n"
+            "name": "concepto_nomina",
+            "description": "ConceptoNominaController operations for ConceptoNomina\n"
         },
         {
-            "name": "preliquidacion",
-            "description": "PreliquidacionController operations for Preliquidacion\n"
+            "name": "detalle_preliquidacion",
+            "description": "DetallePreliquidacionController operations for DetallePreliquidacion\n"
         }
     ]
 }

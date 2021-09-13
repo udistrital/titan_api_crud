@@ -10,55 +10,51 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type DetallePreliquidacion struct {
-	Id                     int             `orm:"column(id);pk"`
-	ValorCalculado         float64         `orm:"column(valor_calculado)"`
-	ContratoId             *Contrato       `orm:"column(contrato_id);rel(fk)"`
-	NumeroContrato         string          `orm:"column(numero_contrato)"`
-	VigenciaContrato       int             `orm:"column(vigencia_contrato)"`
-	DiasLiquidados         float64         `orm:"column(dias_liquidados)"`
-	DiasEspecificos        string          `orm:"column(dias_especificos);null"`
-	TipoPreliquidacionId   int             `orm:"column(tipo_preliquidacion_id);"`
-	ConceptoNominaId       *ConceptoNomina `orm:"column(concepto_nomina_id);rel(fk)"`
-	EstadoDisponibilidadId int             `orm:"column(estado_disponibilidad_id);"`
-	Activo                 bool            `orm:"column(activo)"`
-	FechaCreacion          time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion      time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+type ConceptoNomina struct {
+	Id                         int       `orm:"column(id);pk"`
+	NombreConcepto             string    `orm:"column(nombre_concepto)"`
+	AliasConcepto              string    `orm:"column(alias_concepto);null"`
+	NaturalezaConceptoNominaId int       `orm:"column(naturaleza_concepto_nomina_id);"`
+	TipoConceptoNominaId       int       `orm:"column(tipo_concepto_nomina_id);"`
+	EstadoConceptoNominaId     int       `orm:"column(estado_concepto_nomina_id);"`
+	Activo                     bool      `orm:"column(activo)"`
+	FechaCreacion              time.Time `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
+	FechaModificacion          time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }
 
-func (t *DetallePreliquidacion) TableName() string {
-	return "detalle_preliquidacion"
+func (t *ConceptoNomina) TableName() string {
+	return "concepto_nomina"
 }
 
 func init() {
-	orm.RegisterModel(new(DetallePreliquidacion))
+	orm.RegisterModel(new(ConceptoNomina))
 }
 
-// AddDetallePreliquidacion insert a new DetallePreliquidacion into database and returns
+// AddConceptoNomina insert a new ConceptoNomina into database and returns
 // last inserted Id on success.
-func AddDetallePreliquidacion(m *DetallePreliquidacion) (id int64, err error) {
+func AddConceptoNomina(m *ConceptoNomina) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetDetallePreliquidacionById retrieves DetallePreliquidacion by Id. Returns error if
+// GetConceptoNominaById retrieves ConceptoNomina by Id. Returns error if
 // Id doesn't exist
-func GetDetallePreliquidacionById(id int) (v *DetallePreliquidacion, err error) {
+func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
 	o := orm.NewOrm()
-	v = &DetallePreliquidacion{Id: id}
+	v = &ConceptoNomina{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllDetallePreliquidacion retrieves all DetallePreliquidacion matches certain condition. Returns empty list if
+// GetAllConceptoNomina retrieves all ConceptoNomina matches certain condition. Returns empty list if
 // no records exist
-func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DetallePreliquidacion))
+	qs := o.QueryTable(new(ConceptoNomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -108,7 +104,7 @@ func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortb
 		}
 	}
 
-	var l []DetallePreliquidacion
+	var l []ConceptoNomina
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -131,11 +127,11 @@ func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortb
 	return nil, err
 }
 
-// UpdateDetallePreliquidacion updates DetallePreliquidacion by Id and returns error if
+// UpdateConceptoNomina updates ConceptoNomina by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
+func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
 	o := orm.NewOrm()
-	v := DetallePreliquidacion{Id: m.Id}
+	v := ConceptoNomina{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -146,15 +142,15 @@ func UpdateDetallePreliquidacionById(m *DetallePreliquidacion) (err error) {
 	return
 }
 
-// DeleteDetallePreliquidacion deletes DetallePreliquidacion by Id and returns error if
+// DeleteConceptoNomina deletes ConceptoNomina by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteDetallePreliquidacion(id int) (err error) {
+func DeleteConceptoNomina(id int) (err error) {
 	o := orm.NewOrm()
-	v := DetallePreliquidacion{Id: id}
+	v := ConceptoNomina{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&DetallePreliquidacion{Id: id}); err == nil {
+		if num, err = o.Delete(&ConceptoNomina{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
