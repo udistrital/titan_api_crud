@@ -11,7 +11,7 @@ import (
 )
 
 type Preliquidacion struct {
-	Id                     int       `orm:"column(id);pk"`
+	Id                     int       `orm:"column(id);pk,auto"`
 	Descripcion            string    `orm:"column(descripcion);null"`
 	Mes                    int       `orm:"column(mes)"`
 	Ano                    int       `orm:"column(ano)"`
@@ -54,7 +54,7 @@ func GetPreliquidacionById(id int) (v *Preliquidacion, err error) {
 func GetAllPreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Preliquidacion))
+	qs := o.QueryTable(new(Preliquidacion)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

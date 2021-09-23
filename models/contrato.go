@@ -11,28 +11,20 @@ import (
 )
 
 type Contrato struct {
-	Id                   int             `orm:"column(id);pk"`
-	NumeroContrato       string          `orm:"column(numero_contrato)"`
-	Vigencia             int             `orm:"column(vigencia)"`
-	NombreCompleto       string          `orm:"column(nombre_completo)"`
-	Documento            string          `orm:"column(documento)"`
-	PersonaId            int             `orm:"column(persona_id);null"`
-	Cumplido             bool            `orm:"column(cumplido)"`
-	Preliquidado         bool            `orm:"column(preliquidado)"`
-	FechaInicio          time.Time       `orm:"column(fecha_inicio);type(timestamp with time zone)"`
-	FechaFin             time.Time       `orm:"column(fecha_fin);type(timestamp with time zone)"`
-	ValorContrato        float64         `orm:"column(valor_contrato)"`
-	InteresesVivienda    float64         `orm:"column(intereses_vivienda)"`
-	MedicinaPrepagadaUvt float64         `orm:"column(medicina_prepagada_uvt)"`
-	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
-	ResponsableIva       bool            `orm:"column(responsable_iva)"`
-	Afc                  float64         `orm:"column(afc)"`
-	Dependientes         bool            `orm:"column(dependientes)"`
-	DependenciaId        int             `orm:"column(dependencia_id);null"`
-	PreliquidacionId     *Preliquidacion `orm:"column(preliquidacion_id);rel(fk)"`
-	Activo               bool            `orm:"column(activo)"`
-	FechaCreacion        time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion    time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	Id                int       `orm:"column(id);pk,auto"`
+	NumeroContrato    string    `orm:"column(numero_contrato)"`
+	Vigencia          int       `orm:"column(vigencia)"`
+	NombreCompleto    string    `orm:"column(nombre_completo)"`
+	Documento         string    `orm:"column(documento)"`
+	PersonaId         int       `orm:"column(persona_id);null"`
+	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
+	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	ValorContrato     float64   `orm:"column(valor_contrato)"`
+	DependenciaId     int       `orm:"column(dependencia_id);null"`
+	Activo            bool      `orm:"column(activo)"`
+	FechaCreacion     time.Time `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
+	FechaModificacion time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }
 
 func (t *Contrato) TableName() string {

@@ -11,19 +11,17 @@ import (
 )
 
 type DetallePreliquidacion struct {
-	Id                     int             `orm:"column(id);pk"`
-	ValorCalculado         float64         `orm:"column(valor_calculado)"`
-	ContratoId             *Contrato       `orm:"column(contrato_id);rel(fk)"`
-	NumeroContrato         string          `orm:"column(numero_contrato)"`
-	VigenciaContrato       int             `orm:"column(vigencia_contrato)"`
-	DiasLiquidados         float64         `orm:"column(dias_liquidados)"`
-	DiasEspecificos        string          `orm:"column(dias_especificos);null"`
-	TipoPreliquidacionId   int             `orm:"column(tipo_preliquidacion_id);"`
-	ConceptoNominaId       *ConceptoNomina `orm:"column(concepto_nomina_id);rel(fk)"`
-	EstadoDisponibilidadId int             `orm:"column(estado_disponibilidad_id);"`
-	Activo                 bool            `orm:"column(activo)"`
-	FechaCreacion          time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion      time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	Id                       int                     `orm:"column(id);pk,auto"`
+	ContratoPreliquidacionId *ContratoPreliquidacion `orm:"column(contrato_preliquidacion_id);rel(fk)"`
+	ValorCalculado           float64                 `orm:"column(valor_calculado)"`
+	DiasLiquidados           float64                 `orm:"column(dias_liquidados)"`
+	DiasEspecificos          string                  `orm:"column(dias_especificos);null"`
+	TipoPreliquidacionId     int                     `orm:"column(tipo_preliquidacion_id);"`
+	ConceptoNominaId         *ConceptoNomina         `orm:"column(concepto_nomina_id);rel(fk)"`
+	EstadoDisponibilidadId   int                     `orm:"column(estado_disponibilidad_id);"`
+	Activo                   bool                    `orm:"column(activo)"`
+	FechaCreacion            time.Time               `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
+	FechaModificacion        time.Time               `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }
 
 func (t *DetallePreliquidacion) TableName() string {

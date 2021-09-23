@@ -361,6 +361,179 @@
                 }
             }
         },
+        "/contrato_preliquidacion/": {
+            "get": {
+                "tags": [
+                    "contrato_preliquidacion"
+                ],
+                "description": "get ContratoPreliquidacion",
+                "operationId": "ContratoPreliquidacionController.Get All",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "query",
+                        "description": "Filter. e.g. col1:v1,col2:v2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "fields",
+                        "description": "Fields returned. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "sortby",
+                        "description": "Sorted-by fields. e.g. col1,col2 ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "order",
+                        "description": "Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Limit the size of result set. Must be an integer",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "description": "Start position of result set. Must be an integer",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ContratoPreliquidacion"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "contrato_preliquidacion"
+                ],
+                "description": "create ContratoPreliquidacion",
+                "operationId": "ContratoPreliquidacionController.Post",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ContratoPreliquidacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ContratoPreliquidacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{int} models.ContratoPreliquidacion"
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            }
+        },
+        "/contrato_preliquidacion/{id}": {
+            "get": {
+                "tags": [
+                    "contrato_preliquidacion"
+                ],
+                "description": "get ContratoPreliquidacion by id",
+                "operationId": "ContratoPreliquidacionController.Get One",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ContratoPreliquidacion"
+                        }
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "contrato_preliquidacion"
+                ],
+                "description": "update the ContratoPreliquidacion",
+                "operationId": "ContratoPreliquidacionController.Put",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for ContratoPreliquidacion content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ContratoPreliquidacion"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.ContratoPreliquidacion"
+                        }
+                    },
+                    "400": {
+                        "description": "the request contains incorrect syntax"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "contrato_preliquidacion"
+                ],
+                "description": "delete the ContratoPreliquidacion",
+                "operationId": "ContratoPreliquidacionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "404": {
+                        "description": "not found resource"
+                    }
+                }
+            }
+        },
         "/detalle_preliquidacion/": {
             "get": {
                 "tags": [
@@ -755,19 +928,9 @@
                 "Activo": {
                     "type": "boolean"
                 },
-                "Afc": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "Cumplido": {
-                    "type": "boolean"
-                },
                 "DependenciaId": {
                     "type": "integer",
                     "format": "int64"
-                },
-                "Dependientes": {
-                    "type": "boolean"
                 },
                 "Documento": {
                     "type": "string"
@@ -792,6 +955,59 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "NombreCompleto": {
+                    "type": "string"
+                },
+                "NumeroContrato": {
+                    "type": "string"
+                },
+                "PersonaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "TipoNominaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ValorContrato": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Vigencia": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.ContratoPreliquidacion": {
+            "title": "ContratoPreliquidacion",
+            "type": "object",
+            "properties": {
+                "Afc": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "ContratoId": {
+                    "$ref": "#/definitions/models.Contrato"
+                },
+                "Cumplido": {
+                    "type": "boolean"
+                },
+                "Dependientes": {
+                    "type": "boolean"
+                },
+                "FechaCreacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "FechaModificacion": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "Id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "InteresesVivienda": {
                     "type": "number",
                     "format": "double"
@@ -800,19 +1016,9 @@
                     "type": "number",
                     "format": "double"
                 },
-                "NombreCompleto": {
-                    "type": "string"
-                },
-                "NumeroContrato": {
-                    "type": "string"
-                },
                 "PensionVoluntaria": {
                     "type": "number",
                     "format": "double"
-                },
-                "PersonaId": {
-                    "type": "integer",
-                    "format": "int64"
                 },
                 "PreliquidacionId": {
                     "$ref": "#/definitions/models.Preliquidacion"
@@ -822,14 +1028,6 @@
                 },
                 "ResponsableIva": {
                     "type": "boolean"
-                },
-                "ValorContrato": {
-                    "type": "number",
-                    "format": "double"
-                },
-                "Vigencia": {
-                    "type": "integer",
-                    "format": "int64"
                 }
             }
         },
@@ -843,8 +1041,8 @@
                 "ConceptoNominaId": {
                     "$ref": "#/definitions/models.ConceptoNomina"
                 },
-                "ContratoId": {
-                    "$ref": "#/definitions/models.Contrato"
+                "ContratoPreliquidacionId": {
+                    "$ref": "#/definitions/models.ContratoPreliquidacion"
                 },
                 "DiasEspecificos": {
                     "type": "string"
@@ -869,9 +1067,6 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "NumeroContrato": {
-                    "type": "string"
-                },
                 "TipoPreliquidacionId": {
                     "type": "integer",
                     "format": "int64"
@@ -879,10 +1074,6 @@
                 "ValorCalculado": {
                     "type": "number",
                     "format": "double"
-                },
-                "VigenciaContrato": {
-                    "type": "integer",
-                    "format": "int64"
                 }
             }
         },
@@ -929,12 +1120,8 @@
     },
     "tags": [
         {
-            "name": "preliquidacion",
-            "description": "PreliquidacionController operations for Preliquidacion\n"
-        },
-        {
-            "name": "contrato",
-            "description": "ContratoController operations for Contrato\n"
+            "name": "contrato_preliquidacion",
+            "description": "ContratoPreliquidacionController operations for ContratoPreliquidacion\n"
         },
         {
             "name": "concepto_nomina",
@@ -943,6 +1130,14 @@
         {
             "name": "detalle_preliquidacion",
             "description": "DetallePreliquidacionController operations for DetallePreliquidacion\n"
+        },
+        {
+            "name": "preliquidacion",
+            "description": "PreliquidacionController operations for Preliquidacion\n"
+        },
+        {
+            "name": "contrato",
+            "description": "ContratoController operations for Contrato\n"
         }
     ]
 }

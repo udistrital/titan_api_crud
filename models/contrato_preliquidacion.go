@@ -10,51 +10,55 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type ConceptoNomina struct {
-	Id                         int       `orm:"column(id);pk,auto"`
-	NombreConcepto             string    `orm:"column(nombre_concepto)"`
-	AliasConcepto              string    `orm:"column(alias_concepto);null"`
-	NaturalezaConceptoNominaId int       `orm:"column(naturaleza_concepto_nomina_id);"`
-	TipoConceptoNominaId       int       `orm:"column(tipo_concepto_nomina_id);"`
-	EstadoConceptoNominaId     int       `orm:"column(estado_concepto_nomina_id);"`
-	Activo                     bool      `orm:"column(activo)"`
-	FechaCreacion              time.Time `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion          time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+type ContratoPreliquidacion struct {
+	Id                   int             `orm:"column(id);pk,auto"`
+	ContratoId           *Contrato       `orm:"column(contrato_id);rel(fk)"`
+	PreliquidacionId     *Preliquidacion `orm:"column(preliquidacion_id);rel(fk)"`
+	Cumplido             bool            `orm:"column(cumplido)"`
+	Preliquidado         bool            `orm:"column(preliquidado)"`
+	InteresesVivienda    float64         `orm:"column(intereses_vivienda)"`
+	MedicinaPrepagadaUvt float64         `orm:"column(medicina_prepagada_uvt)"`
+	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
+	ResponsableIva       bool            `orm:"column(responsable_iva)"`
+	Afc                  float64         `orm:"column(afc)"`
+	Dependientes         bool            `orm:"column(dependientes)"`
+	FechaCreacion        time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
+	FechaModificacion    time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }
 
-func (t *ConceptoNomina) TableName() string {
-	return "concepto_nomina"
+func (t *ContratoPreliquidacion) TableName() string {
+	return "contrato_preliquidacion"
 }
 
 func init() {
-	orm.RegisterModel(new(ConceptoNomina))
+	orm.RegisterModel(new(ContratoPreliquidacion))
 }
 
-// AddConceptoNomina insert a new ConceptoNomina into database and returns
+// AddContratoPreliquidacion insert a new ContratoPreliquidacion into database and returns
 // last inserted Id on success.
-func AddConceptoNomina(m *ConceptoNomina) (id int64, err error) {
+func AddContratoPreliquidacion(m *ContratoPreliquidacion) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetConceptoNominaById retrieves ConceptoNomina by Id. Returns error if
+// GetContratoPreliquidacionById retrieves ContratoPreliquidacion by Id. Returns error if
 // Id doesn't exist
-func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
+func GetContratoPreliquidacionById(id int) (v *ContratoPreliquidacion, err error) {
 	o := orm.NewOrm()
-	v = &ConceptoNomina{Id: id}
+	v = &ContratoPreliquidacion{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllConceptoNomina retrieves all ConceptoNomina matches certain condition. Returns empty list if
+// GetAllContratoPreliquidacion retrieves all ContratoPreliquidacion matches certain condition. Returns empty list if
 // no records exist
-func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllContratoPreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ConceptoNomina))
+	qs := o.QueryTable(new(ContratoPreliquidacion)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -104,7 +108,7 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []ConceptoNomina
+	var l []ContratoPreliquidacion
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -127,11 +131,11 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdateConceptoNomina updates ConceptoNomina by Id and returns error if
+// UpdateContratoPreliquidacion updates ContratoPreliquidacion by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
+func UpdateContratoPreliquidacionById(m *ContratoPreliquidacion) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: m.Id}
+	v := ContratoPreliquidacion{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -142,15 +146,15 @@ func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
 	return
 }
 
-// DeleteConceptoNomina deletes ConceptoNomina by Id and returns error if
+// DeleteContratoPreliquidacion deletes ContratoPreliquidacion by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteConceptoNomina(id int) (err error) {
+func DeleteContratoPreliquidacion(id int) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: id}
+	v := ContratoPreliquidacion{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&ConceptoNomina{Id: id}); err == nil {
+		if num, err = o.Delete(&ContratoPreliquidacion{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}
