@@ -24,7 +24,7 @@ func init() {
 // Run the migrations
 func (m *IngresarConceptos_20210929_144847) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
-	file, err := ioutil.ReadFile("../20210929_144847_ingresar_conceptos_up")
+	file, err := ioutil.ReadFile("../scripts/20210929_144847_ingresar_conceptos_up.sql")
 
 	if err != nil {
 		// handle error
