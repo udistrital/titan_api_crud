@@ -11,17 +11,19 @@ import (
 )
 
 type ContratoPreliquidacion struct {
-	Id                   int             `orm:"column(id);pk,auto"`
+	Id                   int             `orm:"column(id);pk;auto"`
 	ContratoId           *Contrato       `orm:"column(contrato_id);rel(fk)"`
 	PreliquidacionId     *Preliquidacion `orm:"column(preliquidacion_id);rel(fk)"`
 	Cumplido             bool            `orm:"column(cumplido)"`
 	Preliquidado         bool            `orm:"column(preliquidado)"`
+	ResponsableIva       bool            `orm:"column(responsable_iva)"`
+	Dependientes         bool            `orm:"column(dependientes)"`
+	Pensionado           bool            `orm:"column(pensionado)"`
 	InteresesVivienda    float64         `orm:"column(intereses_vivienda)"`
 	MedicinaPrepagadaUvt float64         `orm:"column(medicina_prepagada_uvt)"`
 	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
-	ResponsableIva       bool            `orm:"column(responsable_iva)"`
 	Afc                  float64         `orm:"column(afc)"`
-	Dependientes         bool            `orm:"column(dependientes)"`
+	Activo               bool            `orm:"column(activo)"`
 	FechaCreacion        time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
 	FechaModificacion    time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
 }

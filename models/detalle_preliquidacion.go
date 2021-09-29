@@ -11,7 +11,7 @@ import (
 )
 
 type DetallePreliquidacion struct {
-	Id                       int                     `orm:"column(id);pk,auto"`
+	Id                       int                     `orm:"column(id);pk;auto"`
 	ContratoPreliquidacionId *ContratoPreliquidacion `orm:"column(contrato_preliquidacion_id);rel(fk)"`
 	ValorCalculado           float64                 `orm:"column(valor_calculado)"`
 	DiasLiquidados           float64                 `orm:"column(dias_liquidados)"`

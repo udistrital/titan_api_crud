@@ -11,7 +11,7 @@ import (
 )
 
 type ConceptoNomina struct {
-	Id                         int       `orm:"column(id);pk,auto"`
+	Id                         int       `orm:"column(id);pk;auto"`
 	NombreConcepto             string    `orm:"column(nombre_concepto)"`
 	AliasConcepto              string    `orm:"column(alias_concepto);null"`
 	NaturalezaConceptoNominaId int       `orm:"column(naturaleza_concepto_nomina_id);"`

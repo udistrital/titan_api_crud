@@ -983,6 +983,9 @@
             "title": "ContratoPreliquidacion",
             "type": "object",
             "properties": {
+                "Activo": {
+                    "type": "boolean"
+                },
                 "Afc": {
                     "type": "number",
                     "format": "double"
@@ -1019,6 +1022,9 @@
                 "PensionVoluntaria": {
                     "type": "number",
                     "format": "double"
+                },
+                "Pensionado": {
+                    "type": "boolean"
                 },
                 "PreliquidacionId": {
                     "$ref": "#/definitions/models.Preliquidacion"

@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS liquidador.contrato_preliquidacion
     preliquidado boolean DEFAULT false,
     responsable_iva boolean,
     dependientes boolean,
+    pensionado boolean,
     intereses_vivienda numeric(20,7),
     afc numeric(20,7),
     medicina_prepagada_uvt numeric(20,7),
