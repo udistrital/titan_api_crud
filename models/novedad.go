@@ -10,56 +10,52 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Contrato struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	NumeroContrato    string    `orm:"column(numero_contrato)"`
-	Vigencia          int       `orm:"column(vigencia)"`
-	NombreCompleto    string    `orm:"column(nombre_completo)"`
-	Documento         string    `orm:"column(documento)"`
-	PersonaId         int       `orm:"column(persona_id);null"`
-	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
-	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp with time zone)"`
-	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp with time zone)"`
-	ValorContrato     float64   `orm:"column(valor_contrato)"`
-	DependenciaId     int       `orm:"column(dependencia_id);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+type Novedad struct {
+	Id                int             `orm:"column(id);pk;auto"`
+	ContratoId        *Contrato       `orm:"column(contrato_id);rel(fk)"`
+	ConceptoNominaId  *ConceptoNomina `orm:"column(concepto_nomina_id);rel(fk)"`
+	Valor             float64         `orm:"column(valor)"`
+	Cuotas            int             `orm:"column(cuotas)"`
+	FechaInicio       time.Time       `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin          time.Time       `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	Activo            bool            `orm:"column(activo)"`
+	FechaCreacion     string          `orm:"column(fecha_creacion);type(timestamp without time zone);"`
+	FechaModificacion string          `orm:"column(fecha_modificacion);type(timestamp without time zone);"`
 }
 
-func (t *Contrato) TableName() string {
-	return "contrato"
+func (t *Novedad) TableName() string {
+	return "novedad"
 }
 
 func init() {
-	orm.RegisterModel(new(Contrato))
+	orm.RegisterModel(new(Novedad))
 }
 
-// AddContrato insert a new Contrato into database and returns
+// AddNovedad insert a new Novedad into database and returns
 // last inserted Id on success.
-func AddContrato(m *Contrato) (id int64, err error) {
+func AddNovedad(m *Novedad) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetContratoById retrieves Contrato by Id. Returns error if
+// GetNovedadById retrieves Novedad by Id. Returns error if
 // Id doesn't exist
-func GetContratoById(id int) (v *Contrato, err error) {
+func GetNovedadById(id int) (v *Novedad, err error) {
 	o := orm.NewOrm()
-	v = &Contrato{Id: id}
+	v = &Novedad{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllContrato retrieves all Contrato matches certain condition. Returns empty list if
+// GetAllNovedad retrieves all Novedad matches certain condition. Returns empty list if
 // no records exist
-func GetAllContrato(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllNovedad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Contrato))
+	qs := o.QueryTable(new(Novedad)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -109,7 +105,7 @@ func GetAllContrato(query map[string]string, fields []string, sortby []string, o
 		}
 	}
 
-	var l []Contrato
+	var l []Novedad
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -132,11 +128,11 @@ func GetAllContrato(query map[string]string, fields []string, sortby []string, o
 	return nil, err
 }
 
-// UpdateContrato updates Contrato by Id and returns error if
+// UpdateNovedad updates Novedad by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateContratoById(m *Contrato) (err error) {
+func UpdateNovedadById(m *Novedad) (err error) {
 	o := orm.NewOrm()
-	v := Contrato{Id: m.Id}
+	v := Novedad{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -147,15 +143,15 @@ func UpdateContratoById(m *Contrato) (err error) {
 	return
 }
 
-// DeleteContrato deletes Contrato by Id and returns error if
+// DeleteNovedad deletes Novedad by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteContrato(id int) (err error) {
+func DeleteNovedad(id int) (err error) {
 	o := orm.NewOrm()
-	v := Contrato{Id: id}
+	v := Novedad{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Contrato{Id: id}); err == nil {
+		if num, err = o.Delete(&Novedad{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

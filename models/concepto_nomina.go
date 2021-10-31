@@ -5,21 +5,20 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type ConceptoNomina struct {
-	Id                         int       `orm:"column(id);pk;auto"`
-	NombreConcepto             string    `orm:"column(nombre_concepto)"`
-	AliasConcepto              string    `orm:"column(alias_concepto);null"`
-	NaturalezaConceptoNominaId int       `orm:"column(naturaleza_concepto_nomina_id);"`
-	TipoConceptoNominaId       int       `orm:"column(tipo_concepto_nomina_id);"`
-	EstadoConceptoNominaId     int       `orm:"column(estado_concepto_nomina_id);"`
-	Activo                     bool      `orm:"column(activo)"`
-	FechaCreacion              time.Time `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion          time.Time `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	Id                         int    `orm:"column(id);pk;auto"`
+	NombreConcepto             string `orm:"column(nombre_concepto)"`
+	AliasConcepto              string `orm:"column(alias_concepto);null"`
+	NaturalezaConceptoNominaId int    `orm:"column(naturaleza_concepto_nomina_id);"`
+	TipoConceptoNominaId       int    `orm:"column(tipo_concepto_nomina_id);"`
+	EstadoConceptoNominaId     int    `orm:"column(estado_concepto_nomina_id);"`
+	Activo                     bool   `orm:"column(activo)"`
+	FechaCreacion              string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion          string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *ConceptoNomina) TableName() string {
@@ -135,6 +134,7 @@ func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
+		m.FechaCreacion = v.FechaCreacion
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}

@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS liquidador.preliquidacion
     estado_preliquidacion_id integer NOT NULL,
     nomina_id integer NOT NULL,
     activo boolean NOT NULL DEFAULT true,
-    fecha_creacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
     CONSTRAINT pk_preliquidacion PRIMARY KEY (id),
     CONSTRAINT uq_periodo_peliquidacion UNIQUE (mes, ano, nomina_id)
 );
@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS liquidador.contrato
     valor_contrato numeric(20,7) NOT NULL,
     dependencia_id integer,
     activo boolean NOT NULL DEFAULT true,
-    fecha_creacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
     CONSTRAINT pk_contrato PRIMARY KEY (id)
 );
 
@@ -49,8 +49,8 @@ CREATE TABLE IF NOT EXISTS liquidador.contrato_preliquidacion
     medicina_prepagada_uvt numeric(20,7),
     pension_voluntaria numeric(20,7),
     activo boolean NOT NULL DEFAULT true,
-    fecha_creacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
     CONSTRAINT pk_contrato_preliquidacion PRIMARY KEY (id),
     CONSTRAINT uq_contrato_id_preliquidacion_id UNIQUE (contrato_id, preliquidacion_id),
     CONSTRAINT fk_contrato_preliquidacion_contrato FOREIGN KEY (contrato_id)
@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS liquidador.concepto_nomina
     tipo_concepto_nomina_id integer NOT NULL,
     estado_concepto_nomina_id integer NOT NULL,
     activo boolean NOT NULL DEFAULT TRUE,
-    fecha_creacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
     CONSTRAINT pk_concepto_nomina PRIMARY KEY (id)
 );
 
@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS liquidador.detalle_preliquidacion
     concepto_nomina_id integer NOT NULL,
     estado_disponibilidad_id integer NOT NULL,
     activo boolean NOT NULL DEFAULT true,
-    fecha_creacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fecha_modificacion timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
     CONSTRAINT pk_detalle_preliquidacion PRIMARY KEY (id),
     CONSTRAINT fk_detalle_preliquidacion_concepto_nomina FOREIGN KEY (concepto_nomina_id)
         REFERENCES liquidador.concepto_nomina (id) MATCH FULL
@@ -100,5 +100,32 @@ CREATE TABLE IF NOT EXISTS liquidador.detalle_preliquidacion
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
+
+CREATE TABLE IF NOT EXISTS liquidador.novedad
+(
+    id serial,
+    contrato_id integer NOT NULL,
+    concepto_nomina_id integer NOT NULL,
+    valor numeric(20,7) NOT NULL,
+    cuotas integer NOT NULL,
+    fecha_inicio timestamp with time zone NOT NULL,
+    fecha_fin timestamp with time zone NOT NULL,
+    activo boolean NOT NULL,
+    fecha_creacion timestamp without time zone NOT NULL,
+    fecha_modificacion timestamp without time zone NOT NULL,
+    CONSTRAINT pk_novedad PRIMARY KEY (id),
+    CONSTRAINT fk_novedad_concepto_nomina FOREIGN KEY (concepto_nomina_id)
+        REFERENCES liquidador.concepto_nomina (id) MATCH FULL
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_novedad_contrato FOREIGN KEY (contrato_id)
+        REFERENCES liquidador.contrato (id) MATCH FULL
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+
+COMMENT ON TABLE liquidador.novedad
+    IS 'Tabla en la que se almacenan las novedades que se presentan en cada contrato';
 
 

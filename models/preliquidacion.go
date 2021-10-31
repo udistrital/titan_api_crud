@@ -5,21 +5,20 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
 type Preliquidacion struct {
-	Id                     int       `orm:"column(id);pk;auto"`
-	Descripcion            string    `orm:"column(descripcion);null"`
-	Mes                    int       `orm:"column(mes)"`
-	Ano                    int       `orm:"column(ano)"`
-	EstadoPreliquidacionId int       `orm:"column(estado_preliquidacion_id);"`
-	NominaId               int       `orm:"column(nomina_id);"`
-	Activo                 bool      `orm:"column(activo)"`
-	FechaCreacion          time.Time `orm:"column(fecha_creacion);type(timestamp without time zone);auto_now_add;null"`
-	FechaModificacion      time.Time `orm:"column(fecha_modificacion);type(timestamp without time zone);auto_now_add;null"`
+	Id                     int    `orm:"column(id);pk;auto"`
+	Descripcion            string `orm:"column(descripcion);null"`
+	Mes                    int    `orm:"column(mes)"`
+	Ano                    int    `orm:"column(ano)"`
+	EstadoPreliquidacionId int    `orm:"column(estado_preliquidacion_id);"`
+	NominaId               int    `orm:"column(nomina_id);"`
+	Activo                 bool   `orm:"column(activo)"`
+	FechaCreacion          string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion      string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *Preliquidacion) TableName() string {
@@ -61,6 +60,9 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else if strings.Contains(k, "in") { // Aqui se hace que se traigan varios valores
+			arr := strings.Split(v, "|")
+			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}

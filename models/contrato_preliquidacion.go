@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -24,8 +23,8 @@ type ContratoPreliquidacion struct {
 	PensionVoluntaria    float64         `orm:"column(pension_voluntaria)"`
 	Afc                  float64         `orm:"column(afc)"`
 	Activo               bool            `orm:"column(activo)"`
-	FechaCreacion        time.Time       `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion    time.Time       `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	FechaCreacion        string          `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion    string          `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *ContratoPreliquidacion) TableName() string {

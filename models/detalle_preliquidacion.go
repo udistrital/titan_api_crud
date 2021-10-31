@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -20,8 +19,8 @@ type DetallePreliquidacion struct {
 	ConceptoNominaId         *ConceptoNomina         `orm:"column(concepto_nomina_id);rel(fk)"`
 	EstadoDisponibilidadId   int                     `orm:"column(estado_disponibilidad_id);"`
 	Activo                   bool                    `orm:"column(activo)"`
-	FechaCreacion            time.Time               `orm:"column(fecha_creacion);type(timestamp with time zone);auto_now_add"`
-	FechaModificacion        time.Time               `orm:"column(fecha_modificacion);type(timestamp with time zone);auto_now_add"`
+	FechaCreacion            string                  `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion        string                  `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *DetallePreliquidacion) TableName() string {
@@ -56,7 +55,7 @@ func GetDetallePreliquidacionById(id int) (v *DetallePreliquidacion, err error) 
 func GetAllDetallePreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(DetallePreliquidacion))
+	qs := o.QueryTable(new(DetallePreliquidacion)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
