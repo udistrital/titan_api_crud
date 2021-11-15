@@ -18,8 +18,8 @@ type Contrato struct {
 	Documento         string    `orm:"column(documento)"`
 	PersonaId         int       `orm:"column(persona_id);null"`
 	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
-	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp with time zone)"`
-	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
 	ValorContrato     float64   `orm:"column(valor_contrato)"`
 	DependenciaId     int       `orm:"column(dependencia_id);null"`
 	Activo            bool      `orm:"column(activo)"`

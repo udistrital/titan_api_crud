@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS liquidador.contrato
     documento character varying NOT NULL,
     persona_id integer,
     tipo_nomina_id integer NOT NULL,
-    fecha_inicio timestamp with time zone NOT NULL,
-    fecha_fin timestamp with time zone NOT NULL,
+    fecha_inicio timestamp without time zone NOT NULL,
+    fecha_fin timestamp without time zone NOT NULL,
     valor_contrato numeric(20,7) NOT NULL,
     dependencia_id integer,
     activo boolean NOT NULL DEFAULT true,
@@ -123,7 +123,6 @@ CREATE TABLE IF NOT EXISTS liquidador.novedad
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
-
 
 COMMENT ON TABLE liquidador.novedad
     IS 'Tabla en la que se almacenan las novedades que se presentan en cada contrato';
