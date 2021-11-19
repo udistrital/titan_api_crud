@@ -13,13 +13,13 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// DetallePreliquidacionController operations for DetallePreliquidacion
-type DetallePreliquidacionController struct {
+// ContratoPreliquidacionController operations for ContratoPreliquidacion
+type ContratoPreliquidacionController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *DetallePreliquidacionController) URLMapping() {
+func (c *ContratoPreliquidacionController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -29,17 +29,17 @@ func (c *DetallePreliquidacionController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create DetallePreliquidacion
-// @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
-// @Success 201 {int} models.DetallePreliquidacion
+// @Description create ContratoPreliquidacion
+// @Param	body		body 	models.ContratoPreliquidacion	true		"body for ContratoPreliquidacion content"
+// @Success 201 {int} models.ContratoPreliquidacion
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *DetallePreliquidacionController) Post() {
-	var v models.DetallePreliquidacion
+func (c *ContratoPreliquidacionController) Post() {
+	var v models.ContratoPreliquidacion
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddDetallePreliquidacion(&v); err == nil {
+		if _, err := models.AddContratoPreliquidacion(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
 		} else {
@@ -57,15 +57,15 @@ func (c *DetallePreliquidacionController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get DetallePreliquidacion by id
+// @Description get ContratoPreliquidacion by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Success 200 {object} models.ContratoPreliquidacion
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *DetallePreliquidacionController) GetOne() {
+func (c *ContratoPreliquidacionController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetDetallePreliquidacionById(id)
+	v, err := models.GetContratoPreliquidacionById(id)
 	if err != nil {
 		logs.Error(err)
 		c.Data["mesaage"] = "Error service GetOne: The request contains an incorrect parameter or no record exists"
@@ -78,17 +78,17 @@ func (c *DetallePreliquidacionController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get DetallePreliquidacion
+// @Description get ContratoPreliquidacion
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Success 200 {object} models.ContratoPreliquidacion
 // @Failure 404 not found resource
 // @router / [get]
-func (c *DetallePreliquidacionController) GetAll() {
+func (c *ContratoPreliquidacionController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -130,7 +130,7 @@ func (c *DetallePreliquidacionController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllDetallePreliquidacion(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllContratoPreliquidacion(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		c.Data["mesaage"] = "Error service GetAll: The request contains an incorrect parameter or no record exists"
@@ -146,20 +146,20 @@ func (c *DetallePreliquidacionController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the DetallePreliquidacion
+// @Description update the ContratoPreliquidacion
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Param	body		body 	models.ContratoPreliquidacion	true		"body for ContratoPreliquidacion content"
+// @Success 200 {object} models.ContratoPreliquidacion
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *DetallePreliquidacionController) Put() {
+func (c *ContratoPreliquidacionController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.DetallePreliquidacion{Id: id}
+	v := models.ContratoPreliquidacion{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateDetallePreliquidacionById(&v); err == nil {
+		if err := models.UpdateContratoPreliquidacionById(&v); err == nil {
 			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Update successful", "Data": v}
 		} else {
 			logs.Error(err)
@@ -176,15 +176,15 @@ func (c *DetallePreliquidacionController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the DetallePreliquidacion
+// @Description delete the ContratoPreliquidacion
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *DetallePreliquidacionController) Delete() {
+func (c *ContratoPreliquidacionController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteDetallePreliquidacion(id); err == nil {
+	if err := models.DeleteContratoPreliquidacion(id); err == nil {
 		d := map[string]interface{}{"Id": id}
 		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {

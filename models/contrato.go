@@ -5,55 +5,61 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type ConceptoNomina struct {
-	Id                         int    `orm:"column(id);pk;auto"`
-	NombreConcepto             string `orm:"column(nombre_concepto)"`
-	AliasConcepto              string `orm:"column(alias_concepto);null"`
-	NaturalezaConceptoNominaId int    `orm:"column(naturaleza_concepto_nomina_id);"`
-	TipoConceptoNominaId       int    `orm:"column(tipo_concepto_nomina_id);"`
-	EstadoConceptoNominaId     int    `orm:"column(estado_concepto_nomina_id);"`
-	Activo                     bool   `orm:"column(activo)"`
-	FechaCreacion              string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion          string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+type Contrato struct {
+	Id                int       `orm:"column(id);pk;auto"`
+	NumeroContrato    string    `orm:"column(numero_contrato)"`
+	Vigencia          int       `orm:"column(vigencia)"`
+	NombreCompleto    string    `orm:"column(nombre_completo)"`
+	Documento         string    `orm:"column(documento)"`
+	PersonaId         int       `orm:"column(persona_id);null"`
+	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
+	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
+	ValorContrato     float64   `orm:"column(valor_contrato)"`
+	DependenciaId     int       `orm:"column(dependencia_id);null"`
+	Activo            bool      `orm:"column(activo)"`
+	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *ConceptoNomina) TableName() string {
-	return "concepto_nomina"
+func (t *Contrato) TableName() string {
+	return "contrato"
 }
 
 func init() {
-	orm.RegisterModel(new(ConceptoNomina))
+	orm.RegisterModel(new(Contrato))
 }
 
-// AddConceptoNomina insert a new ConceptoNomina into database and returns
+// AddContrato insert a new Contrato into database and returns
 // last inserted Id on success.
-func AddConceptoNomina(m *ConceptoNomina) (id int64, err error) {
+func AddContrato(m *Contrato) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetConceptoNominaById retrieves ConceptoNomina by Id. Returns error if
+// GetContratoById retrieves Contrato by Id. Returns error if
 // Id doesn't exist
-func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
+func GetContratoById(id int) (v *Contrato, err error) {
 	o := orm.NewOrm()
-	v = &ConceptoNomina{Id: id}
+	v = &Contrato{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllConceptoNomina retrieves all ConceptoNomina matches certain condition. Returns empty list if
+// GetAllContrato retrieves all Contrato matches certain condition. Returns empty list if
 // no records exist
-func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllContrato(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ConceptoNomina))
+	qs := o.QueryTable(new(Contrato))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
@@ -103,7 +109,7 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []ConceptoNomina
+	var l []Contrato
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -126,15 +132,14 @@ func GetAllConceptoNomina(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdateConceptoNomina updates ConceptoNomina by Id and returns error if
+// UpdateContrato updates Contrato by Id and returns error if
 // the record to be updated doesn't exist
-func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
+func UpdateContratoById(m *Contrato) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: m.Id}
+	v := Contrato{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		m.FechaCreacion = v.FechaCreacion
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
@@ -142,15 +147,15 @@ func UpdateConceptoNominaById(m *ConceptoNomina) (err error) {
 	return
 }
 
-// DeleteConceptoNomina deletes ConceptoNomina by Id and returns error if
+// DeleteContrato deletes Contrato by Id and returns error if
 // the record to be deleted doesn't exist
-func DeleteConceptoNomina(id int) (err error) {
+func DeleteContrato(id int) (err error) {
 	o := orm.NewOrm()
-	v := ConceptoNomina{Id: id}
+	v := Contrato{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&ConceptoNomina{Id: id}); err == nil {
+		if num, err = o.Delete(&Contrato{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

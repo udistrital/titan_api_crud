@@ -13,13 +13,13 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
-// DetallePreliquidacionController operations for DetallePreliquidacion
-type DetallePreliquidacionController struct {
+// NovedadController operations for Novedad
+type NovedadController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *DetallePreliquidacionController) URLMapping() {
+func (c *NovedadController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -29,17 +29,17 @@ func (c *DetallePreliquidacionController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create DetallePreliquidacion
-// @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
-// @Success 201 {int} models.DetallePreliquidacion
+// @Description create Novedad
+// @Param	body		body 	models.Novedad	true		"body for Novedad content"
+// @Success 201 {int} models.Novedad
 // @Failure 400 the request contains incorrect syntax
 // @router / [post]
-func (c *DetallePreliquidacionController) Post() {
-	var v models.DetallePreliquidacion
+func (c *NovedadController) Post() {
+	var v models.Novedad
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoBogotaFormato()
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if _, err := models.AddDetallePreliquidacion(&v); err == nil {
+		if _, err := models.AddNovedad(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "201", "Message": "Registration successful", "Data": v}
 		} else {
@@ -57,15 +57,15 @@ func (c *DetallePreliquidacionController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get DetallePreliquidacion by id
+// @Description get Novedad by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Success 200 {object} models.Novedad
 // @Failure 404 not found resource
 // @router /:id [get]
-func (c *DetallePreliquidacionController) GetOne() {
+func (c *NovedadController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetDetallePreliquidacionById(id)
+	v, err := models.GetNovedadById(id)
 	if err != nil {
 		logs.Error(err)
 		c.Data["mesaage"] = "Error service GetOne: The request contains an incorrect parameter or no record exists"
@@ -78,17 +78,17 @@ func (c *DetallePreliquidacionController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get DetallePreliquidacion
+// @Description get Novedad
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Success 200 {object} models.Novedad
 // @Failure 404 not found resource
 // @router / [get]
-func (c *DetallePreliquidacionController) GetAll() {
+func (c *NovedadController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -130,7 +130,7 @@ func (c *DetallePreliquidacionController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllDetallePreliquidacion(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllNovedad(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		logs.Error(err)
 		c.Data["mesaage"] = "Error service GetAll: The request contains an incorrect parameter or no record exists"
@@ -146,20 +146,20 @@ func (c *DetallePreliquidacionController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the DetallePreliquidacion
+// @Description update the Novedad
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.DetallePreliquidacion	true		"body for DetallePreliquidacion content"
-// @Success 200 {object} models.DetallePreliquidacion
+// @Param	body		body 	models.Novedad	true		"body for Novedad content"
+// @Success 200 {object} models.Novedad
 // @Failure 400 the request contains incorrect syntax
 // @router /:id [put]
-func (c *DetallePreliquidacionController) Put() {
+func (c *NovedadController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.DetallePreliquidacion{Id: id}
+	v := models.Novedad{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
 		v.FechaCreacion = time_bogota.TiempoCorreccionFormato(v.FechaCreacion)
 		v.FechaModificacion = time_bogota.TiempoBogotaFormato()
-		if err := models.UpdateDetallePreliquidacionById(&v); err == nil {
+		if err := models.UpdateNovedadById(&v); err == nil {
 			c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Update successful", "Data": v}
 		} else {
 			logs.Error(err)
@@ -176,15 +176,15 @@ func (c *DetallePreliquidacionController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the DetallePreliquidacion
+// @Description delete the Novedad
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 404 not found resource
 // @router /:id [delete]
-func (c *DetallePreliquidacionController) Delete() {
+func (c *NovedadController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteDetallePreliquidacion(id); err == nil {
+	if err := models.DeleteNovedad(id); err == nil {
 		d := map[string]interface{}{"Id": id}
 		c.Data["json"] = map[string]interface{}{"Success": true, "Status": "200", "Message": "Delete successful", "Data": d}
 	} else {
