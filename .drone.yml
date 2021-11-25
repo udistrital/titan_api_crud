@@ -169,7 +169,7 @@ steps:
       - release
   when:
     branch:
-    - desarrollo
+    - release/*
     event:
     - push
 
