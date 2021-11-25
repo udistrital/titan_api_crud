@@ -9,20 +9,20 @@ import (
 )
 
 // DO NOT MODIFY
-type IngresarConceptos_20210929_144847 struct {
+type IngresarConceptosNomina_20211125_143514 struct {
 	migration.Migration
 }
 
 // DO NOT MODIFY
 func init() {
-	m := &IngresarConceptos_20210929_144847{}
-	m.Created = "20210929_144847"
+	m := &IngresarConceptosNomina_20211125_143514{}
+	m.Created = "20211125_143514"
 
-	migration.Register("IngresarConceptos_20210929_144847", m)
+	migration.Register("IngresarConceptosNomina_20211125_143514", m)
 }
 
 // Run the migrations
-func (m *IngresarConceptos_20210929_144847) Up() {
+func (m *IngresarConceptosNomina_20211125_143514) Up() {
 	// use m.SQL("CREATE TABLE ...") to make schema update
 	file, err := ioutil.ReadFile("../scripts/20211126_134724_ingresar_conceptos_nomina_up.sql")
 
@@ -38,10 +38,10 @@ func (m *IngresarConceptos_20210929_144847) Up() {
 		m.SQL(request)
 		// do whatever you need with result and error
 	}
-
 }
 
 // Reverse the migrations
-func (m *IngresarConceptos_20210929_144847) Down() {
-	m.SQL("DELETE FROM liquidador.concepto_nomina;")
+func (m *IngresarConceptosNomina_20211125_143514) Down() {
+	// use m.SQL("DROP TABLE ...") to reverse schema update
+	m.SQL("DELETE FROM liquidador.concepto_nomina")
 }
