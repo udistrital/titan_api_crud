@@ -1,0 +1,1 @@
+INSERT INTO liquidador.concepto_nomina (nombre_concepto, alias_concepto, naturaleza_concepto_nomina_id, tipo_concepto_nomina_id, estado_concepto_nomina_id, activo, fecha_creacion, fecha_modificacion) VALUES ('totalAPagar', 'Total a Pagar', 423, 419, 417, true, '2021-09-22 09:23:46.612827-05', '2021-09-22 09:23:46.612827-05');
