@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS liquidador.contrato_preliquidacion
 
 CREATE TABLE IF NOT EXISTS liquidador.concepto_nomina
 (
-    id serial NOT NULL,
+    id serial,
     nombre_concepto character varying(80) NOT NULL,
     alias_concepto character varying(80),
     naturaleza_concepto_nomina_id integer NOT NULL,
