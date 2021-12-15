@@ -5,64 +5,63 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Preliquidacion struct {
-	Id                     int    `orm:"column(id);pk;auto"`
-	Descripcion            string `orm:"column(descripcion);null"`
-	Mes                    int    `orm:"column(mes)"`
-	Ano                    int    `orm:"column(ano)"`
-	EstadoPreliquidacionId int    `orm:"column(estado_preliquidacion_id);"`
-	NominaId               int    `orm:"column(nomina_id);"`
-	Activo                 bool   `orm:"column(activo)"`
-	FechaCreacion          string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion      string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+type Novedad struct {
+	Id                int             `orm:"column(id);pk;auto"`
+	ContratoId        *Contrato       `orm:"column(contrato_id);rel(fk)"`
+	ConceptoNominaId  *ConceptoNomina `orm:"column(concepto_nomina_id);rel(fk)"`
+	Valor             float64         `orm:"column(valor)"`
+	Cuotas            int             `orm:"column(cuotas)"`
+	FechaInicio       time.Time       `orm:"column(fecha_inicio);type(timestamp with time zone)"`
+	FechaFin          time.Time       `orm:"column(fecha_fin);type(timestamp with time zone)"`
+	Activo            bool            `orm:"column(activo)"`
+	FechaCreacion     string          `orm:"column(fecha_creacion);type(timestamp without time zone);"`
+	FechaModificacion string          `orm:"column(fecha_modificacion);type(timestamp without time zone);"`
 }
 
-func (t *Preliquidacion) TableName() string {
-	return "preliquidacion"
+func (t *Novedad) TableName() string {
+	return "novedad"
 }
 
 func init() {
-	orm.RegisterModel(new(Preliquidacion))
+	orm.RegisterModel(new(Novedad))
 }
 
-// AddPreliquidacion insert a new Preliquidacion into database and returns
+// AddNovedad insert a new Novedad into database and returns
 // last inserted Id on success.
-func AddPreliquidacion(m *Preliquidacion) (id int64, err error) {
+func AddNovedad(m *Novedad) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetPreliquidacionById retrieves Preliquidacion by Id. Returns error if
+// GetNovedadById retrieves Novedad by Id. Returns error if
 // Id doesn't exist
-func GetPreliquidacionById(id int) (v *Preliquidacion, err error) {
+func GetNovedadById(id int) (v *Novedad, err error) {
 	o := orm.NewOrm()
-	v = &Preliquidacion{Id: id}
+	v = &Novedad{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllPreliquidacion retrieves all Preliquidacion matches certain condition. Returns empty list if
+// GetAllNovedad retrieves all Novedad matches certain condition. Returns empty list if
 // no records exist
-func GetAllPreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllNovedad(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Preliquidacion)).RelatedSel()
+	qs := o.QueryTable(new(Novedad)).RelatedSel()
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
-		} else if strings.Contains(k, "in") { // Aqui se hace que se traigan varios valores
-			arr := strings.Split(v, "|")
-			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}
@@ -106,7 +105,7 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []Preliquidacion
+	var l []Novedad
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -129,11 +128,11 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdatePreliquidacion updates Preliquidacion by Id and returns error if
+// UpdateNovedad updates Novedad by Id and returns error if
 // the record to be updated doesn't exist
-func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
+func UpdateNovedadById(m *Novedad) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: m.Id}
+	v := Novedad{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -144,15 +143,15 @@ func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
 	return
 }
 
-// DeletePreliquidacion deletes Preliquidacion by Id and returns error if
+// DeleteNovedad deletes Novedad by Id and returns error if
 // the record to be deleted doesn't exist
-func DeletePreliquidacion(id int) (err error) {
+func DeleteNovedad(id int) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: id}
+	v := Novedad{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Preliquidacion{Id: id}); err == nil {
+		if num, err = o.Delete(&Novedad{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

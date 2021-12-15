@@ -5,64 +5,67 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
 
-type Preliquidacion struct {
-	Id                     int    `orm:"column(id);pk;auto"`
-	Descripcion            string `orm:"column(descripcion);null"`
-	Mes                    int    `orm:"column(mes)"`
-	Ano                    int    `orm:"column(ano)"`
-	EstadoPreliquidacionId int    `orm:"column(estado_preliquidacion_id);"`
-	NominaId               int    `orm:"column(nomina_id);"`
-	Activo                 bool   `orm:"column(activo)"`
-	FechaCreacion          string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion      string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+type Contrato struct {
+	Id                int       `orm:"column(id);pk;auto"`
+	NumeroContrato    string    `orm:"column(numero_contrato)"`
+	Vigencia          int       `orm:"column(vigencia)"`
+	NombreCompleto    string    `orm:"column(nombre_completo)"`
+	Documento         string    `orm:"column(documento)"`
+	PersonaId         int       `orm:"column(persona_id);null"`
+	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
+	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
+	ValorContrato     float64   `orm:"column(valor_contrato)"`
+	DependenciaId     int       `orm:"column(dependencia_id);null"`
+	Activo            bool      `orm:"column(activo)"`
+	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
-func (t *Preliquidacion) TableName() string {
-	return "preliquidacion"
+func (t *Contrato) TableName() string {
+	return "contrato"
 }
 
 func init() {
-	orm.RegisterModel(new(Preliquidacion))
+	orm.RegisterModel(new(Contrato))
 }
 
-// AddPreliquidacion insert a new Preliquidacion into database and returns
+// AddContrato insert a new Contrato into database and returns
 // last inserted Id on success.
-func AddPreliquidacion(m *Preliquidacion) (id int64, err error) {
+func AddContrato(m *Contrato) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
 	return
 }
 
-// GetPreliquidacionById retrieves Preliquidacion by Id. Returns error if
+// GetContratoById retrieves Contrato by Id. Returns error if
 // Id doesn't exist
-func GetPreliquidacionById(id int) (v *Preliquidacion, err error) {
+func GetContratoById(id int) (v *Contrato, err error) {
 	o := orm.NewOrm()
-	v = &Preliquidacion{Id: id}
+	v = &Contrato{Id: id}
 	if err = o.Read(v); err == nil {
 		return v, nil
 	}
 	return nil, err
 }
 
-// GetAllPreliquidacion retrieves all Preliquidacion matches certain condition. Returns empty list if
+// GetAllContrato retrieves all Contrato matches certain condition. Returns empty list if
 // no records exist
-func GetAllPreliquidacion(query map[string]string, fields []string, sortby []string, order []string,
+func GetAllContrato(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Preliquidacion)).RelatedSel()
+	qs := o.QueryTable(new(Contrato))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
 		k = strings.Replace(k, ".", "__", -1)
 		if strings.Contains(k, "isnull") {
 			qs = qs.Filter(k, (v == "true" || v == "1"))
-		} else if strings.Contains(k, "in") { // Aqui se hace que se traigan varios valores
-			arr := strings.Split(v, "|")
-			qs = qs.Filter(k, arr)
 		} else {
 			qs = qs.Filter(k, v)
 		}
@@ -106,7 +109,7 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 		}
 	}
 
-	var l []Preliquidacion
+	var l []Contrato
 	qs = qs.OrderBy(sortFields...)
 	if _, err = qs.Limit(limit, offset).All(&l, fields...); err == nil {
 		if len(fields) == 0 {
@@ -129,11 +132,11 @@ func GetAllPreliquidacion(query map[string]string, fields []string, sortby []str
 	return nil, err
 }
 
-// UpdatePreliquidacion updates Preliquidacion by Id and returns error if
+// UpdateContrato updates Contrato by Id and returns error if
 // the record to be updated doesn't exist
-func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
+func UpdateContratoById(m *Contrato) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: m.Id}
+	v := Contrato{Id: m.Id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
@@ -144,15 +147,15 @@ func UpdatePreliquidacionById(m *Preliquidacion) (err error) {
 	return
 }
 
-// DeletePreliquidacion deletes Preliquidacion by Id and returns error if
+// DeleteContrato deletes Contrato by Id and returns error if
 // the record to be deleted doesn't exist
-func DeletePreliquidacion(id int) (err error) {
+func DeleteContrato(id int) (err error) {
 	o := orm.NewOrm()
-	v := Preliquidacion{Id: id}
+	v := Contrato{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Delete(&Preliquidacion{Id: id}); err == nil {
+		if num, err = o.Delete(&Contrato{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
 		}
 	}

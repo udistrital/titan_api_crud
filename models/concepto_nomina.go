@@ -10,12 +10,15 @@ import (
 )
 
 type ConceptoNomina struct {
-	Id 									int                      `orm:"auto;column(id);pk"`
-	NombreConcepto     string                    `orm:"column(nombre_concepto)"`
-	AliasConcepto      string                    `orm:"column(alias_concepto);null"`
-	TipoConcepto       *TipoConceptoNomina       `orm:"column(tipo_concepto);rel(fk)"`
-	NaturalezaConcepto *NaturalezaConceptoNomina `orm:"column(naturaleza_concepto);rel(fk)"`
-	EstadoConceptoNomina *EstadoConceptoNomina   `orm:"column(estado_concepto_nomina);rel(fk)"`
+	Id                         int    `orm:"column(id);pk;auto"`
+	NombreConcepto             string `orm:"column(nombre_concepto)"`
+	AliasConcepto              string `orm:"column(alias_concepto);null"`
+	NaturalezaConceptoNominaId int    `orm:"column(naturaleza_concepto_nomina_id);"`
+	TipoConceptoNominaId       int    `orm:"column(tipo_concepto_nomina_id);"`
+	EstadoConceptoNominaId     int    `orm:"column(estado_concepto_nomina_id);"`
+	Activo                     bool   `orm:"column(activo)"`
+	FechaCreacion              string `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion          string `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 }
 
 func (t *ConceptoNomina) TableName() string {
@@ -50,7 +53,7 @@ func GetConceptoNominaById(id int) (v *ConceptoNomina, err error) {
 func GetAllConceptoNomina(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(ConceptoNomina)).RelatedSel(5)
+	qs := o.QueryTable(new(ConceptoNomina))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute
