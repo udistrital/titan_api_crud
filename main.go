@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	_ "github.com/udistrital/titan_api_crud/routers"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/customerrorv2"
@@ -15,7 +13,6 @@ import (
 
 func main() {
 	orm.Debug = true
-	fmt.Println("Runmode:", beego.AppConfig.String("runmode"))
 	orm.RegisterDataBase("default", "postgres", "postgres://"+
 		beego.AppConfig.String("PGuser")+":"+
 		beego.AppConfig.String("PGpass")+"@"+
