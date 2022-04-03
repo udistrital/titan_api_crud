@@ -22,6 +22,7 @@ type Contrato struct {
 	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
 	ValorContrato     float64   `orm:"column(valor_contrato)"`
 	DependenciaId     int       `orm:"column(dependencia_id);null"`
+	ProyectoId        int       `orm:"column(proyecto_id);null"`
 	Cdp               int       `orm:"column(cdp);null"`
 	Rp                int       `orm:"column(rp);null"`
 	Activo            bool      `orm:"column(activo)"`

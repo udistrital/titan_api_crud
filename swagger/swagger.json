@@ -1099,6 +1099,10 @@
                 "Activo": {
                     "type": "boolean"
                 },
+                "Cdp": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "DependenciaId": {
                     "type": "integer",
                     "format": "int64"
@@ -1131,6 +1135,14 @@
                     "type": "string"
                 },
                 "PersonaId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "ProyectoId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Rp": {
                     "type": "integer",
                     "format": "int64"
                 },
