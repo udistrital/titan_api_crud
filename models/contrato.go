@@ -28,6 +28,7 @@ type Contrato struct {
 	Activo            bool      `orm:"column(activo)"`
 	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
 	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	ResolucionId      int       `orm:"column(resolucion_id);null"`
 }
 
 func (t *Contrato) TableName() string {
