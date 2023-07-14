@@ -1,0 +1,921 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /concepto_nomina/:
+    get:
+      tags:
+      - concepto_nomina
+      description: get ConceptoNomina
+      operationId: ConceptoNominaController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ConceptoNomina'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - concepto_nomina
+      description: create ConceptoNomina
+      operationId: ConceptoNominaController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for ConceptoNomina content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ConceptoNomina'
+      responses:
+        "201":
+          description: '{int} models.ConceptoNomina'
+        "400":
+          description: the request contains incorrect syntax
+  /concepto_nomina/{id}:
+    get:
+      tags:
+      - concepto_nomina
+      description: get ConceptoNomina by id
+      operationId: ConceptoNominaController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ConceptoNomina'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - concepto_nomina
+      description: update the ConceptoNomina
+      operationId: ConceptoNominaController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for ConceptoNomina content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ConceptoNomina'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ConceptoNomina'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - concepto_nomina
+      description: delete the ConceptoNomina
+      operationId: ConceptoNominaController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /contrato/:
+    get:
+      tags:
+      - contrato
+      description: get Contrato
+      operationId: ContratoController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contrato'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - contrato
+      description: create Contrato
+      operationId: ContratoController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Contrato content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Contrato'
+      responses:
+        "201":
+          description: '{int} models.Contrato'
+        "400":
+          description: the request contains incorrect syntax
+  /contrato/{id}:
+    get:
+      tags:
+      - contrato
+      description: get Contrato by id
+      operationId: ContratoController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contrato'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - contrato
+      description: update the Contrato
+      operationId: ContratoController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Contrato content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Contrato'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Contrato'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - contrato
+      description: delete the Contrato
+      operationId: ContratoController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /contrato_preliquidacion/:
+    get:
+      tags:
+      - contrato_preliquidacion
+      description: get ContratoPreliquidacion
+      operationId: ContratoPreliquidacionController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ContratoPreliquidacion'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - contrato_preliquidacion
+      description: create ContratoPreliquidacion
+      operationId: ContratoPreliquidacionController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for ContratoPreliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ContratoPreliquidacion'
+      responses:
+        "201":
+          description: '{int} models.ContratoPreliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+  /contrato_preliquidacion/{id}:
+    get:
+      tags:
+      - contrato_preliquidacion
+      description: get ContratoPreliquidacion by id
+      operationId: ContratoPreliquidacionController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ContratoPreliquidacion'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - contrato_preliquidacion
+      description: update the ContratoPreliquidacion
+      operationId: ContratoPreliquidacionController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for ContratoPreliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.ContratoPreliquidacion'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ContratoPreliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - contrato_preliquidacion
+      description: delete the ContratoPreliquidacion
+      operationId: ContratoPreliquidacionController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /detalle_preliquidacion/:
+    get:
+      tags:
+      - detalle_preliquidacion
+      description: get DetallePreliquidacion
+      operationId: DetallePreliquidacionController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.DetallePreliquidacion'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - detalle_preliquidacion
+      description: create DetallePreliquidacion
+      operationId: DetallePreliquidacionController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for DetallePreliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.DetallePreliquidacion'
+      responses:
+        "201":
+          description: '{int} models.DetallePreliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+  /detalle_preliquidacion/{id}:
+    get:
+      tags:
+      - detalle_preliquidacion
+      description: get DetallePreliquidacion by id
+      operationId: DetallePreliquidacionController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.DetallePreliquidacion'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - detalle_preliquidacion
+      description: update the DetallePreliquidacion
+      operationId: DetallePreliquidacionController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for DetallePreliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.DetallePreliquidacion'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.DetallePreliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - detalle_preliquidacion
+      description: delete the DetallePreliquidacion
+      operationId: DetallePreliquidacionController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /novedad/:
+    get:
+      tags:
+      - novedad
+      description: get Novedad
+      operationId: NovedadController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Novedad'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - novedad
+      description: create Novedad
+      operationId: NovedadController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Novedad content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Novedad'
+      responses:
+        "201":
+          description: '{int} models.Novedad'
+        "400":
+          description: the request contains incorrect syntax
+  /novedad/{id}:
+    get:
+      tags:
+      - novedad
+      description: get Novedad by id
+      operationId: NovedadController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Novedad'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - novedad
+      description: update the Novedad
+      operationId: NovedadController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Novedad content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Novedad'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Novedad'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - novedad
+      description: delete the Novedad
+      operationId: NovedadController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+  /preliquidacion/:
+    get:
+      tags:
+      - preliquidacion
+      description: get Preliquidacion
+      operationId: PreliquidacionController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Preliquidacion'
+        "404":
+          description: not found resource
+    post:
+      tags:
+      - preliquidacion
+      description: create Preliquidacion
+      operationId: PreliquidacionController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Preliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Preliquidacion'
+      responses:
+        "201":
+          description: '{int} models.Preliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+  /preliquidacion/{id}:
+    get:
+      tags:
+      - preliquidacion
+      description: get Preliquidacion by id
+      operationId: PreliquidacionController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Preliquidacion'
+        "404":
+          description: not found resource
+    put:
+      tags:
+      - preliquidacion
+      description: update the Preliquidacion
+      operationId: PreliquidacionController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Preliquidacion content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Preliquidacion'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Preliquidacion'
+        "400":
+          description: the request contains incorrect syntax
+    delete:
+      tags:
+      - preliquidacion
+      description: delete the Preliquidacion
+      operationId: PreliquidacionController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "404":
+          description: not found resource
+definitions:
+  models.ConceptoNomina:
+    title: ConceptoNomina
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      AliasConcepto:
+        type: string
+      EstadoConceptoNominaId:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      NaturalezaConceptoNominaId:
+        type: integer
+        format: int64
+      NombreConcepto:
+        type: string
+      TipoConceptoNominaId:
+        type: integer
+        format: int64
+  models.Contrato:
+    title: Contrato
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Cdp:
+        type: integer
+        format: int64
+      DependenciaId:
+        type: integer
+        format: int64
+      Documento:
+        type: string
+      FechaCreacion:
+        type: string
+      FechaFin:
+        type: string
+        format: datetime
+      FechaInicio:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      NombreCompleto:
+        type: string
+      NumeroContrato:
+        type: string
+      PersonaId:
+        type: integer
+        format: int64
+      ProyectoId:
+        type: integer
+        format: int64
+      ResolucionId:
+        type: integer
+        format: int64
+      Rp:
+        type: integer
+        format: int64
+      TipoNominaId:
+        type: integer
+        format: int64
+      ValorContrato:
+        type: number
+        format: double
+      Vigencia:
+        type: integer
+        format: int64
+  models.ContratoPreliquidacion:
+    title: ContratoPreliquidacion
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Afc:
+        type: number
+        format: double
+      ContratoId:
+        $ref: '#/definitions/models.Contrato'
+      Cumplido:
+        type: boolean
+      Dependientes:
+        type: boolean
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      InteresesVivienda:
+        type: number
+        format: double
+      MedicinaPrepagadaUvt:
+        type: number
+        format: double
+      PensionVoluntaria:
+        type: number
+        format: double
+      Pensionado:
+        type: boolean
+      PreliquidacionId:
+        $ref: '#/definitions/models.Preliquidacion'
+      Preliquidado:
+        type: boolean
+      ResponsableIva:
+        type: boolean
+  models.DetallePreliquidacion:
+    title: DetallePreliquidacion
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      ConceptoNominaId:
+        $ref: '#/definitions/models.ConceptoNomina'
+      ContratoPreliquidacionId:
+        $ref: '#/definitions/models.ContratoPreliquidacion'
+      DiasEspecificos:
+        type: string
+      DiasLiquidados:
+        type: number
+        format: double
+      EstadoDisponibilidadId:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      TipoPreliquidacionId:
+        type: integer
+        format: int64
+      ValorCalculado:
+        type: number
+        format: double
+  models.Novedad:
+    title: Novedad
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      ConceptoNominaId:
+        $ref: '#/definitions/models.ConceptoNomina'
+      ContratoId:
+        $ref: '#/definitions/models.Contrato'
+      Cuotas:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+      FechaFin:
+        type: string
+        format: datetime
+      FechaInicio:
+        type: string
+        format: datetime
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Valor:
+        type: number
+        format: double
+  models.Preliquidacion:
+    title: Preliquidacion
+    type: object
+    properties:
+      Activo:
+        type: boolean
+      Ano:
+        type: integer
+        format: int64
+      Descripcion:
+        type: string
+      EstadoPreliquidacionId:
+        type: integer
+        format: int64
+      FechaCreacion:
+        type: string
+      FechaModificacion:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Mes:
+        type: integer
+        format: int64
+      NominaId:
+        type: integer
+        format: int64
+tags:
+- name: contrato_preliquidacion
+  description: |
+    ContratoPreliquidacionController operations for ContratoPreliquidacion
+- name: concepto_nomina
+  description: |
+    ConceptoNominaController operations for ConceptoNomina
+- name: detalle_preliquidacion
+  description: |
+    DetallePreliquidacionController operations for DetallePreliquidacion
+- name: preliquidacion
+  description: |
+    PreliquidacionController operations for Preliquidacion
+- name: contrato
+  description: |
+    ContratoController operations for Contrato
+- name: novedad
+  description: |
+    NovedadController operations for Novedad
