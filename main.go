@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/url"
-
 	_ "github.com/udistrital/titan_api_crud/routers"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/customerrorv2"
