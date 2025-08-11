@@ -30,6 +30,11 @@ type Contrato struct {
 	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
 	ResolucionId      int       `orm:"column(resolucion_id);null"`
 	Resolucion        string    `orm:"column(resolucion);null"`
+	Cesantias         float32   `orm:"column(cesantias);null"`
+	PrimaServicios    float32   `orm:"column(prima_servicios);null"`
+	PrimaNavidad      float32   `orm:"column(prima_navidad);null"`
+	Vacaciones        float32   `orm:"column(vacaciones);null"`
+	PrimaVacaciones   float32   `orm:"column(prima_vacaciones);null"`
 }
 
 func (t *Contrato) TableName() string {
