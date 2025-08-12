@@ -11,30 +11,30 @@ import (
 )
 
 type Contrato struct {
-	Id                int       `orm:"column(id);pk;auto"`
-	NumeroContrato    string    `orm:"column(numero_contrato)"`
-	Vigencia          int       `orm:"column(vigencia)"`
-	NombreCompleto    string    `orm:"column(nombre_completo)"`
-	Documento         string    `orm:"column(documento)"`
-	PersonaId         int       `orm:"column(persona_id);null"`
-	TipoNominaId      int       `orm:"column(tipo_nomina_id);"`
-	FechaInicio       time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
-	FechaFin          time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
-	ValorContrato     float64   `orm:"column(valor_contrato)"`
-	DependenciaId     int       `orm:"column(dependencia_id);null"`
-	ProyectoId        int       `orm:"column(proyecto_id);null"`
-	Cdp               int       `orm:"column(cdp);null"`
-	Rp                int       `orm:"column(rp);null"`
-	Activo            bool      `orm:"column(activo)"`
-	FechaCreacion     string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
-	FechaModificacion string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
-	ResolucionId      int       `orm:"column(resolucion_id);null"`
-	Resolucion        string    `orm:"column(resolucion);null"`
-	Cesantias         float32   `orm:"column(cesantias);null"`
-	PrimaServicios    float32   `orm:"column(prima_servicios);null"`
-	PrimaNavidad      float32   `orm:"column(prima_navidad);null"`
-	Vacaciones        float32   `orm:"column(vacaciones);null"`
-	PrimaVacaciones   float32   `orm:"column(prima_vacaciones);null"`
+	Id                        int       `orm:"column(id);pk;auto"`
+	NumeroContrato            string    `orm:"column(numero_contrato)"`
+	Vigencia                  int       `orm:"column(vigencia)"`
+	NombreCompleto            string    `orm:"column(nombre_completo)"`
+	Documento                 string    `orm:"column(documento)"`
+	PersonaId                 int       `orm:"column(persona_id);null"`
+	TipoNominaId              int       `orm:"column(tipo_nomina_id);"`
+	FechaInicio               time.Time `orm:"column(fecha_inicio);type(timestamp without time zone)"`
+	FechaFin                  time.Time `orm:"column(fecha_fin);type(timestamp without time zone)"`
+	ValorContrato             float64   `orm:"column(valor_contrato)"`
+	DependenciaId             int       `orm:"column(dependencia_id);null"`
+	ProyectoId                int       `orm:"column(proyecto_id);null"`
+	Cdp                       int       `orm:"column(cdp);null"`
+	Rp                        int       `orm:"column(rp);null"`
+	Activo                    bool      `orm:"column(activo)"`
+	FechaCreacion             string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
+	FechaModificacion         string    `orm:"column(fecha_modificacion);type(timestamp without time zone)"`
+	ResolucionId              int       `orm:"column(resolucion_id);null"`
+	Resolucion                string    `orm:"column(resolucion);null"`
+	PorcentajeCesantias       float64   `orm:"column(cesantias);null"`
+	PorcentajePrimaServicios  float64   `orm:"column(prima_servicios);null"`
+	PorcentajePrimaNavidad    float64   `orm:"column(prima_navidad);null"`
+	PorcentajeVacaciones      float64   `orm:"column(vacaciones);null"`
+	PorcentajePrimaVacaciones float64   `orm:"column(prima_vacaciones);null"`
 }
 
 func (t *Contrato) TableName() string {
