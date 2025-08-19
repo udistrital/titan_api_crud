@@ -1138,6 +1138,10 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "PorcentajesDesagregadoId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
                 "ProyectoId": {
                     "type": "integer",
                     "format": "int64"
