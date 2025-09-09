@@ -1,9 +1,12 @@
 package main
 
 import (
+	"net/url"
+
 	_ "github.com/udistrital/titan_api_crud/routers"
 	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
 	"github.com/udistrital/utils_oas/customerrorv2"
+	"github.com/udistrital/utils_oas/xray"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -15,11 +18,12 @@ func main() {
 	orm.Debug = true
 	orm.RegisterDataBase("default", "postgres", "postgres://"+
 		beego.AppConfig.String("PGuser")+":"+
-		beego.AppConfig.String("PGpass")+"@"+
+		url.QueryEscape(beego.AppConfig.String("PGpass"))+"@"+
 		beego.AppConfig.String("PGhost")+":"+
 		beego.AppConfig.String("PGport")+"/"+
 		beego.AppConfig.String("PGdb")+"?sslmode=disable&search_path="+
-		beego.AppConfig.String("PGschema"))
+		beego.AppConfig.String("PGschema")+
+		"&TimeZone=UTC")
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
@@ -38,6 +42,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 	beego.ErrorController(&customerrorv2.CustomErrorController{})
+	xray.InitXRay()
 	apistatus.Init()
 	beego.Run()
 }
