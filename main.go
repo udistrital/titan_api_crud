@@ -2,14 +2,14 @@ package main
 
 import (
 	"net/url"
-	_ "github.com/udistrital/titan_api_crud/routers"
-	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
-	"github.com/udistrital/utils_oas/customerrorv2"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/plugins/cors"
 	_ "github.com/lib/pq"
-	"github.com/udistrital/utils_oas/xray"
+	_ "github.com/udistrital/titan_api_crud/routers"
+	apistatus "github.com/udistrital/utils_oas/apiStatusLib"
+	"github.com/udistrital/utils_oas/customerrorv2"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 		AllowCredentials: true,
 	}))
 	beego.ErrorController(&customerrorv2.CustomErrorController{})
-	xray.InitXRay()
+	// xray.InitXRay()
 	apistatus.Init()
 	beego.Run()
 }
