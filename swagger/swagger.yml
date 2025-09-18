@@ -779,6 +779,9 @@ definitions:
       Vigencia:
         type: integer
         format: int64
+      VigenciaCdp:
+        type: integer
+        format: int64
   models.ContratoPreliquidacion:
     title: ContratoPreliquidacion
     type: object
