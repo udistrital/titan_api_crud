@@ -1168,6 +1168,10 @@
                 "Vigencia": {
                     "type": "integer",
                     "format": "int64"
+                },
+                "VigenciaCdp": {
+                    "type": "integer",
+                    "format": "int64"
                 }
             }
         },
