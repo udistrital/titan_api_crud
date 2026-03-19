@@ -24,6 +24,7 @@ type Contrato struct {
 	DependenciaId            int       `orm:"column(dependencia_id);null"`
 	ProyectoId               int       `orm:"column(proyecto_id);null"`
 	Cdp                      int       `orm:"column(cdp);null"`
+	VigenciaCdp              int       `orm:"column(vigencia_cdp);null"`
 	Rp                       int       `orm:"column(rp);null"`
 	Activo                   bool      `orm:"column(activo)"`
 	FechaCreacion            string    `orm:"column(fecha_creacion);type(timestamp without time zone)"`
