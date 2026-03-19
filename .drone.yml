@@ -77,7 +77,7 @@ steps:
   failure: ignore
   image: golang:1.18
   commands:
-  - go get -t
+  # - go get -t
   - go get github.com/smartystreets/goconvey/convey
   - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.41.1
   - go get github.com/axw/gocov/...
