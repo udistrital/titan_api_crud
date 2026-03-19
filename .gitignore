@@ -15,5 +15,3 @@ swagger/lang/
 swagger/lib/
 swagger.zip
 *.exe*
-go.mod
-go.sum
