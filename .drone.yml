@@ -1,19 +1,9 @@
+kind: pipeline
+name: oati_golang_api_ci
+
 workspace:
   base: /go
-  path: src/github.com/udistrital/${DRONE_REPO##udistrital/}
-  when:
-      branch:
-      - develop
-      - release/*
-      - master
-
-kind: pipeline
-name: oas_api_ci
-
-trigger:
-  event:
-    exclude:
-      - tag
+  path: src/github.com/${DRONE_REPO}
 
 steps:
 - name: run_sonar_scanner
@@ -74,7 +64,7 @@ steps:
       - push
 
 - name: publish_to_ecr_release
-  image: plugins/ecr:20.18.8
+  image: plugins/ecr
   settings:
     access_key:
       from_secret: AWS_ACCESS_KEY_ID
@@ -94,7 +84,7 @@ steps:
       - push
 
 - name: publish_to_ecr_prod
-  image: plugins/ecr:20.18.8
+  image: plugins/ecr
   settings:
     access_key:
       from_secret: AWS_ACCESS_KEY_ID
