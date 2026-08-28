@@ -1,0 +1,1 @@
+DROP INDEX IF EXISTS liquidador.idx_detalle_preliquidacion_contrato_preliquidacion;
